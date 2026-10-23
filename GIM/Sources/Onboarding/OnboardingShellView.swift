@@ -6,6 +6,8 @@ import SwiftUI
 struct OnboardingShellView: View {
     @Bindable var viewModel: OnboardingViewModel
     @State private var introDone = false
+    /// The new user's ID for the recovery kit; read from the client when the kit step starts.
+    @State private var kitUserId: String?
 
     init(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
@@ -15,8 +17,8 @@ struct OnboardingShellView: View {
         Group {
             if !introDone {
                 OnboardingIntroView { introDone = true }
-            } else if viewModel.stage != nil {
-                OnboardingStagePlaceholderView()
+            } else if let stage = viewModel.stage {
+                stageView(stage)
             } else {
                 NavigationStack(path: $viewModel.path) {
                     OnboardingStartView(viewModel: viewModel)
@@ -40,21 +42,31 @@ struct OnboardingShellView: View {
             } else {
                 OnboardingStartView(viewModel: viewModel)
             }
-        case .createIdentity, .restore:
+        case .createIdentity:
+            CreateAccountView(viewModel: viewModel)
+        case .restore:
             OnboardingRoutePlaceholderView()
+        }
+    }
+
+    @ViewBuilder
+    private func stageView(_ stage: IdentityStage) -> some View {
+        switch stage {
+        case .recoveryCode(let recoveryCode):
+            if let kitUserId {
+                RecoveryKitView(viewModel: recoveryCode, userId: kitUserId)
+            } else {
+                ProgressView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .task { kitUserId = (try? await viewModel.context?.client().userId()) ?? "" }
+            }
+        case .claimHandle(let claimHandle):
+            ClaimHandleView(viewModel: claimHandle)
         }
     }
 }
 
-/// Stands in for the recovery key and username steps until the create-account screens exist.
-struct OnboardingStagePlaceholderView: View {
-    var body: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-/// Stands in for the create-account and restore screens until they exist.
+/// Stands in for the restore screen until it exists.
 struct OnboardingRoutePlaceholderView: View {
     var body: some View {
         ProgressView()
