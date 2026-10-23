@@ -12,6 +12,12 @@ struct GIMApp: App {
             AppCommands()
         }
 
+        WindowGroup(id: ChatWindowID.windowGroupID, for: ChatWindowID.self) { $chatWindow in
+            if let chatWindow {
+                ChatWindowView(model: model, chatWindow: chatWindow)
+            }
+        }
+
         Settings {
             SettingsScene()
         }
