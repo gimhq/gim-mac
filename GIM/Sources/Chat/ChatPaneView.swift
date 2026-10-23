@@ -12,6 +12,8 @@ struct ChatPaneView: View {
 
     private let content: Content
     @State private var pane: ChatPaneModel?
+    /// Whether a drag with files or images is over the pane.
+    @State private var isDropTargeted = false
 
     /// The real pane for `chatId` on the signed-in client.
     init(model: AppModel, chatId: String) {
@@ -50,11 +52,32 @@ struct ChatPaneView: View {
                     Divider()
                     TimelineListView(pane: pane)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .focusable()
+                        .focusEffectDisabled()
+                        .onKeyPress(.space) {
+                            guard pane.selectedMessageIsMedia else { return .ignored }
+                            Task { await pane.quickLookSelected() }
+                            return .handled
+                        }
                     if let errorMessage = pane.errorMessage {
                         ErrorBanner(message: errorMessage) { pane.dismissError() }
                     }
                     Divider()
                     ComposerView(pane: pane)
+                }
+                .background(QuickLookResponderView(controller: pane.quickLook))
+                .onDrop(of: MediaDrop.acceptedTypes, isTargeted: $isDropTargeted) { providers in
+                    Task {
+                        let urls = await MediaDrop.fileURLs(from: providers)
+                        let imageData = await MediaDrop.imageData(from: providers)
+                        await pane.sendDropped(urls: urls, imageData: imageData)
+                    }
+                    return true
+                }
+                .overlay {
+                    if isDropTargeted {
+                        DropHighlight()
+                    }
                 }
             } else if model.client == nil {
                 Text("chat.placeholder.comingSoon", tableName: "Chat")
@@ -133,6 +156,23 @@ private struct ChatPaneHeader: View {
         }
         .padding(.horizontal, DesignTokens.spacingM)
         .padding(.vertical, DesignTokens.spacingS)
+    }
+}
+
+/// The border and hint shown while files or images are dragged over the pane.
+private struct DropHighlight: View {
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: DesignTokens.cornerRadius)
+                .strokeBorder(ChatTheme.accent, lineWidth: 3)
+            Text("chat.media.dropHint", tableName: "Chat")
+                .font(.headline)
+                .padding(.horizontal, DesignTokens.spacingM)
+                .padding(.vertical, DesignTokens.spacingS)
+                .background(.regularMaterial, in: Capsule())
+        }
+        .padding(DesignTokens.spacingXS)
+        .allowsHitTesting(false)
     }
 }
 

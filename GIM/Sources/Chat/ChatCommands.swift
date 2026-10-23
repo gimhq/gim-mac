@@ -66,6 +66,22 @@ struct ChatCommands: Commands {
             .disabled(pane?.isGroup != true)
 
             // Find and Quick Look items are added by later subtasks.
+
+            Button {
+                Task { await pane?.quickLookSelected() }
+            } label: {
+                Text("chat.command.quickLook", tableName: "Chat")
+            }
+            .keyboardShortcut("y", modifiers: .command)
+            .disabled(pane?.selectedMessageIsMedia != true)
+
+            Button {
+                Task { await pane?.saveSelectedAs() }
+            } label: {
+                Text("chat.command.saveAs", tableName: "Chat")
+            }
+            .keyboardShortcut("s", modifiers: [.command, .shift])
+            .disabled(pane?.selectedMessageIsMedia != true)
         }
     }
 }

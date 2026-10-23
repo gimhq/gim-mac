@@ -56,6 +56,17 @@
         }
       }
     },
+    "chat.command.quickLook": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Look"
+          }
+        }
+      }
+    },
     "chat.command.reply": {
       "extractionState": "manual",
       "localizations": {
@@ -63,6 +74,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "Reply"
+          }
+        }
+      }
+    },
+    "chat.command.saveAs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save as…"
           }
         }
       }
@@ -338,6 +360,94 @@
           "stringUnit": {
             "state": "translated",
             "value": "You"
+          }
+        }
+      }
+    },
+    "chat.media.dropHint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Drop to send"
+          }
+        }
+      }
+    },
+    "chat.media.photoFileName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo"
+          }
+        }
+      }
+    },
+    "chat.media.quickLook": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quick Look"
+          }
+        }
+      }
+    },
+    "chat.media.saveAs": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save as…"
+          }
+        }
+      }
+    },
+    "chat.media.saveFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn't save the file. Try again."
+          }
+        }
+      }
+    },
+    "chat.media.showInFinder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show in Finder"
+          }
+        }
+      }
+    },
+    "chat.media.tryAgain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Try again"
+          }
+        }
+      }
+    },
+    "chat.media.unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Attachment can't be loaded right now"
           }
         }
       }
