@@ -5,6 +5,7 @@ import SwiftUI
 /// Signed out (onboarding or launching) the detail only asks the user to sign in.
 struct SettingsScene: View {
     let model: AppModel
+    let system: SystemServices
 
     @State private var selection: SettingsSection? = .profile
 
@@ -42,11 +43,11 @@ struct SettingsScene: View {
         switch section {
         case .profile: ProfileSection(model: model)
         case .accountDevices: SettingsPlaceholderView(section: section)
-        case .notifications: SettingsPlaceholderView(section: section)
-        case .appearance: SettingsPlaceholderView(section: section)
-        case .language: SettingsPlaceholderView(section: section)
+        case .notifications: NotificationsSection(system: system)
+        case .appearance: AppearanceSection(system: system)
+        case .language: LanguageSection()
         case .advanced: SettingsPlaceholderView(section: section)
-        case .helpAbout: SettingsPlaceholderView(section: section)
+        case .helpAbout: HelpAboutSection()
         }
     }
 }
