@@ -507,6 +507,237 @@
         }
       }
     },
+    "onboarding.restore.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use the recovery kit you saved when you made your account. Old chats don't come back. Friends need to add you to groups again."
+          }
+        }
+      }
+    },
+    "onboarding.restore.cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "onboarding.restore.codeHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "39 characters. Dashes and spaces are fine."
+          }
+        }
+      }
+    },
+    "onboarding.restore.codeLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recovery key"
+          }
+        }
+      }
+    },
+    "onboarding.restore.continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "onboarding.restore.doneBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Old chats don't come back. Ask friends to add you to groups again."
+          }
+        }
+      }
+    },
+    "onboarding.restore.doneTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your account is back"
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This isn’t a recovery key. Check each character."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorIncomplete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part of the kit is missing. Fill in the empty field below."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorNotRecognized": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t find an Account ID or recovery key here. Paste the whole kit, or type them below."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorUserId": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This isn’t an Account ID. It starts with “u” and has 56 characters."
+          }
+        }
+      }
+    },
+    "onboarding.restore.manualTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Or type them yourself"
+          }
+        }
+      }
+    },
+    "onboarding.restore.pasteHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste all of it. We find your Account ID and recovery key in it."
+          }
+        }
+      }
+    },
+    "onboarding.restore.pasteLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste your recovery kit"
+          }
+        }
+      }
+    },
+    "onboarding.restore.revokeOthers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove all other devices"
+          }
+        }
+      }
+    },
+    "onboarding.restore.revokeOthersHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "They get signed out. Do this if a device was lost or stolen."
+          }
+        }
+      }
+    },
+    "onboarding.restore.submit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore account"
+          }
+        }
+      }
+    },
+    "onboarding.restore.submitting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restoring…"
+          }
+        }
+      }
+    },
+    "onboarding.restore.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore your account"
+          }
+        }
+      }
+    },
+    "onboarding.restore.userIdHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starts with “u”. It's in your recovery kit."
+          }
+        }
+      }
+    },
+    "onboarding.restore.userIdLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account ID"
+          }
+        }
+      }
+    },
     "onboarding.server.apply": {
       "extractionState": "manual",
       "localizations": {

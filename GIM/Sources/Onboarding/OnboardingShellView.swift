@@ -45,7 +45,11 @@ struct OnboardingShellView: View {
         case .createIdentity:
             CreateAccountView(viewModel: viewModel)
         case .restore:
-            OnboardingRoutePlaceholderView()
+            if let context = viewModel.context {
+                RestoreView(context: context, onLeave: { viewModel.path = [] })
+            } else {
+                OnboardingStartView(viewModel: viewModel)
+            }
         }
     }
 
@@ -63,13 +67,5 @@ struct OnboardingShellView: View {
         case .claimHandle(let claimHandle):
             ClaimHandleView(viewModel: claimHandle)
         }
-    }
-}
-
-/// Stands in for the restore screen until it exists.
-struct OnboardingRoutePlaceholderView: View {
-    var body: some View {
-        ProgressView()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
