@@ -1,45 +1,56 @@
 import GIMFeatures
 import SwiftUI
 
-/// Placeholder onboarding: signs in through the fake client. Replaced by the onboarding workstream.
+/// Onboarding entry point: builds the onboarding view model from the app model and signs in with the client it
+/// registered, linked or restored.
 struct OnboardingFlow: View {
     let model: AppModel
-    @State private var isRunning = false
+    @State private var viewModel: OnboardingViewModel?
     @State private var errorText: String?
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("onboarding.welcome.title", tableName: "Onboarding")
-                .font(.title)
-            Text("onboarding.welcome.body", tableName: "Onboarding")
-                .foregroundStyle(.secondary)
-            Button {
-                startDemo()
-            } label: {
-                Text("onboarding.demo.start", tableName: "Onboarding")
-            }
-            .buttonStyle(.borderedProminent)
-            .disabled(isRunning)
-            if let errorText {
-                Text(errorText)
-                    .foregroundStyle(.red)
-                    .multilineTextAlignment(.center)
+        Group {
+            if let viewModel {
+                OnboardingShellView(viewModel: viewModel)
+            } else if let errorText {
+                VStack(spacing: 12) {
+                    Text(errorText)
+                        .multilineTextAlignment(.center)
+                    Button {
+                        makeViewModelIfNeeded()
+                    } label: {
+                        Text("onboarding.flow.tryAgain", tableName: "Onboarding")
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .keyboardShortcut(.defaultAction)
+                }
+                .padding()
+            } else {
+                ProgressView()
             }
         }
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task { makeViewModelIfNeeded() }
     }
 
-    private func startDemo() {
-        isRunning = true
-        errorText = nil
-        Task {
-            do {
-                try await model.createDemoIdentity(
-                    displayName: String(localized: "onboarding.demo.displayName", table: "Onboarding"))
-            } catch {
-                errorText = ErrorPresenter.message(for: error)
-            }
-            isRunning = false
+    /// The onboarding view model for `model`: its server (`resolvedServerUrl()`), its launch client and `signIn`.
+    static func makeViewModel(model: AppModel) throws -> OnboardingViewModel {
+        OnboardingViewModel(
+            factory: model.clientFactory,
+            hooks: try model.platformHooks(),
+            serverUrl: model.resolvedServerUrl(),
+            client: model.client,
+            localStateReset: model.client?.localStateReset() ?? false,
+            onRegistered: { model.signIn($0) })
+    }
+
+    private func makeViewModelIfNeeded() {
+        guard viewModel == nil else { return }
+        do {
+            viewModel = try Self.makeViewModel(model: model)
+            errorText = nil
+        } catch {
+            errorText = ErrorPresenter.message(for: error)
         }
     }
 }

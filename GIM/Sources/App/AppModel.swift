@@ -46,6 +46,9 @@ final class AppModel {
     @ObservationIgnored private var hooks: (any PlatformHooks)?
     @ObservationIgnored private var config: ClientConfig?
 
+    /// Makes clients; onboarding uses it for a server other than the launch one.
+    var clientFactory: any GimClientFactory { factory }
+
     /// - Parameters:
     ///   - factory: makes the client; see `ClientFactories`.
     ///   - hooks: builds the platform hooks handed to the factory (once per process).
@@ -80,7 +83,7 @@ final class AppModel {
         guard phase == .launching else { return }
         launchError = nil
         do {
-            let hooks = try existingOrNewHooks()
+            let hooks = try platformHooks()
             let config = ClientConfig(serverUrl: resolvedServerUrl())
             let client = try await factory.make(config: config, hooks: hooks)
             self.client = client
@@ -130,7 +133,15 @@ final class AppModel {
         return wipeError
     }
 
-    private func existingOrNewHooks() throws -> any PlatformHooks {
+    /// Signs in with the client onboarding registered, linked or restored.
+    func signIn(_ registration: Registration) {
+        client = registration.client
+        config = registration.config
+        becomeReady(session: registration.session)
+    }
+
+    /// The platform hooks of this process, built on first use.
+    func platformHooks() throws -> any PlatformHooks {
         if let hooks { return hooks }
         let hooks = try makeHooks()
         self.hooks = hooks
