@@ -19,7 +19,7 @@ struct GIMApp: App {
         }
 
         Settings {
-            SettingsScene()
+            SettingsScene(model: model)
         }
 
         // Menu bar mode is off until a later subtask implements it.
