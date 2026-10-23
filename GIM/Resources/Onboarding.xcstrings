@@ -67,24 +67,13 @@
         }
       }
     },
-    "onboarding.demo.displayName": {
+    "onboarding.flow.tryAgain": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Demo user"
-          }
-        }
-      }
-    },
-    "onboarding.demo.start": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Start the demo"
+            "value": "Try again"
           }
         }
       }
@@ -943,17 +932,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Choose a username"
-          }
-        }
-      }
-    },
-    "onboarding.welcome.body": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This build runs in demo mode with sample chats."
           }
         }
       }
