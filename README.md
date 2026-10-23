@@ -14,6 +14,7 @@ Native macOS client for gim: Swift 6, SwiftUI, macOS 15, bundle id `im.g.mac`. T
 - `GIM/Tests` unit tests (`GIMTests`)
 - `scripts/` the Mac gate
 - `docs/` plans and tasks
+- `docs/glossary.md` — the user-facing words and writing rules every string table follows.
 
 ## Build
 
