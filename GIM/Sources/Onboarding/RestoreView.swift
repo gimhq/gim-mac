@@ -88,14 +88,12 @@ struct RestoreView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("onboarding.restore.pasteLabel", tableName: "Onboarding")
                 .font(.headline)
-            TextEditor(text: $pasted)
-                .font(.body.monospaced())
-                .frame(height: 72)
-                .scrollContentBackground(.hidden)
-                .padding(4)
-                .background(.background, in: RoundedRectangle(cornerRadius: 6))
-                .overlay(RoundedRectangle(cornerRadius: 6).strokeBorder(.separator))
-                .accessibilityLabel(Text("onboarding.restore.pasteLabel", tableName: "Onboarding"))
+            TextField(text: $pasted, axis: .vertical) {
+                Text("onboarding.restore.pasteLabel", tableName: "Onboarding")
+            }
+            .lineLimit(3...6)
+            .font(.body.monospaced())
+            .accessibilityLabel(Text("onboarding.restore.pasteLabel", tableName: "Onboarding"))
             helpText("onboarding.restore.pasteHelp")
             switch pasteOutcome {
             case .nothingFound:
