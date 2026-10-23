@@ -57,6 +57,11 @@ targets:
       - GIM/Tests
     dependencies:
       - target: GIM
+      # The tests import GIMClientKit and GIMFeatures directly.
+      - package: GIMKit
+        product: GIMClientKit
+      - package: GIMKit
+        product: GIMFeatures
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: im.g.mac.tests
