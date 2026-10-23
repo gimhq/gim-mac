@@ -7,6 +7,8 @@ enum ChatTheme {
     static let otherBubble = Color(nsColor: .unemphasizedSelectedContentBackgroundColor)
     static let ownText = Color.white
     static let selectionBackground = Color(nsColor: .selectedContentBackgroundColor).opacity(0.15)
+    static let searchMatchBackground = Color(nsColor: .findHighlightColor).opacity(0.2)
+    static let searchCurrentMatchBackground = Color(nsColor: .findHighlightColor).opacity(0.5)
     static let failed = Color(nsColor: .systemRed)
     static let accent = Color(nsColor: .controlAccentColor)
     static let maxBubbleWidth: CGFloat = 480

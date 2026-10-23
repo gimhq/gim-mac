@@ -65,7 +65,33 @@ struct ChatCommands: Commands {
             .keyboardShortcut("i", modifiers: .command)
             .disabled(pane?.isGroup != true)
 
-            // Find and Quick Look items are added by later subtasks.
+            Divider()
+
+            Button {
+                pane?.showSearch()
+            } label: {
+                Text("chat.command.find", tableName: "Chat")
+            }
+            .keyboardShortcut("f", modifiers: .command)
+            .disabled(pane == nil)
+
+            Button {
+                pane?.findNext()
+            } label: {
+                Text("chat.command.findNext", tableName: "Chat")
+            }
+            .keyboardShortcut("g", modifiers: .command)
+            .disabled(pane?.search.matchIds.isEmpty != false)
+
+            Button {
+                pane?.findPrevious()
+            } label: {
+                Text("chat.command.findPrevious", tableName: "Chat")
+            }
+            .keyboardShortcut("g", modifiers: [.command, .shift])
+            .disabled(pane?.search.matchIds.isEmpty != false)
+
+            // Quick Look items are added by a later subtask.
         }
     }
 }

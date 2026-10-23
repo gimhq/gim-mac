@@ -48,6 +48,10 @@ struct ChatPaneView: View {
                 VStack(spacing: 0) {
                     ChatPaneHeader(pane: pane)
                     Divider()
+                    if pane.search.isActive {
+                        ChatSearchBar(pane: pane)
+                        Divider()
+                    }
                     TimelineListView(pane: pane)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     if let errorMessage = pane.errorMessage {
@@ -79,6 +83,12 @@ struct ChatPaneView: View {
         }
         .onDisappear {
             pane?.stop()
+        }
+        .onChange(of: pane?.timeline.items) {
+            pane?.updateSearch()
+        }
+        .onChange(of: pane?.search.query) {
+            pane?.updateSearch()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             setAppActive(true)
