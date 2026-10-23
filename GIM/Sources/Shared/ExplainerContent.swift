@@ -1,7 +1,7 @@
 import Foundation
 
 /// One section of "How gim works". The keys live in the `Explainer` String Catalog.
-struct ExplainerSection: Identifiable, Hashable, Sendable {
+struct ExplainerSection: Identifiable, Sendable {
     let id: String
     let titleKey: String.LocalizationValue?
     let bodyKey: String.LocalizationValue
