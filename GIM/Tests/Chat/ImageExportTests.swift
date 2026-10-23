@@ -3,21 +3,25 @@ import XCTest
 
 @testable import GIM
 
+/// An opaque (RGBX) sRGB image of exactly `width`×`height` pixels, filled with one color.
+func makeOpaqueTestCGImage(width: Int, height: Int) throws -> CGImage {
+    let colorSpace = try XCTUnwrap(CGColorSpace(name: CGColorSpace.sRGB))
+    let context = try XCTUnwrap(
+        CGContext(
+            data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace,
+            bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue))
+    context.setFillColor(red: 0.2, green: 0.6, blue: 0.7, alpha: 1)
+    context.fill(CGRect(x: 0, y: 0, width: width, height: height))
+    return try XCTUnwrap(context.makeImage())
+}
+
 /// `ImageExport`: downscaling to the sent size and the temporary file.
 final class ImageExportTests: XCTestCase {
-    /// An opaque image of exactly `width`×`height` pixels.
+    /// An opaque image of exactly `width`×`height` pixels, one point per pixel.
     private func makeImage(width: Int, height: Int) throws -> NSImage {
-        let rep = try XCTUnwrap(
-            NSBitmapImageRep(
-                bitmapDataPlanes: nil, pixelsWide: width, pixelsHigh: height, bitsPerSample: 8, samplesPerPixel: 3,
-                hasAlpha: false, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0))
-        NSGraphicsContext.saveGraphicsState()
-        NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: rep)
-        NSColor.systemTeal.setFill()
-        NSRect(x: 0, y: 0, width: width, height: height).fill()
-        NSGraphicsContext.restoreGraphicsState()
+        let cgImage = try makeOpaqueTestCGImage(width: width, height: height)
         let image = NSImage(size: NSSize(width: width, height: height))
-        image.addRepresentation(rep)
+        image.addRepresentation(NSBitmapImageRep(cgImage: cgImage))
         return image
     }
 
