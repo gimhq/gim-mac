@@ -97,16 +97,10 @@ private struct ServersForm: View {
                 Text("settings.servers.cancel", tableName: "Settings")
             }
         } message: { warning in
-            let count = Int(warning.groupCount)
-            Text(
-                String(
-                    localized: "settings.servers.ownedGroups",
-                    defaultValue:
-                        "This server runs \(count) of your group chats. They keep working through your other servers.",
-                    table: "Settings"))
+            Text(warning.message)
         }
         .alert(
-            Text(LocalizedStringKey(SettingsText.noticeKey(title: hubs.notice?.title ?? "")), tableName: "Settings"),
+            Text(verbatim: hubs.notice?.title ?? ""),
             isPresented: Binding(get: { hubs.notice != nil }, set: { if !$0 { hubs.dismissNotice() } }),
             presenting: hubs.notice
         ) { _ in
@@ -115,11 +109,7 @@ private struct ServersForm: View {
                 Text("settings.servers.ok", tableName: "Settings")
             }
         } message: { notice in
-            if let key = SettingsText.noticeMessageKey(title: notice.title) {
-                Text(LocalizedStringKey(key), tableName: "Settings")
-            } else {
-                Text(notice.message)
-            }
+            Text(notice.message)
         }
         .sheet(isPresented: $showsAddSheet) {
             AddServerSheet(client: client)
@@ -139,7 +129,7 @@ private struct ServersForm: View {
                             .background(.tint.opacity(0.15), in: Capsule())
                     }
                 }
-                Text(LocalizedStringKey(SettingsText.hubStateKey(hub.state)), tableName: "Settings")
+                Text(verbatim: HubsViewModel.stateText(hub.state))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
