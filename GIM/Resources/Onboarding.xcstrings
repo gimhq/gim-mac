@@ -634,7 +634,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "請保密。任何拿到它的人都能進入你的帳號。裝置全都遺失了？打開 gim，選擇“使用復原套件復原”，然後貼上這段文字。"
+            "value": "請保密。任何拿到它的人都能進入你的帳號。裝置全都遺失了？打開 gim，選擇「使用復原套件復原」，然後貼上這段文字。"
           }
         }
       }
@@ -924,7 +924,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "你的另一台裝置也會顯示一組代碼。只有兩組代碼完全相同時，才選擇“代碼相符”。"
+            "value": "你的另一台裝置也會顯示一組代碼。只有兩組代碼完全相同時，才選擇「代碼相符」。"
           }
         }
       }
@@ -1005,13 +1005,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "改为复制代码"
+            "value": "改为复制关联码"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "改為拷貝代碼"
+            "value": "改為拷貝連結碼"
           }
         }
       }
@@ -1092,13 +1092,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "关联代码"
+            "value": "关联码"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "連結代碼"
+            "value": "連結碼"
           }
         }
       }
@@ -1150,13 +1150,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "在你正在使用 gim 的设备上，打开设置，选择“关联新设备”，然后扫描这个代码。"
+            "value": "在你正在使用 gim 的设备上，打开设置，选择“关联新设备”，然后扫描这个关联码。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在你正在使用 gim 的裝置上，打開設定，選擇“連結新裝置”，然後掃描這組代碼。"
+            "value": "在你正在使用 gim 的裝置上，打開設定，選擇「連結新裝置」，然後掃描這個連結碼。"
           }
         }
       }
@@ -1237,13 +1237,13 @@
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在准备代码…"
+            "value": "正在准备关联码…"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "正在準備代碼…"
+            "value": "正在準備連結碼…"
           }
         }
       }
@@ -1620,7 +1620,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "這不是帳號 ID。帳號 ID 以“u”開頭，共 56 個字元。"
+            "value": "這不是帳號 ID。帳號 ID 以「u」開頭，共 56 個字元。"
           }
         }
       }
@@ -1881,7 +1881,7 @@
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "以“u”開頭。可以在你的復原套件中找到。"
+            "value": "以「u」開頭。可以在你的復原套件中找到。"
           }
         }
       }
