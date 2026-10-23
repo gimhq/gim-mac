@@ -9,27 +9,27 @@ import Observation
 /// `.onboarding`. Signing out drops the client and starts over.
 @MainActor
 @Observable
-public final class AppModel {
-    public enum Phase {
+final class AppModel {
+    enum Phase {
         case launching
         case onboarding
         case ready
     }
 
     /// Launch argument (`-GIMDefaultServerURL <url>`) and Info.plist key (`GIM_DEFAULT_SERVER_URL` build setting).
-    public nonisolated static let defaultServerUrlKey = "GIMDefaultServerURL"
+    nonisolated static let defaultServerUrlKey = "GIMDefaultServerURL"
     /// Last used server.
-    public nonisolated static let serverUrlKey = "gim.serverUrl"
-    public nonisolated static let builtInServerUrl = "https://hub.g.im"
+    nonisolated static let serverUrlKey = "gim.serverUrl"
+    nonisolated static let builtInServerUrl = "https://hub.g.im"
 
-    public private(set) var phase: Phase = .launching
-    public private(set) var session: Session?
+    private(set) var phase: Phase = .launching
+    private(set) var session: Session?
     /// Set when the platform hooks, the client or the session could not be read while launching.
-    public private(set) var launchError: String?
+    private(set) var launchError: String?
     /// Server of the signed-in client.
-    public private(set) var serverUrl: String?
-    public var showsMenuBarExtra = false
-    public private(set) var client: (any GimClientAPI)?
+    private(set) var serverUrl: String?
+    var showsMenuBarExtra = false
+    private(set) var client: (any GimClientAPI)?
     /// Chat list and selection of the main window; set while `.ready`.
     private(set) var sidebar: SidebarModel?
 
@@ -51,7 +51,7 @@ public final class AppModel {
     ///   - hooks: builds the platform hooks handed to the factory (once per process).
     ///   - defaults: remembers the last server URL; its argument domain may hold `defaultServerUrlKey`.
     ///   - bundledServerUrl: the Info.plist `defaultServerUrlKey` value.
-    public init(
+    init(
         factory: any GimClientFactory = ClientFactories.default(),
         hooks: @escaping @MainActor () throws -> any PlatformHooks = { try MacPlatformHooks.standard() },
         defaults: UserDefaults = .standard,
@@ -65,7 +65,7 @@ public final class AppModel {
 
     /// Last used server, else the launch argument, else the bundled default, else `builtInServerUrl`. Not
     /// validated here; the factory validates.
-    public func resolvedServerUrl() -> String {
+    func resolvedServerUrl() -> String {
         let candidates = [
             defaults.string(forKey: Self.serverUrlKey),
             defaults.string(forKey: Self.defaultServerUrlKey),
@@ -76,7 +76,7 @@ public final class AppModel {
 
     /// Creates the client for `resolvedServerUrl()` and routes by its session. Safe to call again after a launch
     /// error.
-    public func start() async {
+    func start() async {
         guard phase == .launching else { return }
         launchError = nil
         do {
@@ -96,7 +96,7 @@ public final class AppModel {
     }
 
     /// Creates an identity on the current client and signs in.
-    public func createDemoIdentity(displayName: String) async throws {
+    func createDemoIdentity(displayName: String) async throws {
         guard let client else { throw GimError.NotRegistered }
         _ = try await client.createIdentity(displayName: displayName)
         guard let session = try await client.session() else { throw GimError.NotRegistered }
@@ -105,7 +105,7 @@ public final class AppModel {
 
     /// Signs out, wipes the platform keystore and data directory (`PlatformWiping`), drops the client and starts
     /// over. Returns the error text when signing out or wiping fails; a failed wipe still starts over.
-    public func signOut() async -> String? {
+    func signOut() async -> String? {
         guard let client else { return nil }
         do {
             try await client.signOut()
