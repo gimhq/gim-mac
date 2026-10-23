@@ -1,0 +1,974 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "onboarding.create.cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "onboarding.create.nameBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "People see this name in your chats. You can change it later."
+          }
+        }
+      }
+    },
+    "onboarding.create.nameLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your name"
+          }
+        }
+      }
+    },
+    "onboarding.create.nameTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "What should people call you?"
+          }
+        }
+      }
+    },
+    "onboarding.create.submit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create account"
+          }
+        }
+      }
+    },
+    "onboarding.create.submitting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creating your account…"
+          }
+        }
+      }
+    },
+    "onboarding.demo.displayName": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Demo user"
+          }
+        }
+      }
+    },
+    "onboarding.demo.start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start the demo"
+          }
+        }
+      }
+    },
+    "onboarding.intro.back": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        }
+      }
+    },
+    "onboarding.intro.getStarted": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Get started"
+          }
+        }
+      }
+    },
+    "onboarding.intro.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next"
+          }
+        }
+      }
+    },
+    "onboarding.intro.page": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Page %lld of %lld"
+          }
+        }
+      }
+    },
+    "onboarding.intro.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip"
+          }
+        }
+      }
+    },
+    "onboarding.kit.accountId": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account ID"
+          }
+        }
+      }
+    },
+    "onboarding.kit.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This is a spare key to your account. If you lose all your devices, your Account ID and recovery key get your account back. Keep them secret. You see them only now, so save them somewhere safe."
+          }
+        }
+      }
+    },
+    "onboarding.kit.checkBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Type the last 4 characters of your recovery key. This makes sure you saved it."
+          }
+        }
+      }
+    },
+    "onboarding.kit.checkError": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "That doesn’t match. Look at your recovery key and try again."
+          }
+        }
+      }
+    },
+    "onboarding.kit.checkLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Last 4 characters"
+          }
+        }
+      }
+    },
+    "onboarding.kit.checkTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check your recovery key"
+          }
+        }
+      }
+    },
+    "onboarding.kit.confirm": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirm"
+          }
+        }
+      }
+    },
+    "onboarding.kit.copied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copied"
+          }
+        }
+      }
+    },
+    "onboarding.kit.copy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy"
+          }
+        }
+      }
+    },
+    "onboarding.kit.fileNote": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep this secret. Anyone who has it can get into your account. Lost all your devices? Open gim, choose “Restore with your recovery kit” and paste this text."
+          }
+        }
+      }
+    },
+    "onboarding.kit.fileTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gim recovery kit"
+          }
+        }
+      }
+    },
+    "onboarding.kit.recoveryKey": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recovery key"
+          }
+        }
+      }
+    },
+    "onboarding.kit.saveFailed": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Couldn’t save the file. Copy the text instead."
+          }
+        }
+      }
+    },
+    "onboarding.kit.saveFile": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save as text file"
+          }
+        }
+      }
+    },
+    "onboarding.kit.saved": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "I saved it"
+          }
+        }
+      }
+    },
+    "onboarding.kit.showAgain": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show the kit again"
+          }
+        }
+      }
+    },
+    "onboarding.kit.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your recovery kit"
+          }
+        }
+      }
+    },
+    "onboarding.link.backToStart": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back to start"
+          }
+        }
+      }
+    },
+    "onboarding.link.cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "onboarding.link.compareBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your other device shows a code too. Choose “The codes match” only if both are the same."
+          }
+        }
+      }
+    },
+    "onboarding.link.compareTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compare the codes"
+          }
+        }
+      }
+    },
+    "onboarding.link.copied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copied"
+          }
+        }
+      }
+    },
+    "onboarding.link.copyCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy code instead"
+          }
+        }
+      }
+    },
+    "onboarding.link.match": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The codes match"
+          }
+        }
+      }
+    },
+    "onboarding.link.mismatch": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "They don’t match"
+          }
+        }
+      }
+    },
+    "onboarding.link.qrLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link code"
+          }
+        }
+      }
+    },
+    "onboarding.link.rejected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This device was not linked. You can try again."
+          }
+        }
+      }
+    },
+    "onboarding.link.scanBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "On a device where you use gim, open Settings, choose “Link a new device” and scan this code."
+          }
+        }
+      }
+    },
+    "onboarding.link.scanTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan with your other device"
+          }
+        }
+      }
+    },
+    "onboarding.link.showNewCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show a new code"
+          }
+        }
+      }
+    },
+    "onboarding.link.starting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting a code ready…"
+          }
+        }
+      }
+    },
+    "onboarding.link.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link to a device you already use"
+          }
+        }
+      }
+    },
+    "onboarding.link.waiting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Waiting for your other device…"
+          }
+        }
+      }
+    },
+    "onboarding.restore.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use the recovery kit you saved when you made your account. Old chats don't come back. Friends need to add you to groups again."
+          }
+        }
+      }
+    },
+    "onboarding.restore.cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancel"
+          }
+        }
+      }
+    },
+    "onboarding.restore.codeHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "39 characters. Dashes and spaces are fine."
+          }
+        }
+      }
+    },
+    "onboarding.restore.codeLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recovery key"
+          }
+        }
+      }
+    },
+    "onboarding.restore.continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "onboarding.restore.doneBody": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Old chats don't come back. Ask friends to add you to groups again."
+          }
+        }
+      }
+    },
+    "onboarding.restore.doneTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your account is back"
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This isn’t a recovery key. Check each character."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorIncomplete": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Part of the kit is missing. Fill in the empty field below."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorNotRecognized": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "We couldn’t find an Account ID or recovery key here. Paste the whole kit, or type them below."
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorUserId": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This isn’t an Account ID. It starts with “u” and has 56 characters."
+          }
+        }
+      }
+    },
+    "onboarding.restore.manualTitle": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Or type them yourself"
+          }
+        }
+      }
+    },
+    "onboarding.restore.pasteHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste all of it. We find your Account ID and recovery key in it."
+          }
+        }
+      }
+    },
+    "onboarding.restore.pasteLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Paste your recovery kit"
+          }
+        }
+      }
+    },
+    "onboarding.restore.revokeOthers": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove all other devices"
+          }
+        }
+      }
+    },
+    "onboarding.restore.revokeOthersHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "They get signed out. Do this if a device was lost or stolen."
+          }
+        }
+      }
+    },
+    "onboarding.restore.submit": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore account"
+          }
+        }
+      }
+    },
+    "onboarding.restore.submitting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restoring…"
+          }
+        }
+      }
+    },
+    "onboarding.restore.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore your account"
+          }
+        }
+      }
+    },
+    "onboarding.restore.userIdHelp": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starts with “u”. It's in your recovery kit."
+          }
+        }
+      }
+    },
+    "onboarding.restore.userIdLabel": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Account ID"
+          }
+        }
+      }
+    },
+    "onboarding.server.apply": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use this server"
+          }
+        }
+      }
+    },
+    "onboarding.server.current": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Server: %@"
+          }
+        }
+      }
+    },
+    "onboarding.server.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The server your account uses."
+          }
+        }
+      }
+    },
+    "onboarding.server.keep": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Keep this server"
+          }
+        }
+      }
+    },
+    "onboarding.server.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Server address"
+          }
+        }
+      }
+    },
+    "onboarding.server.placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://"
+          }
+        }
+      }
+    },
+    "onboarding.server.useAnother": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use another server"
+          }
+        }
+      }
+    },
+    "onboarding.start.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chat with the people you care about. Use the account you already have, or start a new one."
+          }
+        }
+      }
+    },
+    "onboarding.start.create": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Create new account"
+          }
+        }
+      }
+    },
+    "onboarding.start.dismiss": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dismiss"
+          }
+        }
+      }
+    },
+    "onboarding.start.link": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Link to a device you already use"
+          }
+        }
+      }
+    },
+    "onboarding.start.localStateReset": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your chats on this Mac could not be opened and were removed. Sign in again to keep using gim."
+          }
+        }
+      }
+    },
+    "onboarding.start.restore": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restore with your recovery kit"
+          }
+        }
+      }
+    },
+    "onboarding.username.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Friends can find you with it. It’s optional. You can add one later."
+          }
+        }
+      }
+    },
+    "onboarding.username.help": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3–32 characters: a–z, 0–9, _ and ."
+          }
+        }
+      }
+    },
+    "onboarding.username.label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Username"
+          }
+        }
+      }
+    },
+    "onboarding.username.save": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save username"
+          }
+        }
+      }
+    },
+    "onboarding.username.skip": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip for now"
+          }
+        }
+      }
+    },
+    "onboarding.username.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a username"
+          }
+        }
+      }
+    },
+    "onboarding.welcome.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This build runs in demo mode with sample chats."
+          }
+        }
+      }
+    },
+    "onboarding.welcome.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Welcome to gim"
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
