@@ -12,6 +12,39 @@
         }
       }
     },
+    "chat.command.find": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find in chat"
+          }
+        }
+      }
+    },
+    "chat.command.findNext": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find next"
+          }
+        }
+      }
+    },
+    "chat.command.findPrevious": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find previous"
+          }
+        }
+      }
+    },
     "chat.command.groupInfo": {
       "extractionState": "manual",
       "localizations": {
@@ -657,6 +690,83 @@
           "stringUnit": {
             "state": "translated",
             "value": "Open link %@"
+          }
+        }
+      }
+    },
+    "chat.search.chatList.placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search chats"
+          }
+        }
+      }
+    },
+    "chat.search.close": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Close search"
+          }
+        }
+      }
+    },
+    "chat.search.count": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld of %lld"
+          }
+        }
+      }
+    },
+    "chat.search.next": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Next match"
+          }
+        }
+      }
+    },
+    "chat.search.none": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No matches"
+          }
+        }
+      }
+    },
+    "chat.search.placeholder": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Find in chat"
+          }
+        }
+      }
+    },
+    "chat.search.previous": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Previous match"
           }
         }
       }

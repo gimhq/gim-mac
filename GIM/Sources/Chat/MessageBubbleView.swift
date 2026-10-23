@@ -36,6 +36,15 @@ struct MessageBubbleView: View {
                 Spacer(minLength: DesignTokens.spacingL * 4)
             }
         }
+        .background(searchBackground)
+    }
+
+    /// Find in chat: a light background on matches, a stronger one on the current match.
+    private var searchBackground: Color {
+        let messageId = row.message.messageId
+        if pane.search.currentMatchId == messageId { return ChatTheme.searchCurrentMatchBackground }
+        if pane.search.matchIds.contains(messageId) { return ChatTheme.searchMatchBackground }
+        return .clear
     }
 
     /// The sender's avatar on the first row of a run; the same space otherwise, so bubbles line up.
