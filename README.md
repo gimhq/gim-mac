@@ -27,8 +27,10 @@ open GIM.xcodeproj
 
 ## Demo mode
 
-The fake client (`FakeGimClient`) is the only mode today: the app starts without a session and onboarding signs in
-as a demo user with sample chats. GIMCore follows contract C5 behind the same `GimClientFactory` seam.
+The app runs on GIMCore by default. Debug builds use the in-memory demo client instead (`FakeGimClient` via
+`CoreGimClientFactory`: no session at launch, onboarding signs in as a demo user with sample chats) when launched with
+`-GIMUseFakeCore YES`: in Xcode under scheme → Run → Arguments, or `open GIM.app --args -GIMUseFakeCore YES`.
+Release builds always use GIMCore.
 
 ## Default server
 
