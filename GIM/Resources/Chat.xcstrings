@@ -540,6 +540,17 @@
         }
       }
     },
+    "chat.preview.open": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open link %@"
+          }
+        }
+      }
+    },
     "chat.timeline.action.copy": {
       "extractionState": "manual",
       "localizations": {
