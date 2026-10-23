@@ -9,6 +9,24 @@
             "state": "translated",
             "value": "Cancel"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
@@ -19,6 +37,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "People see this name in your chats. You can change it later."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Las personas ven este nombre en tus chats. Puedes cambiarlo más tarde."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "别人会在聊天中看到这个名字。你以后可以修改。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "別人會在聊天中看到這個名稱。你之後可以更改。"
           }
         }
       }
@@ -31,6 +67,24 @@
             "state": "translated",
             "value": "Your name"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu nombre"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的名字"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的名稱"
+          }
         }
       }
     },
@@ -41,6 +95,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "What should people call you?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cómo quieres que te llamen?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大家该怎么称呼你？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "大家要怎麼稱呼你？"
           }
         }
       }
@@ -53,6 +125,24 @@
             "state": "translated",
             "value": "Create account"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear cuenta"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建账号"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立帳號"
+          }
         }
       }
     },
@@ -63,6 +153,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Creating your account…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Creando tu cuenta…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在创建你的账号…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在建立你的帳號…"
           }
         }
       }
@@ -75,6 +183,24 @@
             "state": "translated",
             "value": "Try again"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reintentar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "重试"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再試一次"
+          }
         }
       }
     },
@@ -85,6 +211,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Atrás"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回"
           }
         }
       }
@@ -97,6 +241,24 @@
             "state": "translated",
             "value": "Get started"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empezar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "开始使用"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "開始使用"
+          }
         }
       }
     },
@@ -107,6 +269,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Next"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Siguiente"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "下一步"
           }
         }
       }
@@ -119,6 +299,24 @@
             "state": "translated",
             "value": "Page %lld of %lld"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Página %lld de %lld"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第%lld页，共%lld页"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "第%lld頁，共%lld頁"
+          }
         }
       }
     },
@@ -129,6 +327,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Skip"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omitir"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "跳过"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "略過"
           }
         }
       }
@@ -141,6 +357,24 @@
             "state": "translated",
             "value": "Account ID"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ID de cuenta"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "账号 ID"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳號 ID"
+          }
         }
       }
     },
@@ -151,6 +385,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "This is a spare key to your account. If you lose all your devices, your Account ID and recovery key get your account back. Keep them secret. You see them only now, so save them somewhere safe."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta es una llave de repuesto de tu cuenta. Si pierdes todos tus dispositivos, tu ID de cuenta y tu clave de recuperación te devuelven tu cuenta. Mantenlos en secreto. Solo los ves ahora, así que guárdalos en un lugar seguro."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这是你账号的备用钥匙。如果你的设备全丢了，账号 ID 和恢复密钥能帮你找回账号。请保密。它们只显示这一次，请保存在安全的地方。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這是你帳號的備用鑰匙。如果你的裝置全都遺失了，帳號 ID 和復原金鑰能幫你找回帳號。請保密。它們只會顯示這一次，請存放在安全的地方。"
           }
         }
       }
@@ -163,6 +415,24 @@
             "state": "translated",
             "value": "Type the last 4 characters of your recovery key. This makes sure you saved it."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe los últimos 4 caracteres de tu clave de recuperación. Así nos aseguramos de que la guardaste."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "输入恢复密钥的最后 4 个字符。这样可以确认你已经保存好了。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "輸入復原金鑰的最後 4 個字元。這樣可以確認你已經存好了。"
+          }
         }
       }
     },
@@ -173,6 +443,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "That doesn’t match. Look at your recovery key and try again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No coincide. Mira tu clave de recuperación e inténtalo de nuevo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不匹配。请看一下你的恢复密钥，然后重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "不相符。請看一下你的復原金鑰，然後再試一次。"
           }
         }
       }
@@ -185,6 +473,24 @@
             "state": "translated",
             "value": "Last 4 characters"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Últimos 4 caracteres"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最后 4 个字符"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "最後 4 個字元"
+          }
         }
       }
     },
@@ -195,6 +501,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Check your recovery key"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Comprueba tu clave de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "检查你的恢复密钥"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "檢查你的復原金鑰"
           }
         }
       }
@@ -207,6 +531,24 @@
             "state": "translated",
             "value": "Confirm"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Confirmar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "确认"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "確認"
+          }
         }
       }
     },
@@ -217,6 +559,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copied"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已复制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已拷貝"
           }
         }
       }
@@ -229,6 +589,24 @@
             "state": "translated",
             "value": "Copy"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "复制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "拷貝"
+          }
         }
       }
     },
@@ -239,6 +617,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep this secret. Anyone who has it can get into your account. Lost all your devices? Open gim, choose “Restore with your recovery kit” and paste this text."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantenlo en secreto. Cualquiera que lo tenga puede entrar en tu cuenta. ¿Perdiste todos tus dispositivos? Abre gim, elige “Restaurar con tu kit de recuperación” y pega este texto."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请保密。任何拿到它的人都能进入你的账号。设备全丢了？打开 gim，选择“用恢复套件恢复”，然后粘贴这段文字。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請保密。任何拿到它的人都能進入你的帳號。裝置全都遺失了？打開 gim，選擇「使用復原套件復原」，然後貼上這段文字。"
           }
         }
       }
@@ -251,6 +647,24 @@
             "state": "translated",
             "value": "gim recovery kit"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Kit de recuperación de gim"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gim 恢复套件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gim 復原套件"
+          }
         }
       }
     },
@@ -261,6 +675,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Recovery key"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clave de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复密钥"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復原金鑰"
           }
         }
       }
@@ -273,6 +705,24 @@
             "state": "translated",
             "value": "Couldn’t save the file. Copy the text instead."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudo guardar el archivo. Copia el texto en su lugar."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法保存文件。请改为复制文字。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法儲存檔案。請改為拷貝文字。"
+          }
         }
       }
     },
@@ -283,6 +733,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Save as text file"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar como archivo de texto"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存为文本文件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存為文字檔"
           }
         }
       }
@@ -295,6 +763,24 @@
             "state": "translated",
             "value": "I saved it"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ya lo guardé"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我已保存"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "我已儲存"
+          }
         }
       }
     },
@@ -305,6 +791,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show the kit again"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver a mostrar el kit"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次显示套件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "再次顯示套件"
           }
         }
       }
@@ -317,6 +821,24 @@
             "state": "translated",
             "value": "Your recovery kit"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu kit de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的恢复套件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的復原套件"
+          }
         }
       }
     },
@@ -327,6 +849,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Back to start"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Volver al inicio"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回开始页面"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "返回開始畫面"
           }
         }
       }
@@ -339,6 +879,24 @@
             "state": "translated",
             "value": "Cancel"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
@@ -349,6 +907,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Your other device shows a code too. Choose “The codes match” only if both are the same."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu otro dispositivo también muestra un código. Elige “Los códigos coinciden” solo si los dos son iguales."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的另一台设备也会显示一个代码。只有两个代码完全相同时，才选择“代码一致”。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的另一台裝置也會顯示一組代碼。只有兩組代碼完全相同時，才選擇「代碼相符」。"
           }
         }
       }
@@ -361,6 +937,24 @@
             "state": "translated",
             "value": "Compare the codes"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Compara los códigos"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "比对代码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "比對代碼"
+          }
         }
       }
     },
@@ -371,6 +965,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Copied"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiado"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已复制"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "已拷貝"
           }
         }
       }
@@ -383,6 +995,24 @@
             "state": "translated",
             "value": "Copy code instead"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copiar el código en su lugar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "改为复制关联码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "改為拷貝連結碼"
+          }
         }
       }
     },
@@ -393,6 +1023,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "The codes match"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los códigos coinciden"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代码一致"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代碼相符"
           }
         }
       }
@@ -405,6 +1053,24 @@
             "state": "translated",
             "value": "They don’t match"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No coinciden"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代码不一致"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "代碼不相符"
+          }
         }
       }
     },
@@ -415,6 +1081,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Link code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Código de vinculación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連結碼"
           }
         }
       }
@@ -427,6 +1111,24 @@
             "state": "translated",
             "value": "This device was not linked. You can try again."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este dispositivo no se vinculó. Puedes intentarlo de nuevo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这台设备没有关联成功。你可以重试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這台裝置沒有連結成功。你可以再試一次。"
+          }
         }
       }
     },
@@ -437,6 +1139,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "On a device where you use gim, open Settings, choose “Link a new device” and scan this code."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "En un dispositivo donde uses gim, abre Ajustes, elige “Vincular un dispositivo nuevo” y escanea este código."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在你正在使用 gim 的设备上，打开设置，选择“关联新设备”，然后扫描这个关联码。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "在你正在使用 gim 的裝置上，打開設定，選擇「連結新裝置」，然後掃描這個連結碼。"
           }
         }
       }
@@ -449,6 +1169,24 @@
             "state": "translated",
             "value": "Scan with your other device"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escanea con tu otro dispositivo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用你的另一台设备扫描"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用你的另一台裝置掃描"
+          }
         }
       }
     },
@@ -459,6 +1197,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Show a new code"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mostrar un código nuevo"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "显示新代码"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "顯示新代碼"
           }
         }
       }
@@ -471,6 +1227,24 @@
             "state": "translated",
             "value": "Getting a code ready…"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparando un código…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在准备关联码…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在準備連結碼…"
+          }
         }
       }
     },
@@ -481,6 +1255,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Link to a device you already use"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular con un dispositivo que ya usas"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联到你已在使用的设备"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連結到你已在使用的裝置"
           }
         }
       }
@@ -493,6 +1285,24 @@
             "state": "translated",
             "value": "Waiting for your other device…"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esperando a tu otro dispositivo…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在等待你的另一台设备…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在等待你的另一台裝置…"
+          }
         }
       }
     },
@@ -503,6 +1313,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Use the recovery kit you saved when you made your account. Old chats don't come back. Friends need to add you to groups again."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa el kit de recuperación que guardaste al crear tu cuenta. Los chats antiguos no vuelven. Tus amigos tendrán que volver a añadirte a los grupos."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用你创建账号时保存的恢复套件。以前的聊天不会回来。朋友需要重新把你加入群组。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用你建立帳號時儲存的復原套件。以前的聊天不會回來。朋友需要重新把你加入群組。"
           }
         }
       }
@@ -515,6 +1343,24 @@
             "state": "translated",
             "value": "Cancel"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cancelar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "取消"
+          }
         }
       }
     },
@@ -525,6 +1371,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "39 characters. Dashes and spaces are fine."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "39 caracteres. Puedes usar guiones y espacios."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "39 个字符。可以包含短横线和空格。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "39 個字元。可以包含連字號和空格。"
           }
         }
       }
@@ -537,6 +1401,24 @@
             "state": "translated",
             "value": "Recovery key"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clave de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复密钥"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復原金鑰"
+          }
         }
       }
     },
@@ -547,6 +1429,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Continue"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continuar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "继续"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "繼續"
           }
         }
       }
@@ -559,6 +1459,24 @@
             "state": "translated",
             "value": "Old chats don't come back. Ask friends to add you to groups again."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los chats antiguos no vuelven. Pide a tus amigos que te vuelvan a añadir a los grupos."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以前的聊天不会回来。请朋友重新把你加入群组。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以前的聊天不會回來。請朋友重新把你加入群組。"
+          }
         }
       }
     },
@@ -569,6 +1487,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Your account is back"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu cuenta ha vuelto"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的账号已恢复"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的帳號已復原"
           }
         }
       }
@@ -581,6 +1517,24 @@
             "state": "translated",
             "value": "This isn’t a recovery key. Check each character."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no es una clave de recuperación. Revisa cada carácter."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这不是恢复密钥。请逐个检查每个字符。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這不是復原金鑰。請逐一檢查每個字元。"
+          }
         }
       }
     },
@@ -591,6 +1545,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Part of the kit is missing. Fill in the empty field below."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Falta parte del kit. Rellena el campo vacío de abajo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "套件缺了一部分。请填写下面的空白栏。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "套件缺了一部分。請填寫下方的空白欄位。"
           }
         }
       }
@@ -603,6 +1575,24 @@
             "state": "translated",
             "value": "We couldn’t find an Account ID or recovery key here. Paste the whole kit, or type them below."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No encontramos un ID de cuenta ni una clave de recuperación aquí. Pega el kit completo o escríbelos abajo."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这里找不到账号 ID 或恢复密钥。请粘贴完整的套件，或在下面手动输入。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這裡找不到帳號 ID 或復原金鑰。請貼上完整的套件，或在下方自行輸入。"
+          }
         }
       }
     },
@@ -613,6 +1603,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "This isn’t an Account ID. It starts with “u” and has 56 characters."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esto no es un ID de cuenta. Empieza por “u” y tiene 56 caracteres."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这不是账号 ID。账号 ID 以“u”开头，共 56 个字符。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這不是帳號 ID。帳號 ID 以「u」開頭，共 56 個字元。"
           }
         }
       }
@@ -625,6 +1633,24 @@
             "state": "translated",
             "value": "Or type them yourself"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "O escríbelos tú"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "或者自己输入"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "或者自行輸入"
+          }
         }
       }
     },
@@ -635,6 +1661,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Paste all of it. We find your Account ID and recovery key in it."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pégalo todo. Encontraremos tu ID de cuenta y tu clave de recuperación."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部粘贴进来。我们会从中找到你的账号 ID 和恢复密钥。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "全部貼上。我們會從中找到你的帳號 ID 和復原金鑰。"
           }
         }
       }
@@ -647,6 +1691,24 @@
             "state": "translated",
             "value": "Paste your recovery kit"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pega tu kit de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "粘贴你的恢复套件"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "貼上你的復原套件"
+          }
         }
       }
     },
@@ -657,6 +1719,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove all other devices"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Quitar todos los demás dispositivos"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除其他所有设备"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "移除其他所有裝置"
           }
         }
       }
@@ -669,6 +1749,24 @@
             "state": "translated",
             "value": "They get signed out. Do this if a device was lost or stolen."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Se cerrará su sesión. Hazlo si perdiste un dispositivo o te lo robaron."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它们会被退出登录。如果有设备丢失或被偷，请这样做。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "它們會被登出。如果有裝置遺失或遭竊，請這樣做。"
+          }
         }
       }
     },
@@ -679,6 +1777,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restore account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar cuenta"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复账号"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復原帳號"
           }
         }
       }
@@ -691,6 +1807,24 @@
             "state": "translated",
             "value": "Restoring…"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurando…"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在恢复…"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "正在復原…"
+          }
         }
       }
     },
@@ -701,6 +1835,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Restore your account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaura tu cuenta"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "恢复你的账号"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "復原你的帳號"
           }
         }
       }
@@ -713,6 +1865,24 @@
             "state": "translated",
             "value": "Starts with “u”. It's in your recovery kit."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Empieza por “u”. Está en tu kit de recuperación."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以“u”开头。可以在你的恢复套件里找到。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "以「u」開頭。可以在你的復原套件中找到。"
+          }
         }
       }
     },
@@ -723,6 +1893,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Account ID"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ID de cuenta"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "账号 ID"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "帳號 ID"
           }
         }
       }
@@ -735,6 +1923,24 @@
             "state": "translated",
             "value": "Use this server"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar este servidor"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用这个服务器"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用這個伺服器"
+          }
         }
       }
     },
@@ -745,6 +1951,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Server: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Servidor: %@"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务器：%@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伺服器：%@"
           }
         }
       }
@@ -757,6 +1981,24 @@
             "state": "translated",
             "value": "The server your account uses."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El servidor que usa tu cuenta."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的账号使用的服务器。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "你的帳號使用的伺服器。"
+          }
         }
       }
     },
@@ -767,6 +2009,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Keep this server"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mantener este servidor"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保留这个服务器"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保留這個伺服器"
           }
         }
       }
@@ -779,6 +2039,24 @@
             "state": "translated",
             "value": "Server address"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dirección del servidor"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "服务器地址"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "伺服器位址"
+          }
         }
       }
     },
@@ -786,6 +2064,24 @@
       "extractionState": "manual",
       "localizations": {
         "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://"
+          }
+        },
+        "zh-Hant": {
           "stringUnit": {
             "state": "translated",
             "value": "https://"
@@ -801,6 +2097,24 @@
             "state": "translated",
             "value": "Use another server"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usar otro servidor"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用其他服务器"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用其他伺服器"
+          }
         }
       }
     },
@@ -811,6 +2125,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Chat with the people you care about. Use the account you already have, or start a new one."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Chatea con las personas que te importan. Usa la cuenta que ya tienes o crea una nueva."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "和你在乎的人聊天。使用你已有的账号，或者创建一个新账号。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "和你在乎的人聊天。使用你已有的帳號，或建立一個新帳號。"
           }
         }
       }
@@ -823,6 +2155,24 @@
             "state": "translated",
             "value": "Create new account"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Crear cuenta nueva"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "创建新账号"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "建立新帳號"
+          }
         }
       }
     },
@@ -833,6 +2183,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Dismiss"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cerrar"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关闭"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "關閉"
           }
         }
       }
@@ -845,6 +2213,24 @@
             "state": "translated",
             "value": "Link to a device you already use"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vincular con un dispositivo que ya usas"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "关联到你已在使用的设备"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "連結到你已在使用的裝置"
+          }
         }
       }
     },
@@ -855,6 +2241,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Your chats on this Mac could not be opened and were removed. Sign in again to keep using gim."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No se pudieron abrir tus chats en este Mac y se quitaron. Vuelve a iniciar sesión para seguir usando gim."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这台 Mac 上的聊天无法打开，已被移除。请重新登录以继续使用 gim。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這台 Mac 上的聊天無法打開，已被移除。請重新登入以繼續使用 gim。"
           }
         }
       }
@@ -867,6 +2271,24 @@
             "state": "translated",
             "value": "Restore with your recovery kit"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restaurar con tu kit de recuperación"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用恢复套件恢复"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用復原套件復原"
+          }
         }
       }
     },
@@ -877,6 +2299,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Friends can find you with it. It’s optional. You can add one later."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tus amigos pueden encontrarte con él. Es opcional. Puedes añadir uno más tarde."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "朋友可以用它找到你。这是可选的，你以后也可以再添加。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "朋友可以用它找到你。這是選用的，你之後也可以再加入。"
           }
         }
       }
@@ -889,6 +2329,24 @@
             "state": "translated",
             "value": "3–32 characters: a–z, 0–9, _ and ."
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "De 3 a 32 caracteres: a–z, 0–9, _ y ."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3–32 个字符：a–z、0–9、_ 和 ."
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "3–32 個字元：a–z、0–9、_ 和 ."
+          }
         }
       }
     },
@@ -899,6 +2357,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Username"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nombre de usuario"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用户名"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用者名稱"
           }
         }
       }
@@ -911,6 +2387,24 @@
             "state": "translated",
             "value": "Save username"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Guardar nombre de usuario"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "保存用户名"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "儲存使用者名稱"
+          }
         }
       }
     },
@@ -921,6 +2415,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Skip for now"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Omitir por ahora"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暂时跳过"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "暫時略過"
           }
         }
       }
@@ -933,6 +2445,24 @@
             "state": "translated",
             "value": "Choose a username"
           }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige un nombre de usuario"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "选择用户名"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "選擇使用者名稱"
+          }
         }
       }
     },
@@ -943,6 +2473,24 @@
           "stringUnit": {
             "state": "translated",
             "value": "Welcome to gim"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Te damos la bienvenida a gim"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "欢迎使用 gim"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "歡迎使用 gim"
           }
         }
       }
