@@ -38,9 +38,8 @@ struct ChatPaneView: View {
                 .background(QuickLookResponderView(controller: pane.quickLook))
                 .onDrop(of: MediaDrop.acceptedTypes, isTargeted: $isDropTargeted) { providers in
                     Task {
-                        let urls = await MediaDrop.fileURLs(from: providers)
-                        let imageData = await MediaDrop.imageData(from: providers)
-                        await pane.sendDropped(urls: urls, imageData: imageData)
+                        let payload = await MediaDrop.payload(from: providers)
+                        await pane.sendDropped(urls: payload.urls, imageData: payload.imageData)
                     }
                     return true
                 }
