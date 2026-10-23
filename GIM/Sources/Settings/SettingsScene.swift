@@ -16,6 +16,7 @@ struct SettingsScene: View {
                 } icon: {
                     Image(systemName: section.systemImage)
                 }
+                .tag(section)
             }
             .safeAreaInset(edge: .bottom) {
                 SignOutButton(model: model)
