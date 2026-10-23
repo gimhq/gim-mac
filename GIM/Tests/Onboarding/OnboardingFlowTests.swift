@@ -29,7 +29,7 @@ final class OnboardingFlowTests: XCTestCase {
         await link.confirm(codesMatch: true)
 
         XCTAssertEqual(model.phase, .ready)
-        XCTAssertEqual(model.session?.userId, FakeDemoData.demoSelfId)
+        XCTAssertEqual(model.session?.userId, FakeGimClient.demoSelfId)
         XCTAssertEqual(defaults.string(forKey: AppModel.serverUrlKey), "http://localhost:8080")
     }
 

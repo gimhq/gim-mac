@@ -18,7 +18,7 @@ final class OnboardingIntroTests: XCTestCase {
             let sections = OnboardingIntroPages.sections(for: page)
             XCTAssertEqual(sections.map(\.id), OnboardingIntroPages.pages[page], "page \(page)")
             for section in sections {
-                XCTAssertTrue(ExplainerContent.sections.contains(section), section.id)
+                XCTAssertTrue(ExplainerContent.sections.contains(where: { $0.id == section.id }), section.id)
             }
         }
     }
