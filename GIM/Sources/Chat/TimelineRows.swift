@@ -1,3 +1,5 @@
+import AppKit
+import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
@@ -74,7 +76,8 @@ private struct MessageRowView: View {
     }
 }
 
-/// Menu items from `MessageActionsViewModel.actions(for:isReadOnly:)`, in its order.
+/// Menu items from `MessageActionsViewModel.actions(for:isReadOnly:)`, in its order, then the media items for a
+/// photo or file that can be fetched.
 private struct MessageContextMenu: View {
     let row: TimelineMessageRow
     let pane: ChatPaneModel
@@ -127,6 +130,43 @@ private struct MessageContextMenu: View {
                     Text("chat.timeline.action.retry", tableName: "Chat")
                 }
             }
+        }
+        if !row.isMediaUnavailable {
+            mediaItems
+        }
+    }
+
+    @ViewBuilder
+    private var mediaItems: some View {
+        let messageId = row.message.messageId
+        let attachmentBody = row.body
+        switch attachmentBody {
+        case .image, .file:
+            Divider()
+            Button {
+                Task { await pane.quickLook(messageId: messageId) }
+            } label: {
+                Text("chat.media.quickLook", tableName: "Chat")
+            }
+            Button {
+                let window = NSApplication.shared.keyWindow
+                Task { await pane.media.saveAs(body: attachmentBody, from: window) }
+            } label: {
+                Text("chat.media.saveAs", tableName: "Chat")
+            }
+            if case .file = attachmentBody {
+                Button {
+                    let media = pane.media
+                    Task {
+                        guard let url = try? await media.file(for: attachmentBody) else { return }
+                        NSWorkspace.shared.activateFileViewerSelecting([url])
+                    }
+                } label: {
+                    Text("chat.media.showInFinder", tableName: "Chat")
+                }
+            }
+        case .text, .placeholder:
+            EmptyView()
         }
     }
 }
