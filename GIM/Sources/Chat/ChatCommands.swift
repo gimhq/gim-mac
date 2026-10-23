@@ -91,7 +91,23 @@ struct ChatCommands: Commands {
             .keyboardShortcut("g", modifiers: [.command, .shift])
             .disabled(pane?.search.matchIds.isEmpty != false)
 
-            // Quick Look items are added by a later subtask.
+            Divider()
+
+            Button {
+                Task { await pane?.quickLookSelected() }
+            } label: {
+                Text("chat.command.quickLook", tableName: "Chat")
+            }
+            .keyboardShortcut("y", modifiers: .command)
+            .disabled(pane?.selectedMessageIsMedia != true)
+
+            Button {
+                Task { await pane?.saveSelectedAs() }
+            } label: {
+                Text("chat.command.saveAs", tableName: "Chat")
+            }
+            .keyboardShortcut("s", modifiers: [.command, .shift])
+            .disabled(pane?.selectedMessageIsMedia != true)
         }
     }
 }

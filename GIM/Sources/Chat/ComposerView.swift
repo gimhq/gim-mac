@@ -51,7 +51,7 @@ struct ComposerView: View {
                 focusRequest: pane.composerFocusRequest,
                 onSend: send,
                 onEditLastMessage: { pane.editLastOwnMessage() },
-                onPasteImage: { _ in })
+                onPasteImage: { data in Task { await pane.sendDropped(urls: [], imageData: [data]) } })
             .id(ObjectIdentifier(pane))
             .background(
                 RoundedRectangle(cornerRadius: DesignTokens.cornerRadius)

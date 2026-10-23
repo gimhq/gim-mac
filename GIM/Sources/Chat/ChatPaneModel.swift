@@ -16,6 +16,8 @@ final class ChatPaneModel {
     let timeline: TimelineViewModel
     let actions: MessageActionsViewModel
     let composer: ComposerViewModel
+    let media: MediaStore
+    let quickLook = QuickLookController()
     let search = ChatSearch()
 
     /// Set by the view from the app's activity.
@@ -31,7 +33,10 @@ final class ChatPaneModel {
     /// Incremented to move the keyboard focus into the search field.
     var searchFocusRequest = 0
 
-    init(client: any GimClientAPI, chatId: String, ownUserId: String?, mediaDirectory: String? = nil) {
+    init(
+        client: any GimClientAPI, chatId: String, ownUserId: String?,
+        mediaDirectory: String? = (try? AppDirectories.dataDirectory)?.appendingPathComponent("media").path
+    ) {
         self.client = client
         self.chatId = chatId
         self.ownUserId = ownUserId
@@ -40,6 +45,7 @@ final class ChatPaneModel {
         self.timeline = timeline
         actions = MessageActionsViewModel(client: client, chatId: chatId)
         composer = ComposerViewModel(client: client, chatId: chatId, drafts: Self.drafts, timeline: timeline)
+        media = MediaStore(timeline: timeline)
     }
 
     func start() {
@@ -61,13 +67,14 @@ final class ChatPaneModel {
     }
 
     var errorMessage: String? {
-        timeline.errorMessage ?? actions.errorMessage ?? composer.errorMessage
+        timeline.errorMessage ?? actions.errorMessage ?? composer.errorMessage ?? media.errorMessage
     }
 
     func dismissError() {
         timeline.dismissError()
         actions.dismissError()
         composer.dismissError()
+        media.dismissError()
     }
 
     var isGroup: Bool {
@@ -172,5 +179,41 @@ final class ChatPaneModel {
 
     func closeSearch() {
         search.close()
+    }
+
+    // MARK: - Media
+
+    /// Whether the selected message is a photo or a file.
+    var selectedMessageIsMedia: Bool {
+        selectedMessageId.flatMap(mediaBody(of:)) != nil
+    }
+
+    /// Opens the message's attachment in Quick Look; does nothing for other messages.
+    func quickLook(messageId: String?) async {
+        guard let messageId, let body = mediaBody(of: messageId) else { return }
+        guard let url = try? await media.file(for: body) else { return }
+        quickLook.preview(url: url)
+    }
+
+    func quickLookSelected() async {
+        await quickLook(messageId: selectedMessageId)
+    }
+
+    func saveSelectedAs() async {
+        guard let selectedMessageId, let body = mediaBody(of: selectedMessageId) else { return }
+        await media.saveAs(body: body, from: NSApplication.shared.keyWindow)
+    }
+
+    /// Sends dropped or pasted files and images.
+    func sendDropped(urls: [URL], imageData: [Data]) async {
+        await MediaDrop.send(urls: urls, imageData: imageData, through: composer)
+    }
+
+    private func mediaBody(of messageId: String) -> MessageBody? {
+        let row = timeline.items.first { $0.id == TimelineDisplayItem.id(forMessage: messageId) }?.messageRow
+        switch row?.body {
+        case .image, .file: return row?.body
+        default: return nil
+        }
     }
 }
