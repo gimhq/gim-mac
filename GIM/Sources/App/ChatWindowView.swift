@@ -7,7 +7,7 @@ struct ChatWindowView: View {
 
     var body: some View {
         let title = model.sidebar?.title(for: chatWindow.chatId) ?? chatWindow.chatId
-        ChatPaneView(title: title)
+        ChatPaneView(model: model, chatId: chatWindow.chatId)
             .navigationTitle(title)
             .frame(minWidth: 480, minHeight: 360)
     }
