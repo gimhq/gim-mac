@@ -1,14 +1,20 @@
 import Foundation
 import SwiftUI
 
-/// The text of a message, selectable, with web links made clickable. Markdown is not interpreted.
+/// The text of a message, selectable, with web links made clickable and a preview card for the first one.
+/// Markdown is not interpreted.
 struct TextBubble: View {
     let text: String
 
     var body: some View {
-        Text(Self.linked(text))
-            .textSelection(.enabled)
-            .fixedSize(horizontal: false, vertical: true)
+        VStack(alignment: .leading, spacing: DesignTokens.spacingS) {
+            Text(Self.linked(text))
+                .textSelection(.enabled)
+                .fixedSize(horizontal: false, vertical: true)
+            if let url = LinkDetector.firstURL(in: text) {
+                LinkPreviewView(url: url)
+            }
+        }
     }
 
     /// `text` with a `.link` attribute on every URL `NSDataDetector` finds.
