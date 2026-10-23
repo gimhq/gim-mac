@@ -1341,25 +1341,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "On your new device, choose \"I already use gim\". Copy the link code it shows and paste it here."
+            "value": "On your new device, choose \"Link to a device you already use\". Copy the link code it shows and paste it here."
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "En tu dispositivo nuevo, elige \"Ya uso gim\". Copia el código de vinculación que aparece y pégalo aquí."
+            "value": "En tu dispositivo nuevo, elige \"Vincular con un dispositivo que ya usas\". Copia el código de vinculación que aparece y pégalo aquí."
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "在新设备上选择“我已经在用 gim”。复制它显示的关联码，然后粘贴到这里。"
+            "value": "在新设备上选择“关联到你已在使用的设备”。复制它显示的关联码，然后粘贴到这里。"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "在新裝置上選擇「我已經在使用 gim」。拷貝它顯示的連結碼，然後貼到這裡。"
+            "value": "在新裝置上選擇「連結到你已在使用的裝置」。拷貝它顯示的連結碼，然後貼到這裡。"
           }
         }
       }
