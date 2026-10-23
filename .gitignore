@@ -1,0 +1,9 @@
+*.xcodeproj/
+xcuserdata/
+DerivedData/
+build/
+.build/
+.swiftpm/
+.DS_Store
+.tmp/
+GIM/Info.plist
