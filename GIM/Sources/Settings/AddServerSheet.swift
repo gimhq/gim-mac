@@ -27,13 +27,8 @@ struct AddServerSheet: View {
                     .foregroundStyle(.secondary)
             }
             if let error = addHub.errorMessage {
-                if let key = SettingsText.addServerErrorKey(error) {
-                    Text(LocalizedStringKey(key), tableName: "Settings")
-                        .foregroundStyle(.red)
-                } else {
-                    Text(error)
-                        .foregroundStyle(.red)
-                }
+                Text(error)
+                    .foregroundStyle(.red)
             }
             HStack {
                 Spacer()

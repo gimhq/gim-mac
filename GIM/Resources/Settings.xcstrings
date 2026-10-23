@@ -364,17 +364,6 @@
         }
       }
     },
-    "settings.link.emptyCode": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Paste the link code from your new device first."
-          }
-        }
-      }
-    },
     "settings.link.continue": {
       "extractionState": "manual",
       "localizations": {
@@ -540,39 +529,6 @@
         }
       }
     },
-    "settings.servers.connected": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Connected"
-          }
-        }
-      }
-    },
-    "settings.servers.notChecked": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Not checked"
-          }
-        }
-      }
-    },
-    "settings.servers.removed": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Removed"
-          }
-        }
-      }
-    },
     "settings.servers.main": {
       "extractionState": "manual",
       "localizations": {
@@ -672,17 +628,6 @@
         }
       }
     },
-    "settings.servers.ownedGroups": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This server runs %lld of your group chats. They keep working through your other servers."
-          }
-        }
-      }
-    },
     "settings.servers.removeAnyway": {
       "extractionState": "manual",
       "localizations": {
@@ -690,83 +635,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Remove anyway"
-          }
-        }
-      }
-    },
-    "settings.servers.cantRemoveMain": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Can't remove your main server"
-          }
-        }
-      }
-    },
-    "settings.servers.cantRemoveMainBody": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Your account lives on this server, so it stays. You can make another server your main server."
-          }
-        }
-      }
-    },
-    "settings.servers.cantRemoveLast": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Can't remove your only server"
-          }
-        }
-      }
-    },
-    "settings.servers.cantRemoveLastBody": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Add another server first. Then you can remove this one."
-          }
-        }
-      }
-    },
-    "settings.servers.tryLater": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Try again later"
-          }
-        }
-      }
-    },
-    "settings.servers.tryLaterBody": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Some messages are still on their way through this server. Try again in a few minutes."
-          }
-        }
-      }
-    },
-    "settings.servers.cantRemove": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Can't remove this server"
           }
         }
       }
@@ -833,28 +701,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Cancel"
-          }
-        }
-      }
-    },
-    "settings.addServer.refused": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This server doesn't accept your account. Try a different server."
-          }
-        }
-      }
-    },
-    "settings.addServer.notVerified": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "This server didn't answer at this address. Check the address and try again."
           }
         }
       }
@@ -1185,17 +1031,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "Help and about"
-          }
-        }
-      }
-    },
-    "settings.section.comingSoon": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Coming soon."
           }
         }
       }

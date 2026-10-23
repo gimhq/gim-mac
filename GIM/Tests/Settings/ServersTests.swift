@@ -14,30 +14,6 @@ final class ServersTests: XCTestCase {
             scheduler: ImmediateFakeScheduler(), dataDirectory: directory.path, registered: true)
     }
 
-    func testHubStateKeys() {
-        XCTAssertEqual(SettingsText.hubStateKey(.verified), "settings.servers.connected")
-        XCTAssertEqual(SettingsText.hubStateKey(.unverified), "settings.servers.notChecked")
-        XCTAssertEqual(SettingsText.hubStateKey(.removed), "settings.servers.removed")
-    }
-
-    func testNoticeKeys() {
-        XCTAssertEqual(SettingsText.noticeKey(title: "Can't Remove Home Hub"), "settings.servers.cantRemoveMain")
-        XCTAssertEqual(SettingsText.noticeKey(title: "Can't Remove Last Hub"), "settings.servers.cantRemoveLast")
-        XCTAssertEqual(SettingsText.noticeKey(title: "Try Again Later"), "settings.servers.tryLater")
-        XCTAssertEqual(SettingsText.noticeKey(title: "Something New"), "settings.servers.cantRemove")
-        XCTAssertEqual(
-            SettingsText.noticeMessageKey(title: "Can't Remove Home Hub"), "settings.servers.cantRemoveMainBody")
-        XCTAssertNil(SettingsText.noticeMessageKey(title: "Something New"))
-    }
-
-    func testAddServerErrorKeys() {
-        XCTAssertEqual(SettingsText.addServerErrorKey(ErrorPresenter.hubRefusedMessage), "settings.addServer.refused")
-        XCTAssertEqual(
-            SettingsText.addServerErrorKey(ErrorPresenter.message(for: GimError.HubNotVerified(reason: "x"))),
-            "settings.addServer.notVerified")
-        XCTAssertNil(SettingsText.addServerErrorKey("Something went wrong."))
-    }
-
     func testHomeServerIsMainAndConnected() async throws {
         let hubs = HubsViewModel(client: makeClient())
         hubs.start()
@@ -45,7 +21,8 @@ final class ServersTests: XCTestCase {
         try await waitUntil { !hubs.isLoading }
         let home = try XCTUnwrap(hubs.hubs.first)
         XCTAssertTrue(home.isPrimary)
-        XCTAssertEqual(SettingsText.hubStateKey(home.state), "settings.servers.connected")
+        XCTAssertEqual(home.state, .verified)
+        XCTAssertEqual(HubsViewModel.stateText(home.state), "Connected")
         XCTAssertFalse(hubs.canSetPrimary(home))
     }
 
@@ -59,7 +36,10 @@ final class ServersTests: XCTestCase {
         XCTAssertEqual(hubs.pendingRemoval, home)
         await hubs.confirmRemoval(of: home)
         let notice = try XCTUnwrap(hubs.notice)
-        XCTAssertEqual(SettingsText.noticeKey(title: notice.title), "settings.servers.cantRemoveMain")
+        XCTAssertEqual(notice.title, "Can't remove your main server")
+        XCTAssertNotEqual(notice.title, "Can't remove your only server")
+        XCTAssertNotEqual(notice.title, "Try again later")
+        XCTAssertFalse(notice.message.isEmpty)
     }
 
     func testAddThenRemoveServer() async throws {

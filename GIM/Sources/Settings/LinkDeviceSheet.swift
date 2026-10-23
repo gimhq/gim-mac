@@ -10,7 +10,6 @@ struct LinkDeviceSheet: View {
     let onLinked: @MainActor () -> Void
 
     @State private var link: ApproveLinkViewModel
-    @State private var showsEmptyCodeError = false
     @Environment(\.dismiss) private var dismiss
 
     init(client: any GimClientAPI, onLinked: @escaping @MainActor () -> Void) {
@@ -54,10 +53,6 @@ struct LinkDeviceSheet: View {
                 text: Bindable(link).linkCode)
                 .autocorrectionDisabled()
                 .onSubmit(submit)
-            if showsEmptyCodeError {
-                Text("settings.link.emptyCode", tableName: "Settings")
-                    .foregroundStyle(.red)
-            }
             HStack {
                 Spacer()
                 Button {
@@ -118,11 +113,8 @@ struct LinkDeviceSheet: View {
         }
     }
 
-    /// Approves the pasted code; an empty code gets this sheet's own message instead of the view model's.
+    /// Approves the pasted code; the view model explains an empty one.
     private func submit() {
-        let code = link.linkCode.trimmingCharacters(in: .whitespacesAndNewlines)
-        showsEmptyCodeError = code.isEmpty
-        guard !code.isEmpty else { return }
         Task { await link.submit() }
     }
 }
