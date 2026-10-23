@@ -2,11 +2,19 @@ import SwiftUI
 
 @main
 struct GIMApp: App {
-    @State private var model = AppModel()
+    @State private var model: AppModel
+    @State private var system: SystemServices
+
+    init() {
+        let model = AppModel()
+        _model = State(initialValue: model)
+        _system = State(initialValue: SystemServices(model: model))
+    }
 
     var body: some Scene {
-        WindowGroup {
+        WindowGroup(id: ChatRouter.mainWindowGroupID) {
             RootView(model: model)
+                .task { system.start() }
         }
         .commands {
             AppCommands()
@@ -19,18 +27,14 @@ struct GIMApp: App {
         }
 
         Settings {
-            SettingsScene(model: model)
+            SettingsScene(model: model, system: system)
         }
 
-        // Menu bar mode is off until a later subtask implements it.
         MenuBarExtra(isInserted: $model.showsMenuBarExtra) {
-            Text("app.menuBar.placeholder", tableName: "App")
+            MenuBarExtraContent(model: model, system: system)
         } label: {
-            Label {
-                Text("app.menuBar.placeholder", tableName: "App")
-            } icon: {
-                Image(systemName: "bubble.left.and.bubble.right")
-            }
+            MenuBarExtraLabel(system: system)
         }
+        .menuBarExtraStyle(.menu)
     }
 }
