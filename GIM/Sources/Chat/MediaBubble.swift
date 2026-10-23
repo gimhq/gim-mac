@@ -4,8 +4,8 @@ import GIMFeatures
 import SwiftUI
 
 /// Photos and files in a bubble: the thumbnail, or the file's name and size, plus the caption. Double-click opens
-/// Quick Look; the context menu saves the attachment or shows it in Finder. An attachment that can't be fetched
-/// for now offers to try again.
+/// Quick Look; the message row's context menu holds the media actions. An attachment that can't be fetched for now
+/// offers to try again.
 struct MediaBubble: View {
     /// `body` is the view's own content, so the message body is stored under another name.
     let messageBody: MessageBody
@@ -29,7 +29,6 @@ struct MediaBubble: View {
                         let messageId = row.message.messageId
                         Task { await pane.quickLook(messageId: messageId) }
                     }
-                    .contextMenu { menu }
             }
             switch messageBody {
             case .image(_, _, _, let caption), .file(_, _, _, let caption):
@@ -80,34 +79,6 @@ struct MediaBubble: View {
             .buttonStyle(.plain)
         }
         .font(.callout)
-    }
-
-    @ViewBuilder
-    private var menu: some View {
-        let messageId = row.message.messageId
-        let attachmentBody = messageBody
-        Button {
-            Task { await pane.quickLook(messageId: messageId) }
-        } label: {
-            Text("chat.media.quickLook", tableName: "Chat")
-        }
-        Button {
-            let window = NSApplication.shared.keyWindow
-            Task { await pane.media.saveAs(body: attachmentBody, from: window) }
-        } label: {
-            Text("chat.media.saveAs", tableName: "Chat")
-        }
-        if case .file = attachmentBody {
-            Button {
-                let media = pane.media
-                Task {
-                    guard let url = try? await media.file(for: attachmentBody) else { return }
-                    NSWorkspace.shared.activateFileViewerSelecting([url])
-                }
-            } label: {
-                Text("chat.media.showInFinder", tableName: "Chat")
-            }
-        }
     }
 }
 
