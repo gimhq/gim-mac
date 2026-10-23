@@ -1,14 +1,19 @@
+import Foundation
 import GIMClientKit
 
 /// Selects the `GimClientFactory` the app runs with.
-///
-/// TODO: wire `RealGimClientFactory` for GIMCore (contract C5) behind the same `GimClientFactory` protocol, shaped
-/// like gim-ios `GIMPlatform/Bridge`. Until then the fake client is the only mode (demo mode).
 enum ClientFactories {
-    /// `CoreGimClientFactory` validates the server URL and currently returns the demo client without a session, so
-    /// onboarding appears on first launch.
-    static func `default`() -> any GimClientFactory {
-        CoreGimClientFactory()
+    /// Debug builds use the demo client instead of GIMCore when launched with `-GIMUseFakeCore YES`.
+    static let useFakeCoreKey = "GIMUseFakeCore"
+
+    /// GIMCore (`RealGimClientFactory`); in Debug builds the `useFakeCoreKey` launch argument selects the demo client
+    /// (`CoreGimClientFactory`, which starts without a session so onboarding appears). Release builds always use
+    /// GIMCore.
+    static func `default`(defaults: UserDefaults = .standard) -> any GimClientFactory {
+        #if DEBUG
+            if defaults.bool(forKey: useFakeCoreKey) { return CoreGimClientFactory() }
+        #endif
+        return RealGimClientFactory()
     }
 }
 
