@@ -36,6 +36,22 @@ The app uses the last used server, else the `-GIMDefaultServerURL <url>` launch 
 `GIM_DEFAULT_SERVER_URL` build setting (Debug: `http://localhost:8080`, Release: `https://hub.g.im`), else the built-in
 `https://hub.g.im`.
 
+## Refreshing gim-core
+
+`Vendor/GIMCore` is the `GIMCore` Swift package built by gim-client-sdk CI (Package.swift, `GIMCore.xcframework.zip`
+with its `.sha256`, generated `Sources/GIMCore/GIMCore.swift`). Pick a green `CI` run on gim-client-sdk `main`
+(`gh run list -R gimhq/gim-client-sdk --branch main --workflow CI`), then:
+
+```sh
+scripts/sync-gim-core.sh <gim-client-sdk CI run id>
+scripts/sync-gim-core.sh --from-dir <dir> --core-sha <gim-client-sdk sha>
+```
+
+The first form downloads the `gim-core-ios-<sha>` artifact with `gh`; the second takes a directory with the same
+layout. The script verifies the zip against its `.sha256`, replaces `Vendor/GIMCore` with the artifact as is and
+writes `Vendor/GIMCore/GIM_CORE_VERSION` (`<core version>+<short sha>`). The zip is committed; commit the whole
+directory.
+
 ## Mac gate
 
 ```sh
