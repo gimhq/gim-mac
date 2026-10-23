@@ -41,11 +41,11 @@ struct SettingsScene: View {
     private func detail(for section: SettingsSection) -> some View {
         switch section {
         case .profile: ProfileSection(model: model)
-        case .accountDevices: SettingsPlaceholderView(section: section)
+        case .accountDevices: AccountDevicesSection(model: model)
         case .notifications: SettingsPlaceholderView(section: section)
         case .appearance: SettingsPlaceholderView(section: section)
         case .language: SettingsPlaceholderView(section: section)
-        case .advanced: SettingsPlaceholderView(section: section)
+        case .advanced: ServersSection(model: model)
         case .helpAbout: SettingsPlaceholderView(section: section)
         }
     }
