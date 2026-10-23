@@ -36,7 +36,7 @@ final class LinkFlowTests: XCTestCase {
         XCTAssertEqual(viewModel.step, .linked)
         XCTAssertEqual(registrations.count, 1)
         let registration = try XCTUnwrap(registrations.first)
-        XCTAssertEqual(registration.session.userId, FakeDemoData.demoSelfId)
+        XCTAssertEqual(registration.session.userId, FakeGimClient.demoSelfId)
         XCTAssertEqual(registration.config.serverUrl, "http://localhost:8080")
     }
 
