@@ -1,0 +1,138 @@
+{
+  "sourceLanguage": "en",
+  "strings": {
+    "explainer.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "How gim works"
+          }
+        }
+      }
+    },
+    "explainer.intro.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "gim works a bit differently from other chat apps. Here is what to know."
+          }
+        }
+      }
+    },
+    "explainer.noPhoneNumber.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No phone number needed"
+          }
+        }
+      }
+    },
+    "explainer.noPhoneNumber.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You don’t need a phone number or email. Just pick a name. gim gives you an Account ID."
+          }
+        }
+      }
+    },
+    "explainer.onYourDevices.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your account lives on your devices"
+          }
+        }
+      }
+    },
+    "explainer.onYourDevices.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your account is kept on your devices, not on a server. Want to use it somewhere else? Link another device."
+          }
+        }
+      }
+    },
+    "explainer.lockedMessages.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your messages are locked"
+          }
+        }
+      }
+    },
+    "explainer.lockedMessages.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Messages are end-to-end encrypted. Only the people in the chat can read them. Not even the server can."
+          }
+        }
+      }
+    },
+    "explainer.accountId.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your Account ID is your address"
+          }
+        }
+      }
+    },
+    "explainer.accountId.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share your Account ID so friends can reach you. You can also pick a username to make you easier to find."
+          }
+        }
+      }
+    },
+    "explainer.recoveryKey.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your recovery key is a spare key"
+          }
+        }
+      }
+    },
+    "explainer.recoveryKey.body": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Lost all your devices? Your recovery key and Account ID bring your account back. Old chats don’t come back. Keep the key secret and safe. Never show it to anyone."
+          }
+        }
+      }
+    }
+  },
+  "version": "1.0"
+}
