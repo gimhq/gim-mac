@@ -9,7 +9,7 @@ actor LinkPreviewCache {
 
     let directory: URL
     let maxEntries: Int
-    nonisolated let maxImageBytes: Int
+    let maxImageBytes: Int
     private var memory: [String: LinkPreview] = [:]
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
