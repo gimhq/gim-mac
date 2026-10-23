@@ -54,9 +54,7 @@ struct ChatPaneView: View {
                         ErrorBanner(message: errorMessage) { pane.dismissError() }
                     }
                     Divider()
-                    Text("chat.pane.composerPlaceholder", tableName: "Chat")
-                        .foregroundStyle(.secondary)
-                        .frame(maxWidth: .infinity, minHeight: ChatTheme.bottomBarHeight)
+                    ComposerView(pane: pane)
                 }
             } else if model.client == nil {
                 Text("chat.placeholder.comingSoon", tableName: "Chat")
@@ -67,6 +65,7 @@ struct ChatPaneView: View {
             }
         }
         .frame(minWidth: ChatTheme.paneMinWidth)
+        .focusedSceneValue(\.chatPane, pane)
         .task(id: chatId) {
             pane?.stop()
             guard let client = model.client else {
@@ -96,9 +95,9 @@ struct ChatPaneView: View {
     }
 }
 
-/// Avatar, title and the typing line.
+/// Avatar, title, the typing line and the chat info button.
 private struct ChatPaneHeader: View {
-    let pane: ChatPaneModel
+    @Bindable var pane: ChatPaneModel
 
     var body: some View {
         HStack(spacing: DesignTokens.spacingS) {
@@ -119,6 +118,18 @@ private struct ChatPaneHeader: View {
                 }
             }
             Spacer(minLength: 0)
+            Button {
+                pane.showsGroupInfo.toggle()
+            } label: {
+                Image(systemName: "info.circle")
+                    .font(.title3)
+            }
+            .buttonStyle(.plain)
+            .help(Text("chat.pane.info", tableName: "Chat"))
+            .accessibilityLabel(Text("chat.pane.info", tableName: "Chat"))
+            .popover(isPresented: $pane.showsGroupInfo, arrowEdge: .bottom) {
+                GroupInfoView(client: pane.client, chatId: pane.timeline.chatId)
+            }
         }
         .padding(.horizontal, DesignTokens.spacingM)
         .padding(.vertical, DesignTokens.spacingS)

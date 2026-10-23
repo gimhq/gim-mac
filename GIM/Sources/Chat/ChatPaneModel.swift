@@ -10,6 +10,7 @@ final class ChatPaneModel {
     /// Unsent text per chat, shared by every pane of the process.
     static let drafts = ComposerDrafts()
 
+    let client: any GimClientAPI
     let chatId: String
     let ownUserId: String?
     let timeline: TimelineViewModel
@@ -22,8 +23,13 @@ final class ChatPaneModel {
     var isBottomVisible = false
     /// The row highlighted by a click.
     var selectedMessageId: String?
+    /// Incremented to move the keyboard focus into the composer.
+    var composerFocusRequest = 0
+    /// Whether the chat info popover is open.
+    var showsGroupInfo = false
 
     init(client: any GimClientAPI, chatId: String, ownUserId: String?, mediaDirectory: String? = nil) {
+        self.client = client
         self.chatId = chatId
         self.ownUserId = ownUserId
         let timeline = TimelineViewModel(
@@ -61,8 +67,39 @@ final class ChatPaneModel {
         composer.dismissError()
     }
 
+    var isGroup: Bool {
+        timeline.isGroup
+    }
+
     func markReadIfNeeded() async {
         await timeline.markReadIfNeeded(bottomVisible: isBottomVisible, appActive: isAppActive)
+    }
+
+    // MARK: - Composer
+
+    func focusComposer() {
+        composerFocusRequest += 1
+    }
+
+    /// Sends the composer's text or edit, then puts the focus back into the composer.
+    func send() async {
+        await composer.send()
+        focusComposer()
+    }
+
+    /// Starts editing the newest own text message.
+    func editLastOwnMessage() {
+        let message = timeline.items.reversed().lazy
+            .compactMap { $0.messageRow?.message }
+            .first { ComposerViewModel.canEdit($0) }
+        guard let message else { return }
+        composer.beginEdit(message)
+    }
+
+    /// Replies to the selected message.
+    func replyToSelected() {
+        guard let selectedMessageId else { return }
+        reply(to: selectedMessageId)
     }
 
     // MARK: - Message actions
