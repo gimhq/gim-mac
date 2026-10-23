@@ -12,11 +12,7 @@ struct RootView: View {
             case .onboarding:
                 OnboardingFlow(model: model)
             case .ready:
-                // Replaced by the sidebar layout in a later subtask.
-                Text(
-                    String(
-                        localized: "app.ready.placeholder",
-                        defaultValue: "Signed in as \(model.session?.displayName ?? "")", table: "App"))
+                MainWindowView(model: model)
             }
         }
         .frame(minWidth: 720, minHeight: 480)

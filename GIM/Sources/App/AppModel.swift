@@ -30,6 +30,14 @@ public final class AppModel {
     public private(set) var serverUrl: String?
     public var showsMenuBarExtra = false
     public private(set) var client: (any GimClientAPI)?
+    /// Chat list and selection of the main window; set while `.ready`.
+    private(set) var sidebar: SidebarModel?
+
+    /// The main window's selected chat; `nil` while signed out.
+    var selectedChatId: String? {
+        get { sidebar?.selectedChatId }
+        set { sidebar?.selectedChatId = newValue }
+    }
 
     private let factory: any GimClientFactory
     private let makeHooks: @MainActor () throws -> any PlatformHooks
@@ -111,6 +119,8 @@ public final class AppModel {
             wipeError = ErrorPresenter.message(for: error)
         }
         (hooks as? MacPlatformHooks)?.reachability.attach(nil)
+        sidebar?.stop()
+        sidebar = nil
         self.client = nil
         config = nil
         session = nil
@@ -133,6 +143,9 @@ public final class AppModel {
         serverUrl = config.serverUrl
         defaults.set(config.serverUrl, forKey: Self.serverUrlKey)
         (hooks as? MacPlatformHooks)?.reachability.attach(client)
+        let sidebar = SidebarModel(client: client)
+        sidebar.start()
+        self.sidebar = sidebar
         phase = .ready
         Task { try? await client.startSync() }
     }
