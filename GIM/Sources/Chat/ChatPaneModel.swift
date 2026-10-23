@@ -16,6 +16,7 @@ final class ChatPaneModel {
     let timeline: TimelineViewModel
     let actions: MessageActionsViewModel
     let composer: ComposerViewModel
+    let search = ChatSearch()
 
     /// Set by the view from the app's activity.
     var isAppActive = true
@@ -27,6 +28,8 @@ final class ChatPaneModel {
     var composerFocusRequest = 0
     /// Whether the chat info popover is open.
     var showsGroupInfo = false
+    /// Incremented to move the keyboard focus into the search field.
+    var searchFocusRequest = 0
 
     init(client: any GimClientAPI, chatId: String, ownUserId: String?, mediaDirectory: String? = nil) {
         self.client = client
@@ -145,5 +148,29 @@ final class ChatPaneModel {
 
     func retry(messageId: String) async {
         await timeline.retry(messageId: messageId)
+    }
+
+    // MARK: - Search
+
+    func showSearch() {
+        search.activate()
+        searchFocusRequest += 1
+    }
+
+    /// Recomputes the matches over the loaded timeline; called when the query or the timeline changes.
+    func updateSearch() {
+        search.update(items: timeline.items)
+    }
+
+    func findNext() {
+        search.next()
+    }
+
+    func findPrevious() {
+        search.previous()
+    }
+
+    func closeSearch() {
+        search.close()
     }
 }

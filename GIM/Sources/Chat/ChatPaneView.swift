@@ -2,52 +2,22 @@ import AppKit
 import Combine
 import SwiftUI
 
-/// A chat pane: header, timeline, error banner and the bottom bar. `init(title:)` is the placeholder the app shell
-/// still shows.
+/// A chat pane: header, timeline, error banner and the bottom bar.
 struct ChatPaneView: View {
-    private enum Content {
-        case placeholder(title: String)
-        case chat(model: AppModel, chatId: String)
-    }
-
-    private let content: Content
+    let model: AppModel
+    let chatId: String
     @State private var pane: ChatPaneModel?
 
-    /// The real pane for `chatId` on the signed-in client.
-    init(model: AppModel, chatId: String) {
-        content = .chat(model: model, chatId: chatId)
-    }
-
-    /// Placeholder with the chat's title.
-    init(title: String) {
-        content = .placeholder(title: title)
-    }
-
     var body: some View {
-        switch content {
-        case .placeholder(let title):
-            placeholder(title: title)
-        case .chat(let model, let chatId):
-            chat(model: model, chatId: chatId)
-        }
-    }
-
-    private func placeholder(title: String) -> some View {
-        VStack(spacing: 8) {
-            Text(title)
-                .font(.headline)
-            Text("chat.placeholder.comingSoon", tableName: "Chat")
-                .foregroundStyle(.secondary)
-        }
-        .padding()
-    }
-
-    private func chat(model: AppModel, chatId: String) -> some View {
         Group {
             if let pane {
                 VStack(spacing: 0) {
                     ChatPaneHeader(pane: pane)
                     Divider()
+                    if pane.search.isActive {
+                        ChatSearchBar(pane: pane)
+                        Divider()
+                    }
                     TimelineListView(pane: pane)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     if let errorMessage = pane.errorMessage {
@@ -79,6 +49,12 @@ struct ChatPaneView: View {
         }
         .onDisappear {
             pane?.stop()
+        }
+        .onChange(of: pane?.timeline.items) {
+            pane?.updateSearch()
+        }
+        .onChange(of: pane?.search.query) {
+            pane?.updateSearch()
         }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             setAppActive(true)

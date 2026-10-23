@@ -9,6 +9,8 @@ import Observation
 @Observable
 final class SidebarModel {
     var selectedChatId: String?
+    /// The sidebar's search text; `rows` only lists chats matching it.
+    var searchText = ""
 
     private let list: ChatListViewModel
 
@@ -18,6 +20,7 @@ final class SidebarModel {
 
     var rows: [SidebarRowModel] {
         list.rows.map { SidebarRowModel(row: $0, subtitle: list.subtitle(for: $0)) }
+            .filter { ChatListFilter.matches(title: $0.title, subtitle: $0.subtitle, query: searchText) }
     }
 
     var isLoading: Bool { list.isLoading }
@@ -38,8 +41,9 @@ final class SidebarModel {
 
     /// Selects the row at `index` (Cmd+1 … Cmd+9); out-of-range indices are ignored.
     func select(index: Int) {
-        guard list.rows.indices.contains(index) else { return }
-        selectedChatId = list.rows[index].id
+        let rows = rows
+        guard rows.indices.contains(index) else { return }
+        selectedChatId = rows[index].id
     }
 
     /// Moves the selection down one row; stays on the last row. Selects the first row when nothing is selected.
@@ -62,7 +66,7 @@ final class SidebarModel {
 
     private var selectedIndex: Int? {
         guard let selectedChatId else { return nil }
-        return list.rows.firstIndex { $0.id == selectedChatId }
+        return rows.firstIndex { $0.id == selectedChatId }
     }
 }
 

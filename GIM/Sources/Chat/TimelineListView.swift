@@ -50,6 +50,10 @@ struct TimelineListView: View {
                     pane.isBottomVisible = edges.isBottomVisible
                     Task { await pane.markReadIfNeeded() }
                 }
+                .onChange(of: pane.search.currentMatchId) { _, matchId in
+                    guard let matchId else { return }
+                    withAnimation { proxy.scrollTo(TimelineDisplayItem.id(forMessage: matchId), anchor: .center) }
+                }
                 .onChange(of: timeline.items) { oldItems, newItems in
                     keepPosition(change: timeline.lastChange, oldItems: oldItems, newItems: newItems, proxy: proxy)
                 }

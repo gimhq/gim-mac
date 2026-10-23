@@ -8,6 +8,9 @@ struct SidebarView: View {
 
     var body: some View {
         content
+            .searchable(
+                text: $model.searchText, placement: .sidebar,
+                prompt: Text("chat.search.chatList.placeholder", tableName: "Chat"))
             .safeAreaInset(edge: .bottom) {
                 Text(connectionKey, tableName: "App")
                     .font(.caption)
