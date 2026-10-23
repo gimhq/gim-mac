@@ -17,10 +17,8 @@ final class MediaDropTests: XCTestCase {
 
     /// PNG data of a small opaque image.
     private func pngData() throws -> Data {
-        let rep = try XCTUnwrap(
-            NSBitmapImageRep(
-                bitmapDataPlanes: nil, pixelsWide: 8, pixelsHigh: 4, bitsPerSample: 8, samplesPerPixel: 3,
-                hasAlpha: false, isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0))
+        let cgImage = try makeOpaqueTestCGImage(width: 8, height: 4)
+        let rep = NSBitmapImageRep(cgImage: cgImage)
         return try XCTUnwrap(rep.representation(using: .png, properties: [:]))
     }
 
