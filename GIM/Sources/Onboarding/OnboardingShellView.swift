@@ -6,8 +6,6 @@ import SwiftUI
 struct OnboardingShellView: View {
     @Bindable var viewModel: OnboardingViewModel
     @State private var introDone = false
-    /// The new user's ID for the recovery kit; read from the client when the kit step starts.
-    @State private var kitUserId: String?
 
     init(viewModel: OnboardingViewModel) {
         self.viewModel = viewModel
@@ -56,14 +54,8 @@ struct OnboardingShellView: View {
     @ViewBuilder
     private func stageView(_ stage: IdentityStage) -> some View {
         switch stage {
-        case .recoveryCode(let recoveryCode):
-            if let kitUserId {
-                RecoveryKitView(viewModel: recoveryCode, userId: kitUserId)
-            } else {
-                ProgressView()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .task { kitUserId = (try? await viewModel.context?.client().userId()) ?? "" }
-            }
+        case .recoveryKit(let kit):
+            RecoveryKitView(viewModel: kit)
         case .claimHandle(let claimHandle):
             ClaimHandleView(viewModel: claimHandle)
         }

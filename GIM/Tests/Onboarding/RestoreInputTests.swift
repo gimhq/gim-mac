@@ -18,51 +18,80 @@ final class RestoreInputTests: XCTestCase {
     private var userId: String { Self.userId }
     private var code: String { Self.code }
     private var symbols: String { Self.symbols }
-    private let empty = RestoreInput.Fields(userId: "", recoveryCode: "")
-    private let typed = RestoreInput.Fields(userId: "typed id", recoveryCode: "typed code")
 
     private var registrations: [Registration] = []
 
     // MARK: - Paste
 
-    func testApplyFillsBothFromAKitInAnyLanguage() {
+    /// A restore view model whose client is never used; `userId` and `recoveryCode` start typed.
+    private func makeTypedViewModel() -> RestoreViewModel {
+        let viewModel = RestoreViewModel(
+            context: OnboardingContext(
+                config: ClientConfig(serverUrl: "http://localhost:8080"),
+                client: { throw GimError.Cancelled },
+                discardClient: {},
+                onRegistered: { _ in }))
+        viewModel.userId = "typed id"
+        viewModel.recoveryCode = "typed code"
+        return viewModel
+    }
+
+    func testKitInAnyLanguageFillsBoth() {
         for labels in [Self.english, Self.chinese] {
-            let kit = RecoveryKit.format(userId: userId, recoveryCode: symbols, labels: labels)
-            let (fields, outcome) = RestoreInput.apply(pasted: kit, to: typed)
-            XCTAssertEqual(outcome, .filledBoth)
-            XCTAssertEqual(fields, RestoreInput.Fields(userId: userId, recoveryCode: code))
+            let viewModel = makeTypedViewModel()
+            viewModel.kitText = GIM.RecoveryKit.format(userId: userId, recoveryCode: symbols, labels: labels)
+            XCTAssertEqual(viewModel.userId, userId)
+            XCTAssertEqual(viewModel.recoveryCode, code)
+            XCTAssertNil(viewModel.kitErrorKind)
+            XCTAssertTrue(viewModel.showsFields)
         }
     }
 
-    func testApplyFillsBothFromIdAndSymbols() {
-        let (fields, outcome) = RestoreInput.apply(pasted: "\(userId.uppercased()) \(symbols.lowercased())", to: empty)
-        XCTAssertEqual(outcome, .filledBoth)
-        XCTAssertEqual(fields, RestoreInput.Fields(userId: userId, recoveryCode: code))
+    func testIdAndSymbolsFillBoth() {
+        let viewModel = makeTypedViewModel()
+        viewModel.kitText = "\(userId.uppercased()) \(symbols.lowercased())"
+        XCTAssertEqual(viewModel.userId, userId)
+        XCTAssertEqual(viewModel.recoveryCode, code)
+        XCTAssertNil(viewModel.kitErrorKind)
     }
 
-    func testApplyFindsTheKitInCRLFProse() {
-        let kit = RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
+    func testKitInCRLFProseFillsBoth() {
+        let kit = GIM.RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
             .replacingOccurrences(of: "\n", with: "\r\n")
-        let text = "Hi,\r\n\r\nhere is my kit:\r\n\r\n\(kit)\r\nThanks!\r\n"
-        let (fields, outcome) = RestoreInput.apply(pasted: text, to: empty)
-        XCTAssertEqual(outcome, .filledBoth)
-        XCTAssertEqual(fields, RestoreInput.Fields(userId: userId, recoveryCode: code))
+        let viewModel = makeTypedViewModel()
+        viewModel.kitText = "Hi,\r\n\r\nhere is my kit:\r\n\r\n\(kit)\r\nThanks!\r\n"
+        XCTAssertEqual(viewModel.userId, userId)
+        XCTAssertEqual(viewModel.recoveryCode, code)
+        XCTAssertNil(viewModel.kitErrorKind)
     }
 
-    func testApplyWithOneValueKeepsTheOtherField() {
-        let idOnly = RestoreInput.apply(pasted: "Account ID: \(userId)", to: typed)
-        XCTAssertEqual(idOnly.outcome, .filledUserIdOnly)
-        XCTAssertEqual(idOnly.fields, RestoreInput.Fields(userId: userId, recoveryCode: "typed code"))
+    func testKitWithOnePartKeepsTheOtherField() {
+        let idOnly = makeTypedViewModel()
+        idOnly.kitText = "Account ID: \(userId)"
+        XCTAssertEqual(idOnly.kitErrorKind, .kitPartMissing)
+        XCTAssertEqual(idOnly.userId, userId)
+        XCTAssertEqual(idOnly.recoveryCode, "typed code")
+        XCTAssertTrue(idOnly.showsFields)
 
-        let codeOnly = RestoreInput.apply(pasted: "my key is \(symbols)", to: typed)
-        XCTAssertEqual(codeOnly.outcome, .filledCodeOnly)
-        XCTAssertEqual(codeOnly.fields, RestoreInput.Fields(userId: "typed id", recoveryCode: code))
+        let codeOnly = makeTypedViewModel()
+        codeOnly.kitText = "my key is \(symbols)"
+        XCTAssertEqual(codeOnly.kitErrorKind, .kitPartMissing)
+        XCTAssertEqual(codeOnly.userId, "typed id")
+        XCTAssertEqual(codeOnly.recoveryCode, code)
     }
 
-    func testApplyWithGarbageChangesNothing() {
-        let (fields, outcome) = RestoreInput.apply(pasted: "hello, this is not a kit at all!", to: typed)
-        XCTAssertEqual(outcome, .nothingFound)
-        XCTAssertEqual(fields, typed)
+    func testGarbageChangesNothingAndHidesTheFields() {
+        let viewModel = makeTypedViewModel()
+        viewModel.kitText = "hello, this is not a kit at all!"
+        XCTAssertEqual(viewModel.kitErrorKind, .kitNotRecognized)
+        XCTAssertEqual(viewModel.userId, "typed id")
+        XCTAssertEqual(viewModel.recoveryCode, "typed code")
+        XCTAssertFalse(viewModel.showsFields)
+
+        viewModel.enterSeparately()
+        XCTAssertTrue(viewModel.showsFields)
+        viewModel.kitText = " \n"
+        XCTAssertNil(viewModel.kitErrorKind)
     }
 
     // MARK: - Field checks
@@ -86,13 +115,13 @@ final class RestoreInputTests: XCTestCase {
     }
 
     func testCanSubmitOnlyForAValidPair() {
-        XCTAssertTrue(RestoreInput.canSubmit(RestoreInput.Fields(userId: userId, recoveryCode: code)))
-        XCTAssertTrue(RestoreInput.canSubmit(RestoreInput.Fields(userId: " \(userId) ", recoveryCode: symbols)))
-        XCTAssertFalse(RestoreInput.canSubmit(empty))
-        XCTAssertFalse(RestoreInput.canSubmit(RestoreInput.Fields(userId: userId, recoveryCode: "")))
-        XCTAssertFalse(RestoreInput.canSubmit(RestoreInput.Fields(userId: "", recoveryCode: code)))
-        XCTAssertFalse(RestoreInput.canSubmit(RestoreInput.Fields(userId: userId, recoveryCode: String(code.prefix(20)))))
-        XCTAssertFalse(RestoreInput.canSubmit(RestoreInput.Fields(userId: "uabc", recoveryCode: code)))
+        XCTAssertTrue(RestoreInput.canSubmit(userId: userId, recoveryCode: code))
+        XCTAssertTrue(RestoreInput.canSubmit(userId: " \(userId) ", recoveryCode: symbols))
+        XCTAssertFalse(RestoreInput.canSubmit(userId: "", recoveryCode: ""))
+        XCTAssertFalse(RestoreInput.canSubmit(userId: userId, recoveryCode: ""))
+        XCTAssertFalse(RestoreInput.canSubmit(userId: "", recoveryCode: code))
+        XCTAssertFalse(RestoreInput.canSubmit(userId: userId, recoveryCode: String(code.prefix(20))))
+        XCTAssertFalse(RestoreInput.canSubmit(userId: "uabc", recoveryCode: code))
     }
 
     // MARK: - Fake client
@@ -114,17 +143,20 @@ final class RestoreInputTests: XCTestCase {
 
     func testRestoreFromPastedKitRegistersTheSameUser() async throws {
         let (userId, code, viewModel) = try await makeSignedOut()
-        let kit = RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
-        let (fields, outcome) = RestoreInput.apply(
-            pasted: kit, to: RestoreInput.Fields(userId: viewModel.userId, recoveryCode: viewModel.recoveryCode))
+        viewModel.kitText = GIM.RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
         // The fake's ids ("user-...") are not gim-core user ids, so only the code is found and the id is typed.
-        XCTAssertEqual(outcome, RecoveryKit.isValidUserId(userId) ? .filledBoth : .filledCodeOnly)
-        XCTAssertEqual(fields.recoveryCode, RecoveryKit.formatRecoveryCode(RecoveryKit.normalizeRecoveryCode(code)))
-        viewModel.userId = RecoveryKit.isValidUserId(userId) ? fields.userId : userId
-        viewModel.recoveryCode = fields.recoveryCode
+        if GIM.RecoveryKit.isValidUserId(userId) {
+            XCTAssertNil(viewModel.kitErrorKind)
+        } else {
+            XCTAssertEqual(viewModel.kitErrorKind, .kitPartMissing)
+            viewModel.userId = userId
+        }
+        XCTAssertEqual(
+            viewModel.recoveryCode,
+            GIM.RecoveryKit.formatRecoveryCode(GIM.RecoveryKit.normalizeRecoveryCode(code)))
 
         await viewModel.submit()
-        XCTAssertNil(viewModel.errorMessage)
+        XCTAssertNil(viewModel.errorKind)
         XCTAssertTrue(viewModel.showsRejoinNotice)
         XCTAssertTrue(registrations.isEmpty)
 
@@ -136,12 +168,12 @@ final class RestoreInputTests: XCTestCase {
 
     func testRestoreWithWrongCodeShowsTheError() async throws {
         let (userId, code, viewModel) = try await makeSignedOut()
-        XCTAssertNotEqual(RecoveryKit.normalizeRecoveryCode(code), symbols)
+        XCTAssertNotEqual(GIM.RecoveryKit.normalizeRecoveryCode(code), symbols)
         viewModel.userId = userId
         viewModel.recoveryCode = Self.code
 
         await viewModel.submit()
-        XCTAssertEqual(viewModel.errorMessage, "This recovery code doesn't match this user ID.")
+        XCTAssertEqual(viewModel.errorKind, .wrongCode)
         XCTAssertFalse(viewModel.showsRejoinNotice)
         XCTAssertTrue(registrations.isEmpty)
     }
