@@ -64,7 +64,7 @@ Runs from station against the shared Mac build host (`GIM_MAC_HOST`, default `a@
 the commit (default `HEAD`, clean tree required) to `~/gim-ci/<id>-<short sha>/gim-mac/` (`GIM_GATE_ID`, default the
 branch name's last component) and `Packages/GIMKit` of gim-ios (`GIM_IOS_REPO`, default `/srv/gimhq/gim-ios`;
 `GIM_IOS_REF`, default `HEAD`) to `~/gim-ci/<id>-<short sha>/gim-ios/`, takes the `~/gim-ci/.lock-xcode` lock, then
-runs `xcodegen generate`, `xcodebuild build`, `xcodebuild test` (GIMTests) and `swift test` of GIMKit. Logs and zipped
+runs `xcodegen generate`, `xcodebuild build`, `xcodebuild test` (GIMTests) and `xcodebuild test` of the GIMKit-Package scheme in English (`-testLanguage en -testRegion US`). Logs and zipped
 xcresult bundles land in `.tmp/mac/<short sha>/`; the last line is the
 `[mac-gate] mode=build-test sha=<short> ios=<gim-ios short> build=ok|fail app-tests=ok|fail kit=ok|fail` summary. The
 Mac work dir is kept on failure or with `--keep`.
