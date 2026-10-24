@@ -47,7 +47,7 @@ final class OnboardingFlowTests: XCTestCase {
         }
         let code = try XCTUnwrap(kit.code)
         kit.continueToCheck()
-        kit.endingInput = GIM.RecoveryKit.recoveryKeyEnding(code)
+        kit.endingInput = FakeRecoveryKitFunctions().recoveryKeyEnding(recoveryCode: code)
         kit.confirm()
         guard case .claimHandle(let claimHandle) = viewModel.stage else {
             return XCTFail("expected the username step, got \(String(describing: viewModel.stage))")
