@@ -30,6 +30,64 @@
         }
       }
     },
+    "onboarding.create.errorNameEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter your name."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe tu nombre."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入你的名字。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入你的名稱。"
+          }
+        }
+      }
+    },
+    "onboarding.create.errorNameTooLong": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your name can be 1 to 64 characters long."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tu nombre puede tener de 1 a 64 caracteres."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名字可以有 1 到 64 个字符。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "名稱可以有 1 到 64 個字元。"
+          }
+        }
+      }
+    },
     "onboarding.create.nameBody": {
       "extractionState": "manual",
       "localizations": {
@@ -1538,6 +1596,35 @@
         }
       }
     },
+    "onboarding.restore.errorCodeMissing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter your recovery key."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe tu clave de recuperación."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入你的恢复密钥。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入你的復原金鑰。"
+          }
+        }
+      }
+    },
     "onboarding.restore.errorIncomplete": {
       "extractionState": "manual",
       "localizations": {
@@ -1563,6 +1650,35 @@
           "stringUnit": {
             "state": "translated",
             "value": "套件缺了一部分。請填寫下方的空白欄位。"
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorNotFound": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This server has no account with this Account ID. Check the ID and the server."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Este servidor no tiene una cuenta con este ID de cuenta. Revisa el ID y el servidor."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个服务器上没有这个账号 ID。请检查 ID 和服务器。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這個伺服器上沒有這個帳號 ID。請檢查 ID 和伺服器。"
           }
         }
       }
@@ -1621,6 +1737,64 @@
           "stringUnit": {
             "state": "translated",
             "value": "這不是帳號 ID。帳號 ID 以「u」開頭，共 56 個字元。"
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorUserIdMissing": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter your Account ID."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe tu ID de cuenta."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入你的账号 ID。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入你的帳號 ID。"
+          }
+        }
+      }
+    },
+    "onboarding.restore.errorWrongCode": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This recovery key doesn’t fit this account. Check the key and the Account ID."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Esta clave de recuperación no es de esta cuenta. Revisa la clave y el ID de cuenta."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个恢复密钥和这个账号不匹配。请检查密钥和账号 ID。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這個復原金鑰和這個帳號不相符。請檢查金鑰和帳號 ID。"
           }
         }
       }
@@ -1973,6 +2147,64 @@
         }
       }
     },
+    "onboarding.server.errorEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter the server address."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe la dirección del servidor."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入服务器地址。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入伺服器位址。"
+          }
+        }
+      }
+    },
+    "onboarding.server.errorNotFull": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter a full address, like https://example.com"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Escribe una dirección completa, como https://example.com"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请输入完整的地址，例如 https://example.com"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請輸入完整的位址，例如 https://example.com"
+          }
+        }
+      }
+    },
     "onboarding.server.help": {
       "extractionState": "manual",
       "localizations": {
@@ -2317,6 +2549,122 @@
           "stringUnit": {
             "state": "translated",
             "value": "朋友可以用它找到你。這是選用的，你之後也可以再加入。"
+          }
+        }
+      }
+    },
+    "onboarding.username.errorCharacters": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use only letters, digits, underscores and dots."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usa solo letras, números, guiones bajos y puntos."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只能使用字母、数字、下划线和点。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "只能使用字母、數字、底線和句點。"
+          }
+        }
+      }
+    },
+    "onboarding.username.errorEmpty": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Choose a username."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Elige un nombre de usuario."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "请选择一个用户名。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "請選擇一個使用者名稱。"
+          }
+        }
+      }
+    },
+    "onboarding.username.errorLength": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usernames are 3 to 32 characters long."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Los nombres de usuario tienen de 3 a 32 caracteres."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "用户名需要 3 到 32 个字符。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "使用者名稱需要 3 到 32 個字元。"
+          }
+        }
+      }
+    },
+    "onboarding.username.errorTaken": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Someone already has this username. Try another one."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alguien ya tiene este nombre de usuario. Prueba con otro."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "这个用户名已经有人用了。请换一个试试。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "這個使用者名稱已經有人使用了。請換一個試試。"
           }
         }
       }

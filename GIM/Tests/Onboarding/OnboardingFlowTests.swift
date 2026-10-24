@@ -42,13 +42,13 @@ final class OnboardingFlowTests: XCTestCase {
         createIdentity.displayName = "Mac user"
         await createIdentity.submit()
 
-        guard case .recoveryCode(let recoveryCode) = viewModel.stage else {
-            return XCTFail("expected the recovery code step, got \(String(describing: viewModel.stage))")
+        guard case .recoveryKit(let kit) = viewModel.stage else {
+            return XCTFail("expected the recovery kit step, got \(String(describing: viewModel.stage))")
         }
-        let groups = recoveryCode.groups
-        recoveryCode.continueToConfirmation()
-        recoveryCode.confirmationInput = groups[recoveryCode.confirmationGroupIndex]
-        recoveryCode.confirm()
+        let code = try XCTUnwrap(kit.code)
+        kit.continueToCheck()
+        kit.endingInput = GIM.RecoveryKit.recoveryKeyEnding(code)
+        kit.confirm()
         guard case .claimHandle(let claimHandle) = viewModel.stage else {
             return XCTFail("expected the username step, got \(String(describing: viewModel.stage))")
         }

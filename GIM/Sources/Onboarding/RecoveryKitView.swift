@@ -4,16 +4,12 @@ import SwiftUI
 
 /// Shows the recovery kit once, then has the user type the last four symbols of the recovery key back.
 struct RecoveryKitView: View {
-    @Bindable var viewModel: RecoveryCodeViewModel
-    let userId: String
-    @State private var typed = ""
-    @State private var checkFailed = false
+    @Bindable var viewModel: RecoveryKitViewModel
     @State private var copied = false
     @State private var saveError: String?
 
-    init(viewModel: RecoveryCodeViewModel, userId: String) {
+    init(viewModel: RecoveryKitViewModel) {
         self.viewModel = viewModel
-        self.userId = userId
     }
 
     /// The kit words from the String Catalog.
@@ -25,18 +21,18 @@ struct RecoveryKitView: View {
             note: String(localized: "onboarding.kit.fileNote", table: "Onboarding"))
     }
 
-    /// `typed` is the last four symbols of `code`.
-    static func endingMatches(code: String, typed: String) -> Bool {
-        RecoveryKit.matchesRecoveryKeyEnding(code, typed: typed)
+    /// The kit text shown, copied and saved, with the catalog labels instead of the view model's English ones.
+    static func kitText(userId: String, code: String) -> String {
+        RecoveryKit.format(userId: userId, recoveryCode: code, labels: labels())
     }
 
     private var kitText: String {
-        RecoveryKit.format(userId: userId, recoveryCode: viewModel.code ?? "", labels: Self.labels())
+        Self.kitText(userId: viewModel.userId, code: viewModel.code ?? "")
     }
 
     var body: some View {
         VStack(spacing: 16) {
-            if viewModel.isConfirming {
+            if viewModel.isChecking {
                 check
             } else {
                 kit
@@ -79,9 +75,7 @@ struct RecoveryKitView: View {
                 Text("onboarding.kit.saveFile", tableName: "Onboarding")
             }
             Button {
-                typed = ""
-                checkFailed = false
-                viewModel.continueToConfirmation()
+                viewModel.continueToCheck()
             } label: {
                 Text("onboarding.kit.saved", tableName: "Onboarding")
             }
@@ -98,43 +92,32 @@ struct RecoveryKitView: View {
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
         VStack(alignment: .leading, spacing: 4) {
-            TextField(text: $typed) {
+            TextField(text: $viewModel.endingInput) {
                 Text("onboarding.kit.checkLabel", tableName: "Onboarding")
             }
             .font(.system(.body, design: .monospaced))
             .autocorrectionDisabled()
-            if checkFailed {
-                Text("onboarding.kit.checkError", tableName: "Onboarding")
+            if let kind = viewModel.endingErrorKind {
+                Text(OnboardingErrorText.ending(kind))
                     .font(.caption)
                     .foregroundStyle(.red)
             }
         }
         HStack {
             Button {
-                viewModel.showCodeAgain()
+                viewModel.showKitAgain()
             } label: {
                 Text("onboarding.kit.showAgain", tableName: "Onboarding")
             }
             .keyboardShortcut(.cancelAction)
-            Button(action: confirm) {
+            Button {
+                viewModel.confirm()
+            } label: {
                 Text("onboarding.kit.confirm", tableName: "Onboarding")
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.defaultAction)
         }
-    }
-
-    /// The Mac flow checks the key's last four symbols; the view model's group check is satisfied with the group it
-    /// asks for, which is never shown.
-    private func confirm() {
-        guard let code = viewModel.code, Self.endingMatches(code: code, typed: typed) else {
-            checkFailed = true
-            return
-        }
-        let groups = viewModel.groups
-        guard groups.indices.contains(viewModel.confirmationGroupIndex) else { return }
-        viewModel.confirmationInput = groups[viewModel.confirmationGroupIndex]
-        viewModel.confirm()
     }
 
     private func copy() {

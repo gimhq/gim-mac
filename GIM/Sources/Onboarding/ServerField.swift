@@ -22,8 +22,8 @@ struct ServerField: View {
             Text("onboarding.server.help", tableName: "Onboarding")
                 .font(.caption)
                 .foregroundStyle(.secondary)
-            if let error = viewModel.serverUrlError {
-                Text(error)
+            if let kind = viewModel.serverUrlErrorKind {
+                Text(OnboardingErrorText.serverUrl(kind))
                     .font(.caption)
                     .foregroundStyle(.red)
             }
