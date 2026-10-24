@@ -16,9 +16,6 @@ struct RealGimClientFactory: GimClientFactory {
 
 /// Adapts gim-core's generated `GimClient` to `GimClientAPI`: converts every value 1:1, rethrows `GimError`s as
 /// the mirror type and delivers listener callbacks on the main queue (the main actor).
-///
-/// The vendored core has more methods than the mirror (avatars, privacy, blocking, reporting, chat mute/pin/archive,
-/// recovery rotation, account deletion, own profile); they stay unreachable until GIMClientKit mirrors them.
 final class RealGimClient: GimClientAPI {
     private let core: GIMCore.GimClient
 
@@ -276,6 +273,75 @@ final class RealGimClient: GimClientAPI {
 
     func processPush(payload: String) async throws -> GIMClientKit.NotificationContent {
         try await bridged { try await GIMClientKit.NotificationContent(core.processPush(payload: payload)) }
+    }
+
+    func ownProfile() async throws -> GIMClientKit.UserProfile? {
+        try await bridged { try await core.ownProfile().map { GIMClientKit.UserProfile($0) } }
+    }
+
+    func setAvatar(filePath: String, mime: String) async throws {
+        try await bridged { try await core.setAvatar(filePath: filePath, mime: mime) }
+    }
+
+    func removeAvatar() async throws {
+        try await bridged { try await core.removeAvatar() }
+    }
+
+    func fetchUserAvatar(userId: String, destPath: String) async throws -> String {
+        try await bridged { try await core.fetchUserAvatar(userId: userId, destPath: destPath) }
+    }
+
+    func fetchChatAvatar(chatId: String, destPath: String) async throws -> String {
+        try await bridged { try await core.fetchChatAvatar(chatId: chatId, destPath: destPath) }
+    }
+
+    func privacy() async throws -> GIMClientKit.PrivacySettings {
+        try await bridged { try await GIMClientKit.PrivacySettings(core.privacy()) }
+    }
+
+    func setReadReceipts(enabled: Bool) async throws {
+        try await bridged { try await core.setReadReceipts(enabled: enabled) }
+    }
+
+    func setTypingIndicators(enabled: Bool) async throws {
+        try await bridged { try await core.setTypingIndicators(enabled: enabled) }
+    }
+
+    func blockUser(userId: String) async throws {
+        try await bridged { try await core.blockUser(userId: userId) }
+    }
+
+    func unblockUser(userId: String) async throws {
+        try await bridged { try await core.unblockUser(userId: userId) }
+    }
+
+    func setChatMuted(chatId: String, mutedUntilMs: UInt64) async throws {
+        try await bridged { try await core.setChatMuted(chatId: chatId, mutedUntilMs: mutedUntilMs) }
+    }
+
+    func setChatPinned(chatId: String, pinned: Bool) async throws {
+        try await bridged { try await core.setChatPinned(chatId: chatId, pinned: pinned) }
+    }
+
+    func setChatArchived(chatId: String, archived: Bool) async throws {
+        try await bridged { try await core.setChatArchived(chatId: chatId, archived: archived) }
+    }
+
+    func reportUser(
+        userId: String, reason: GIMClientKit.ReportReason, note: String?, messageIds: [String]
+    ) async throws -> String {
+        try await bridged {
+            try await core.reportUser(
+                userId: userId, reason: GIMCore.ReportReason(reason), note: note, messageIds: messageIds)
+        }
+    }
+
+    func rotateRecoveryCode() async throws -> GIMClientKit.RecoveryRotation {
+        try await bridged { try await GIMClientKit.RecoveryRotation(core.rotateRecoveryCode()) }
+    }
+
+    func deleteAccount() async throws -> [String] {
+        try await bridged { try await core.deleteAccount() }
     }
 }
 

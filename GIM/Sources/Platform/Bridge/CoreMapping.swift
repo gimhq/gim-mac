@@ -3,8 +3,7 @@ import GIMClientKit
 import GIMCore
 
 // One-to-one conversions between the generated `GIMCore` types and their GIMClientKit mirrors (gim-ios
-// docs/gim-core-mapping.md). Both modules declare the same names, so every type here is module-qualified. The vendored
-// core is newer than the mirror: fields the mirror cannot hold are dropped where noted.
+// docs/gim-core-mapping.md). Both modules declare the same names, so every type here is module-qualified.
 
 /// Runs a gim-core call and rethrows its errors as the mirror `GimError`.
 func bridged<T>(_ call: () async throws -> T) async throws -> T {
@@ -115,9 +114,9 @@ extension GIMCore.ChatState {
 
 extension GIMCore.ClientConfig {
     init(_ mirror: GIMClientKit.ClientConfig) {
-        // The mirror has no `metaServerUrl`, so meta server features stay off: no settings backup and `reportUser`
-        // fails, neither is in the mirror API.
-        self.init(serverUrl: mirror.serverUrl, mode: mirror.mode.map { GIMCore.ClientMode($0) }, metaServerUrl: nil)
+        self.init(
+            serverUrl: mirror.serverUrl, mode: mirror.mode.map { GIMCore.ClientMode($0) },
+            metaServerUrl: mirror.metaServerUrl)
     }
 }
 
@@ -192,9 +191,34 @@ extension GIMClientKit.HubInfo {
 }
 
 extension GIMClientKit.UserProfile {
-    /// Drops `hasAvatar`, which the mirror lacks.
     init(_ core: GIMCore.UserProfile) {
-        self.init(userId: core.userId, handle: core.handle, displayName: core.displayName)
+        self.init(userId: core.userId, handle: core.handle, displayName: core.displayName, hasAvatar: core.hasAvatar)
+    }
+}
+
+extension GIMClientKit.PrivacySettings {
+    init(_ core: GIMCore.PrivacySettings) {
+        self.init(
+            readReceipts: core.readReceipts, typingIndicators: core.typingIndicators,
+            blockedUserIds: core.blockedUserIds)
+    }
+}
+
+extension GIMClientKit.RecoveryRotation {
+    init(_ core: GIMCore.RecoveryRotation) {
+        self.init(recoveryCode: core.recoveryCode, unsyncedHubIds: core.unsyncedHubIds)
+    }
+}
+
+extension GIMCore.ReportReason {
+    init(_ mirror: GIMClientKit.ReportReason) {
+        switch mirror {
+        case .spam: self = .spam
+        case .harassment: self = .harassment
+        case .inappropriate: self = .inappropriate
+        case .scam: self = .scam
+        case .other: self = .other
+        }
     }
 }
 
@@ -208,20 +232,22 @@ extension GIMClientKit.ChatKind {
 }
 
 extension GIMClientKit.ChatSummary {
-    /// Drops `peer`, `mutedUntilMs`, `pinned`, `archived` and `blocked`, which the mirror lacks.
     init(_ core: GIMCore.ChatSummary) {
         self.init(
             chatId: core.chatId, kind: GIMClientKit.ChatKind(core.kind), name: core.name,
             avatar: core.avatar.map { GIMClientKit.MediaRef($0) },
             lastMessage: core.lastMessage.map { GIMClientKit.MessagePreview($0) }, unreadCount: core.unreadCount,
-            updatedAtMs: core.updatedAtMs, memberCount: core.memberCount, state: GIMClientKit.ChatState(core.state))
+            updatedAtMs: core.updatedAtMs, memberCount: core.memberCount, state: GIMClientKit.ChatState(core.state),
+            peer: core.peer.map { GIMClientKit.UserProfile($0) }, mutedUntilMs: core.mutedUntilMs, pinned: core.pinned,
+            archived: core.archived, blocked: core.blocked)
     }
 }
 
 extension GIMClientKit.MessagePreview {
-    /// Drops `sendState` (contract C9), which the mirror lacks.
     init(_ core: GIMCore.MessagePreview) {
-        self.init(senderName: core.senderName, text: core.text, sentAtMs: core.sentAtMs, isOwn: core.isOwn)
+        self.init(
+            senderName: core.senderName, text: core.text, sentAtMs: core.sentAtMs, isOwn: core.isOwn,
+            sendState: core.sendState.map { GIMClientKit.SendState($0) })
     }
 }
 
