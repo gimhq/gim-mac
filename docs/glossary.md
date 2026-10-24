@@ -35,7 +35,7 @@ Write for a 12-year-old. Signal and Telegram are the benchmark.
 - All user-visible text lives in the String Catalogs under `GIM/Resources`
   (one table per feature: `App`, `Explainer`, `Onboarding`, `Chat`,
   `Settings`), read with `String(localized:table:)` or `Text(_:tableName:)`;
-  the `StringCatalogTests` fail on a key without an English value.
+  the `LanguageTablesTests` fail on a key that is missing a language.
 
 ## macOS wording
 
