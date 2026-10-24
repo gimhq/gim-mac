@@ -19,7 +19,9 @@ final class SidebarModel {
     }
 
     var rows: [SidebarRowModel] {
-        list.rows.map { SidebarRowModel(row: $0, subtitle: list.subtitle(for: $0)) }
+        list.rows.map {
+            SidebarRowModel(row: $0, subtitle: list.subtitle(for: $0), status: list.lastMessageStatus(for: $0))
+        }
             .filter { ChatListFilter.matches(title: $0.title, subtitle: $0.subtitle, query: searchText) }
     }
 

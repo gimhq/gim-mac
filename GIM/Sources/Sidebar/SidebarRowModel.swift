@@ -1,7 +1,8 @@
 import GIMClientKit
 import GIMFeatures
 
-/// One sidebar row: a `ChatRow` plus the subtitle `ChatListViewModel.subtitle(for:)` renders for it.
+/// One sidebar row: a `ChatRow` plus the subtitle `ChatListViewModel.subtitle(for:)` renders for it and the ticks of
+/// `ChatListViewModel.lastMessageStatus(for:)`.
 struct SidebarRowModel: Identifiable, Hashable, Sendable {
     let id: String
     let kind: ChatKind
@@ -11,8 +12,19 @@ struct SidebarRowModel: Identifiable, Hashable, Sendable {
     let unreadText: String?
     let initials: String
     let colorIndex: Int
+    /// Ticks of the own last message; `nil` for other people's messages or while its status is unknown.
+    let sendTick: SendTick?
 
-    init(row: ChatRow, subtitle: String) {
+    /// `MessageStatus` without the failure reason, which the row never shows.
+    enum SendTick: Hashable, Sendable {
+        case sending
+        case sent
+        case delivered
+        case read
+        case failed
+    }
+
+    init(row: ChatRow, subtitle: String, status: MessageStatus?) {
         id = row.id
         kind = row.kind
         title = row.title
@@ -21,6 +33,17 @@ struct SidebarRowModel: Identifiable, Hashable, Sendable {
         unreadText = row.unreadText
         initials = Self.initials(for: row.title)
         colorIndex = Self.colorIndex(for: row.id)
+        sendTick = row.lastMessageIsOwn ? status.map(Self.sendTick(for:)) : nil
+    }
+
+    static func sendTick(for status: MessageStatus) -> SendTick {
+        switch status {
+        case .sending: .sending
+        case .sent: .sent
+        case .delivered: .delivered
+        case .read: .read
+        case .failed: .failed
+        }
     }
 
     /// The first letter of the first two words, uppercased; "?" for an empty title.
