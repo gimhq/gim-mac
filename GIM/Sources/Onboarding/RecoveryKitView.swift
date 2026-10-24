@@ -1,15 +1,18 @@
 import AppKit
+import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
 /// Shows the recovery kit once, then has the user type the last four symbols of the recovery key back.
 struct RecoveryKitView: View {
     @Bindable var viewModel: RecoveryKitViewModel
+    private let recoveryKit: any RecoveryKitFunctions
     @State private var copied = false
     @State private var saveError: String?
 
-    init(viewModel: RecoveryKitViewModel) {
+    init(viewModel: RecoveryKitViewModel, recoveryKit: any RecoveryKitFunctions) {
         self.viewModel = viewModel
+        self.recoveryKit = recoveryKit
     }
 
     /// The kit words from the String Catalog.
@@ -22,12 +25,12 @@ struct RecoveryKitView: View {
     }
 
     /// The kit text shown, copied and saved, with the catalog labels instead of the view model's English ones.
-    static func kitText(userId: String, code: String) -> String {
-        RecoveryKit.format(userId: userId, recoveryCode: code, labels: labels())
+    static func kitText(userId: String, code: String, recoveryKit: any RecoveryKitFunctions) -> String {
+        recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: labels())
     }
 
     private var kitText: String {
-        Self.kitText(userId: viewModel.userId, code: viewModel.code ?? "")
+        Self.kitText(userId: viewModel.userId, code: viewModel.code ?? "", recoveryKit: recoveryKit)
     }
 
     var body: some View {

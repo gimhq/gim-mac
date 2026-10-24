@@ -6,6 +6,7 @@ import XCTest
 
 @MainActor
 final class CreateAccountTests: XCTestCase {
+    private let recoveryKit = FakeRecoveryKitFunctions()
     private var registrations: [Registration] = []
 
     private func makeViewModel(serverUrl: String = "http://localhost:8080") -> OnboardingViewModel {
@@ -22,7 +23,7 @@ final class CreateAccountTests: XCTestCase {
         let client = try await FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
             .make(config: ClientConfig(serverUrl: "http://localhost:8080"), hooks: TestPlatformHooks())
         let code = try await client.createIdentity(displayName: "Mac user")
-        let ending = GIM.RecoveryKit.recoveryKeyEnding(code)
+        let ending = recoveryKit.recoveryKeyEnding(recoveryCode: code)
         XCTAssertEqual(ending.count, 4)
         var confirmed = 0
         let kit = RecoveryKitViewModel(userId: "user-mac", code: code) { confirmed += 1 }
@@ -59,12 +60,15 @@ final class CreateAccountTests: XCTestCase {
         let client = try await FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
             .make(config: ClientConfig(serverUrl: "http://localhost:8080"), hooks: TestPlatformHooks())
         let code = try await client.createIdentity(displayName: "Mac user")
-        let text = RecoveryKitView.kitText(userId: userId, code: code)
-        XCTAssertEqual(text, GIM.RecoveryKit.format(userId: userId, recoveryCode: code, labels: labels))
+        let text = RecoveryKitView.kitText(userId: userId, code: code, recoveryKit: recoveryKit)
+        XCTAssertEqual(text, recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: labels))
         XCTAssertTrue(text.hasPrefix("gim recovery kit\nAccount ID: \(userId)\nRecovery key: "))
-        XCTAssertEqual(
-            GIM.RecoveryKit.parse(text),
-            ParsedRecoveryKit(userId: userId, recoveryCode: GIM.RecoveryKit.normalizeRecoveryCode(code)))
+        let parsed = recoveryKit.parseRecoveryKit(text: text)
+        XCTAssertEqual(parsed.userId, userId)
+        let parsedCode = try XCTUnwrap(parsed.recoveryCode)
+        XCTAssertTrue(
+            recoveryKit.matchesRecoveryKeyEnding(
+                recoveryCode: code, typed: recoveryKit.recoveryKeyEnding(recoveryCode: parsedCode)))
     }
 
     // MARK: - Create flow
@@ -80,11 +84,11 @@ final class CreateAccountTests: XCTestCase {
             return XCTFail("expected the recovery kit step, got \(String(describing: viewModel.stage))")
         }
         let code = try XCTUnwrap(kit.code)
-        XCTAssertEqual(GIM.RecoveryKit.normalizeRecoveryCode(code).count, GIM.RecoveryKit.recoveryCodeSymbols)
+        XCTAssertNotNil(recoveryKit.parseRecoveryKit(text: code).recoveryCode)
         XCTAssertFalse(kit.userId.isEmpty)
         kit.continueToCheck()
         XCTAssertTrue(kit.isChecking)
-        kit.endingInput = GIM.RecoveryKit.recoveryKeyEnding(code)
+        kit.endingInput = recoveryKit.recoveryKeyEnding(recoveryCode: code)
         kit.confirm()
 
         guard case .claimHandle(let claimHandle) = viewModel.stage else {

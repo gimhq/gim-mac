@@ -12,10 +12,15 @@ struct SidebarRowView: View {
                 Text(row.title)
                     .font(.body.weight(.semibold))
                     .lineLimit(1)
-                Text(row.subtitle)
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
+                HStack(spacing: DesignTokens.spacingXS) {
+                    if let sendTick = row.sendTick {
+                        SendTickView(tick: sendTick)
+                    }
+                    Text(row.subtitle)
+                        .lineLimit(1)
+                }
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
             }
             Spacer(minLength: DesignTokens.spacingS)
             VStack(alignment: .trailing, spacing: DesignTokens.spacingXS) {
@@ -36,5 +41,31 @@ struct SidebarRowView: View {
         }
         .frame(minHeight: DesignTokens.sidebarRowHeight)
         .accessibilityElement(children: .combine)
+    }
+}
+
+/// Ticks of the own last message: the timeline's `StatusTicks` symbols; the label names the status.
+private struct SendTickView: View {
+    let tick: SidebarRowModel.SendTick
+
+    var body: some View {
+        switch tick {
+        case .sending:
+            Image(systemName: "clock")
+                .accessibilityLabel(Text("app.sidebar.row.sendState.sending", tableName: "App"))
+        case .sent:
+            Image(systemName: "checkmark")
+                .accessibilityLabel(Text("app.sidebar.row.sendState.sent", tableName: "App"))
+        case .delivered:
+            Image(systemName: "checkmark.circle")
+                .accessibilityLabel(Text("app.sidebar.row.sendState.delivered", tableName: "App"))
+        case .read:
+            Image(systemName: "checkmark.circle.fill")
+                .accessibilityLabel(Text("app.sidebar.row.sendState.read", tableName: "App"))
+        case .failed:
+            Image(systemName: "exclamationmark.circle.fill")
+                .foregroundStyle(ChatTheme.failed)
+                .accessibilityLabel(Text("app.sidebar.row.sendState.failed", tableName: "App"))
+        }
     }
 }
