@@ -1,12 +1,10 @@
 import GIMFeatures
 import SwiftUI
 
-/// Restores the account from the recovery kit: one field for the pasted kit, with the Account ID and recovery key
-/// fields as the fallback. After success it tells the user that old chats don't come back.
+/// Restores the account from the recovery kit: one field for the pasted kit, which the view model parses into the
+/// Account ID and recovery key fields; the fields can also be typed. After success it tells the user that old chats don't come back.
 struct RestoreView: View {
     @State private var viewModel: RestoreViewModel
-    @State private var pasted = ""
-    @State private var pasteOutcome: RestoreInput.Outcome?
     private let onLeave: () -> Void
 
     init(context: OnboardingContext, onLeave: @escaping () -> Void) {
@@ -28,13 +26,6 @@ struct RestoreView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationTitle(Text("onboarding.restore.title", tableName: "Onboarding"))
         .navigationBarBackButtonHidden(true)
-        .onChange(of: pasted) { _, text in
-            applyPaste(text)
-        }
-    }
-
-    private var fields: RestoreInput.Fields {
-        RestoreInput.Fields(userId: viewModel.userId, recoveryCode: viewModel.recoveryCode)
     }
 
     @ViewBuilder
@@ -44,15 +35,24 @@ struct RestoreView: View {
                 .foregroundStyle(.secondary)
                 .fixedSize(horizontal: false, vertical: true)
             pasteField
-            manualFields
+            if viewModel.showsFields {
+                manualFields
+            } else {
+                Button {
+                    viewModel.enterSeparately()
+                } label: {
+                    Text("onboarding.restore.manualTitle", tableName: "Onboarding")
+                }
+                .buttonStyle(.link)
+            }
             VStack(alignment: .leading, spacing: 4) {
                 Toggle(isOn: $viewModel.revokeOthers) {
                     Text("onboarding.restore.revokeOthers", tableName: "Onboarding")
                 }
                 helpText("onboarding.restore.revokeOthersHelp")
             }
-            if let error = viewModel.errorMessage {
-                Text(error)
+            if let kind = viewModel.errorKind {
+                Text(OnboardingErrorText.restore(kind))
                     .foregroundStyle(.red)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -79,7 +79,9 @@ struct RestoreView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .keyboardShortcut(.defaultAction)
-                .disabled(!RestoreInput.canSubmit(fields) || !viewModel.canSubmit)
+                .disabled(
+                    !RestoreInput.canSubmit(userId: viewModel.userId, recoveryCode: viewModel.recoveryCode)
+                        || !viewModel.canSubmit)
             }
         }
     }
@@ -88,20 +90,15 @@ struct RestoreView: View {
         VStack(alignment: .leading, spacing: 4) {
             Text("onboarding.restore.pasteLabel", tableName: "Onboarding")
                 .font(.headline)
-            TextField(text: $pasted, axis: .vertical) {
+            TextField(text: $viewModel.kitText, axis: .vertical) {
                 Text("onboarding.restore.pasteLabel", tableName: "Onboarding")
             }
             .lineLimit(3...6)
             .font(.body.monospaced())
             .accessibilityLabel(Text("onboarding.restore.pasteLabel", tableName: "Onboarding"))
             helpText("onboarding.restore.pasteHelp")
-            switch pasteOutcome {
-            case .nothingFound:
-                errorText("onboarding.restore.errorNotRecognized")
-            case .filledUserIdOnly, .filledCodeOnly:
-                errorText("onboarding.restore.errorIncomplete")
-            case .filledBoth, nil:
-                EmptyView()
+            if let kind = viewModel.kitErrorKind {
+                errorText(Text(OnboardingErrorText.restore(kind)))
             }
         }
     }
@@ -118,6 +115,8 @@ struct RestoreView: View {
                 helpText("onboarding.restore.userIdHelp")
                 if let key = RestoreInput.userIdMessageKey(viewModel.userId) {
                     errorText(key)
+                } else if let kind = viewModel.userIdErrorKind {
+                    errorText(Text(OnboardingErrorText.restore(kind)))
                 }
             }
             VStack(alignment: .leading, spacing: 4) {
@@ -129,6 +128,8 @@ struct RestoreView: View {
                 helpText("onboarding.restore.codeHelp")
                 if let key = RestoreInput.recoveryCodeMessageKey(viewModel.recoveryCode) {
                     errorText(key)
+                } else if let kind = viewModel.recoveryCodeErrorKind {
+                    errorText(Text(OnboardingErrorText.restore(kind)))
                 }
             }
         }
@@ -160,21 +161,13 @@ struct RestoreView: View {
     }
 
     private func errorText(_ key: String) -> some View {
-        Text(LocalizedStringKey(key), tableName: "Onboarding")
+        errorText(Text(LocalizedStringKey(key), tableName: "Onboarding"))
+    }
+
+    private func errorText(_ text: Text) -> some View {
+        text
             .font(.caption)
             .foregroundStyle(.red)
             .fixedSize(horizontal: false, vertical: true)
-    }
-
-    /// Fills the fields from the pasted kit; clearing the paste field clears only its message.
-    private func applyPaste(_ text: String) {
-        guard !text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            pasteOutcome = nil
-            return
-        }
-        let (filled, outcome) = RestoreInput.apply(pasted: text, to: fields)
-        viewModel.userId = filled.userId
-        viewModel.recoveryCode = filled.recoveryCode
-        pasteOutcome = outcome
     }
 }
