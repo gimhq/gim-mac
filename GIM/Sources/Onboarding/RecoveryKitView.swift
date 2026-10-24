@@ -97,8 +97,8 @@ struct RecoveryKitView: View {
             }
             .font(.system(.body, design: .monospaced))
             .autocorrectionDisabled()
-            if viewModel.endingErrorKind != nil {
-                Text("onboarding.kit.checkError", tableName: "Onboarding")
+            if let kind = viewModel.endingErrorKind {
+                Text(OnboardingErrorText.ending(kind))
                     .font(.caption)
                     .foregroundStyle(.red)
             }

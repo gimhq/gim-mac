@@ -51,8 +51,8 @@ struct RestoreView: View {
                 }
                 helpText("onboarding.restore.revokeOthersHelp")
             }
-            if let error = viewModel.errorMessage {
-                Text(error)
+            if let kind = viewModel.errorKind {
+                Text(OnboardingErrorText.restore(kind))
                     .foregroundStyle(.red)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -97,13 +97,8 @@ struct RestoreView: View {
             .font(.body.monospaced())
             .accessibilityLabel(Text("onboarding.restore.pasteLabel", tableName: "Onboarding"))
             helpText("onboarding.restore.pasteHelp")
-            switch viewModel.kitErrorKind {
-            case .kitNotRecognized:
-                errorText("onboarding.restore.errorNotRecognized")
-            case .kitPartMissing:
-                errorText("onboarding.restore.errorIncomplete")
-            default:
-                EmptyView()
+            if let kind = viewModel.kitErrorKind {
+                errorText(Text(OnboardingErrorText.restore(kind)))
             }
         }
     }
@@ -120,6 +115,8 @@ struct RestoreView: View {
                 helpText("onboarding.restore.userIdHelp")
                 if let key = RestoreInput.userIdMessageKey(viewModel.userId) {
                     errorText(key)
+                } else if let kind = viewModel.userIdErrorKind {
+                    errorText(Text(OnboardingErrorText.restore(kind)))
                 }
             }
             VStack(alignment: .leading, spacing: 4) {
@@ -131,6 +128,8 @@ struct RestoreView: View {
                 helpText("onboarding.restore.codeHelp")
                 if let key = RestoreInput.recoveryCodeMessageKey(viewModel.recoveryCode) {
                     errorText(key)
+                } else if let kind = viewModel.recoveryCodeErrorKind {
+                    errorText(Text(OnboardingErrorText.restore(kind)))
                 }
             }
         }
@@ -162,7 +161,11 @@ struct RestoreView: View {
     }
 
     private func errorText(_ key: String) -> some View {
-        Text(LocalizedStringKey(key), tableName: "Onboarding")
+        errorText(Text(LocalizedStringKey(key), tableName: "Onboarding"))
+    }
+
+    private func errorText(_ text: Text) -> some View {
+        text
             .font(.caption)
             .foregroundStyle(.red)
             .fixedSize(horizontal: false, vertical: true)
