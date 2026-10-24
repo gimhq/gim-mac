@@ -115,8 +115,9 @@ extension GIMCore.ChatState {
 
 extension GIMCore.ClientConfig {
     init(_ mirror: GIMClientKit.ClientConfig) {
-        // The mirror has no `appServerUrl`: no settings backup and `reportUser` fails, neither is in the mirror API.
-        self.init(serverUrl: mirror.serverUrl, mode: mirror.mode.map { GIMCore.ClientMode($0) }, appServerUrl: nil)
+        // The mirror has no `metaServerUrl`, so meta server features stay off: no settings backup and `reportUser`
+        // fails, neither is in the mirror API.
+        self.init(serverUrl: mirror.serverUrl, mode: mirror.mode.map { GIMCore.ClientMode($0) }, metaServerUrl: nil)
     }
 }
 
