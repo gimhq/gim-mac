@@ -1,3 +1,4 @@
+import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
@@ -5,13 +6,15 @@ import SwiftUI
 /// registered, linked or restored.
 struct OnboardingFlow: View {
     let model: AppModel
+    /// Formats the recovery kit; gim-core's functions unless a test or preview passes others.
+    var recoveryKit: any RecoveryKitFunctions = CoreRecoveryKitFunctions()
     @State private var viewModel: OnboardingViewModel?
     @State private var errorText: String?
 
     var body: some View {
         Group {
             if let viewModel {
-                OnboardingShellView(viewModel: viewModel)
+                OnboardingShellView(viewModel: viewModel, recoveryKit: recoveryKit)
             } else if let errorText {
                 VStack(spacing: 12) {
                     Text(errorText)

@@ -1,3 +1,4 @@
+import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
@@ -5,10 +6,12 @@ import SwiftUI
 /// then the steps after a new identity was created.
 struct OnboardingShellView: View {
     @Bindable var viewModel: OnboardingViewModel
+    private let recoveryKit: any RecoveryKitFunctions
     @State private var introDone = false
 
-    init(viewModel: OnboardingViewModel) {
+    init(viewModel: OnboardingViewModel, recoveryKit: any RecoveryKitFunctions) {
         self.viewModel = viewModel
+        self.recoveryKit = recoveryKit
     }
 
     var body: some View {
@@ -55,7 +58,7 @@ struct OnboardingShellView: View {
     private func stageView(_ stage: IdentityStage) -> some View {
         switch stage {
         case .recoveryKit(let kit):
-            RecoveryKitView(viewModel: kit)
+            RecoveryKitView(viewModel: kit, recoveryKit: recoveryKit)
         case .claimHandle(let claimHandle):
             ClaimHandleView(viewModel: claimHandle)
         }

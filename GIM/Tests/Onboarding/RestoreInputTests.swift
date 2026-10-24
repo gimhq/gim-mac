@@ -14,6 +14,7 @@ final class RestoreInputTests: XCTestCase {
         title: "Recovery kit", accountId: "Account ID", recoveryKey: "Recovery key", note: "Keep this safe.")
     private static let chinese = RecoveryKitLabels(
         title: "恢复工具包", accountId: "账户 ID", recoveryKey: "恢复密钥", note: "请妥善保管。")
+    private static let recoveryKit = FakeRecoveryKitFunctions()
 
     private var userId: String { Self.userId }
     private var code: String { Self.code }
@@ -39,7 +40,8 @@ final class RestoreInputTests: XCTestCase {
     func testKitInAnyLanguageFillsBoth() {
         for labels in [Self.english, Self.chinese] {
             let viewModel = makeTypedViewModel()
-            viewModel.kitText = GIM.RecoveryKit.format(userId: userId, recoveryCode: symbols, labels: labels)
+            viewModel.kitText = Self.recoveryKit.formatRecoveryKit(
+                userId: userId, recoveryCode: symbols, labels: labels)
             XCTAssertEqual(viewModel.userId, userId)
             XCTAssertEqual(viewModel.recoveryCode, code)
             XCTAssertNil(viewModel.kitErrorKind)
@@ -56,7 +58,7 @@ final class RestoreInputTests: XCTestCase {
     }
 
     func testKitInCRLFProseFillsBoth() {
-        let kit = GIM.RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
+        let kit = Self.recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: Self.english)
             .replacingOccurrences(of: "\n", with: "\r\n")
         let viewModel = makeTypedViewModel()
         viewModel.kitText = "Hi,\r\n\r\nhere is my kit:\r\n\r\n\(kit)\r\nThanks!\r\n"
@@ -124,6 +126,50 @@ final class RestoreInputTests: XCTestCase {
         XCTAssertFalse(RestoreInput.canSubmit(userId: "uabc", recoveryCode: code))
     }
 
+    func testUserIdValidationMatrix() {
+        var replaced = Array(userId)
+        replaced[5] = "1"
+        let invalid = [
+            String(userId.dropLast()),
+            userId + "a",
+            "d" + String(userId.dropFirst()),
+            String(userId.dropLast()) + "b",  // non-zero trailing bits
+            String(replaced),  // not in the base32 alphabet
+        ]
+        for input in invalid {
+            XCTAssertEqual(RestoreInput.userIdMessageKey(input), "onboarding.restore.errorUserId", "'\(input)'")
+            XCTAssertFalse(RestoreInput.canSubmit(userId: input, recoveryCode: code), "'\(input)'")
+        }
+    }
+
+    func testRecoveryCodeValidationMatrix() {
+        enum Expected { case incomplete, valid, broken }
+        let cases: [(String, Expected)] = [
+            ("", .incomplete),
+            ("7BQ2-K9", .incomplete),
+            (code, .valid),
+            (code.lowercased(), .valid),
+            // I/L -> 1, O -> 0, like gim-core's parser.
+            (symbols.replacingOccurrences(of: "1", with: "l").replacingOccurrences(of: "0", with: "o"), .valid),
+            (chunked(symbols, by: 5).joined(separator: " "), .valid),
+            (symbols + "0", .broken),
+            (String(symbols.dropLast()) + "U", .broken),
+            (String(symbols.dropLast()) + "1", .broken),  // non-zero padding bits
+            ("7BQ2!", .broken),
+        ]
+        for (input, expected) in cases {
+            XCTAssertEqual(
+                RestoreInput.canSubmit(userId: userId, recoveryCode: input), expected == .valid, "'\(input)'")
+            XCTAssertEqual(RestoreInput.recoveryCodeMessageKey(input) != nil, expected == .broken, "'\(input)'")
+        }
+    }
+
+    private func chunked(_ text: String, by size: Int) -> [String] {
+        let characters = Array(text)
+        return stride(from: 0, to: characters.count, by: size)
+            .map { String(characters[$0..<min($0 + size, characters.count)]) }
+    }
+
     // MARK: - Fake client
 
     /// A fake client that created an identity and signed out again, with a restore view model on it.
@@ -143,17 +189,16 @@ final class RestoreInputTests: XCTestCase {
 
     func testRestoreFromPastedKitRegistersTheSameUser() async throws {
         let (userId, code, viewModel) = try await makeSignedOut()
-        viewModel.kitText = GIM.RecoveryKit.format(userId: userId, recoveryCode: code, labels: Self.english)
+        viewModel.kitText = Self.recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: Self.english)
         // The fake's ids ("user-...") are not gim-core user ids, so only the code is found and the id is typed.
-        if GIM.RecoveryKit.isValidUserId(userId) {
+        if Self.recoveryKit.parseRecoveryKit(text: viewModel.kitText).userId != nil {
             XCTAssertNil(viewModel.kitErrorKind)
         } else {
             XCTAssertEqual(viewModel.kitErrorKind, .kitPartMissing)
             viewModel.userId = userId
         }
-        XCTAssertEqual(
-            viewModel.recoveryCode,
-            GIM.RecoveryKit.formatRecoveryCode(GIM.RecoveryKit.normalizeRecoveryCode(code)))
+        let found = try XCTUnwrap(Self.recoveryKit.parseRecoveryKit(text: viewModel.recoveryCode).recoveryCode)
+        XCTAssertEqual(found, Self.recoveryKit.parseRecoveryKit(text: code).recoveryCode)
 
         await viewModel.submit()
         XCTAssertNil(viewModel.errorKind)
@@ -168,7 +213,7 @@ final class RestoreInputTests: XCTestCase {
 
     func testRestoreWithWrongCodeShowsTheError() async throws {
         let (userId, code, viewModel) = try await makeSignedOut()
-        XCTAssertNotEqual(GIM.RecoveryKit.normalizeRecoveryCode(code), symbols)
+        XCTAssertNotEqual(Self.recoveryKit.parseRecoveryKit(text: code).recoveryCode, symbols)
         viewModel.userId = userId
         viewModel.recoveryCode = Self.code
 
