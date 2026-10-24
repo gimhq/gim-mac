@@ -7,10 +7,11 @@
 # (GIM_MAC_HOST, default a@100.99.1.8; id = GIM_GATE_ID, default the last component of the branch name) and
 # `git archive` of Packages/GIMKit from gim-ios (GIM_IOS_REPO, default /srv/gimhq/gim-ios; GIM_IOS_REF, default HEAD)
 # to ~/gim-ci/<id>-<short sha>/gim-ios/, so project.yml's ../gim-ios/Packages/GIMKit resolves. There, under the shared
-# lock ~/gim-ci/.lock-xcode, it runs xcodegen, builds the GIM app, runs the GIMTests unit tests and `swift test` of
-# GIMKit. Raw xcodebuild logs, the xcbeautify output and the zipped xcresult bundles are copied to
-# .tmp/mac/<short sha>/. Prints one `[mac-gate] mode=build-test sha=… ios=… build=… app-tests=… kit=…` summary line and
-# exits non-zero on any failure. The Mac work dir is removed on success and kept on failure or with --keep.
+# lock ~/gim-ci/.lock-xcode, it runs xcodegen, builds the GIM app, runs the GIMTests unit tests and `xcodebuild test`
+# of the GIMKit-Package scheme in English (-testLanguage en -testRegion US). Raw xcodebuild logs, the xcbeautify output
+# and the zipped xcresult bundles are copied to .tmp/mac/<short sha>/. Prints one
+# `[mac-gate] mode=build-test sha=… ios=… build=… app-tests=… kit=…` summary line and exits
+# non-zero on any failure. The Mac work dir is removed on success and kept on failure or with --keep.
 set -euo pipefail
 
 usage() {
@@ -76,6 +77,7 @@ work=$PWD
 out=$work/.tmp/gate
 results=$work/.tmp/results
 derived=$work/.tmp/DerivedData
+kit_derived=$work/.tmp/DerivedData-GIMKit
 lock=$HOME/gim-ci/.lock-xcode
 owner="$name pid=$$ since $(date -u +%Y-%m-%dT%H:%M:%SZ)"
 signing="CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=- DEVELOPMENT_TEAM="
@@ -121,14 +123,6 @@ run() {
     "$@" 2>&1 | tee "$out/$log.log" | xcbeautify --disable-colored-output | tee "$out/$log.xcbeautify.log"
 }
 
-# Like run, without xcbeautify (swift test output).
-run_plain() {
-    log=$1
-    shift
-    echo "[mac-gate] $log: $*"
-    "$@" 2>&1 | tee "$out/$log.log"
-}
-
 # shellcheck disable=SC2086
 if xcodegen generate >"$out/xcodegen.log" 2>&1 \
     && run build xcodebuild build -project GIM.xcodeproj -scheme GIM -destination "platform=macOS" \
@@ -140,7 +134,10 @@ if [ "$build" = ok ]; then
     run app-tests xcodebuild test -project GIM.xcodeproj -scheme GIM -destination "platform=macOS" \
         -derivedDataPath "$derived" -resultBundlePath "$results/GIM-tests.xcresult" $signing && app_tests=ok
 fi
-run_plain kit-test swift test --package-path ../gim-ios/Packages/GIMKit && kit=ok
+# The host language is zh-Hans-SG; GIMKit tests assert English strings.
+(cd ../gim-ios/Packages/GIMKit && run kit-test xcodebuild test -scheme GIMKit-Package -destination "platform=macOS" \
+    -testLanguage en -testRegion US \
+    -derivedDataPath "$kit_derived" -resultBundlePath "$results/GIMKit-tests.xcresult") && kit=ok
 
 for bundle in "$results"/*.xcresult; do
     [ -d "$bundle" ] && ditto -c -k --keepParent "$bundle" "$out/$(basename "$bundle").zip"
