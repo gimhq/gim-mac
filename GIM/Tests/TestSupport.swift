@@ -55,3 +55,27 @@ func makeTestModel(
         defaults: defaults,
         bundledServerUrl: bundledServerUrl)
 }
+
+/// `FakeRecoveryKitFunctions` with a fixed parse result and ending check, so a test can tell that a view model calls
+/// the functions it was given rather than its own copy.
+struct StubRecoveryKitFunctions: RecoveryKitFunctions {
+    var parsed: ParsedRecoveryKit
+    /// The only text `matchesRecoveryKeyEnding` accepts.
+    var ending: String
+
+    func formatRecoveryKit(userId: String, recoveryCode: String, labels: RecoveryKitLabels) -> String {
+        FakeRecoveryKitFunctions().formatRecoveryKit(userId: userId, recoveryCode: recoveryCode, labels: labels)
+    }
+
+    func parseRecoveryKit(text: String) -> ParsedRecoveryKit {
+        parsed
+    }
+
+    func recoveryKeyEnding(recoveryCode: String) -> String {
+        ending
+    }
+
+    func matchesRecoveryKeyEnding(recoveryCode: String, typed: String) -> Bool {
+        typed == ending
+    }
+}

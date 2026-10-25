@@ -13,6 +13,7 @@ final class CreateAccountTests: XCTestCase {
         OnboardingViewModel(
             factory: FakeGimClientFactory(scheduler: ImmediateFakeScheduler()),
             hooks: TestPlatformHooks(),
+            recoveryKit: recoveryKit,
             serverUrl: serverUrl,
             onRegistered: { [unowned self] in self.registrations.append($0) })
     }
@@ -26,7 +27,7 @@ final class CreateAccountTests: XCTestCase {
         let ending = recoveryKit.recoveryKeyEnding(recoveryCode: code)
         XCTAssertEqual(ending.count, 4)
         var confirmed = 0
-        let kit = RecoveryKitViewModel(userId: "user-mac", code: code) { confirmed += 1 }
+        let kit = RecoveryKitViewModel(userId: "user-mac", code: code, recoveryKit: recoveryKit) { confirmed += 1 }
         kit.continueToCheck()
         XCTAssertTrue(kit.isChecking)
 
@@ -48,22 +49,16 @@ final class CreateAccountTests: XCTestCase {
         XCTAssertEqual(confirmed, 1)
     }
 
-    func testKitTextUsesTheCatalogLabels() async throws {
-        let labels = RecoveryKitView.labels()
-        XCTAssertEqual(labels.title, "gim recovery kit")
-        XCTAssertEqual(labels.accountId, "Account ID")
-        XCTAssertEqual(labels.recoveryKey, "Recovery key")
-        XCTAssertFalse(labels.note.isEmpty)
-        XCTAssertNotEqual(labels.note, "onboarding.kit.fileNote")
-
+    func testKitTextUsesTheLocalizedLabels() async throws {
         let userId = "u" + String(String(repeating: "abcdefghijklmnopqrstuvwxyz234567", count: 2).prefix(54)) + "q"
         let client = try await FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
             .make(config: ClientConfig(serverUrl: "http://localhost:8080"), hooks: TestPlatformHooks())
         let code = try await client.createIdentity(displayName: "Mac user")
-        let text = RecoveryKitView.kitText(userId: userId, code: code, recoveryKit: recoveryKit)
-        XCTAssertEqual(text, recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: labels))
-        XCTAssertTrue(text.hasPrefix("gim recovery kit\nAccount ID: \(userId)\nRecovery key: "))
-        let parsed = recoveryKit.parseRecoveryKit(text: text)
+        let kit = RecoveryKitViewModel(userId: userId, code: code, recoveryKit: recoveryKit) {}
+        XCTAssertEqual(
+            kit.kitText, recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: .localized))
+        XCTAssertTrue(kit.kitText.hasPrefix("\(RecoveryKitLabels.localized.title)\n"))
+        let parsed = recoveryKit.parseRecoveryKit(text: kit.kitText)
         XCTAssertEqual(parsed.userId, userId)
         let parsedCode = try XCTUnwrap(parsed.recoveryCode)
         XCTAssertTrue(

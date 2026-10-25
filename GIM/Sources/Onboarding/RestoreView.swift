@@ -52,7 +52,7 @@ struct RestoreView: View {
                 helpText("onboarding.restore.revokeOthersHelp")
             }
             if let kind = viewModel.errorKind {
-                Text(OnboardingErrorText.restore(kind))
+                Text(kind.text)
                     .foregroundStyle(.red)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -98,7 +98,7 @@ struct RestoreView: View {
             .accessibilityLabel(Text("onboarding.restore.pasteLabel", tableName: "Onboarding"))
             helpText("onboarding.restore.pasteHelp")
             if let kind = viewModel.kitErrorKind {
-                errorText(Text(OnboardingErrorText.restore(kind)))
+                errorText(Text(kind.text))
             }
         }
     }
@@ -116,7 +116,7 @@ struct RestoreView: View {
                 if let key = RestoreInput.userIdMessageKey(viewModel.userId) {
                     errorText(key)
                 } else if let kind = viewModel.userIdErrorKind {
-                    errorText(Text(OnboardingErrorText.restore(kind)))
+                    errorText(Text(kind.text))
                 }
             }
             VStack(alignment: .leading, spacing: 4) {
@@ -129,7 +129,7 @@ struct RestoreView: View {
                 if let key = RestoreInput.recoveryCodeMessageKey(viewModel.recoveryCode) {
                     errorText(key)
                 } else if let kind = viewModel.recoveryCodeErrorKind {
-                    errorText(Text(OnboardingErrorText.restore(kind)))
+                    errorText(Text(kind.text))
                 }
             }
         }
