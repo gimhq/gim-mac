@@ -23,7 +23,7 @@ struct ServerField: View {
                 .font(.caption)
                 .foregroundStyle(.secondary)
             if let kind = viewModel.serverUrlErrorKind {
-                Text(OnboardingErrorText.serverUrl(kind))
+                Text(kind.text)
                     .font(.caption)
                     .foregroundStyle(.red)
             }

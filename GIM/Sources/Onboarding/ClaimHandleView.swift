@@ -29,13 +29,13 @@ struct ClaimHandleView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 if let kind = viewModel.handleErrorKind {
-                    Text(OnboardingErrorText.handle(kind))
+                    Text(kind.text)
                         .font(.caption)
                         .foregroundStyle(.red)
                 }
             }
             if let kind = viewModel.errorKind {
-                Text(OnboardingErrorText.claimHandle(kind))
+                Text(kind.text)
                     .foregroundStyle(.red)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
