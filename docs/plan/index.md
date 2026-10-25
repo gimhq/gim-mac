@@ -1,6 +1,6 @@
 # gim-mac - Plan Index
 
-> Updated: 2026-10-24
+> Updated: 2026-10-25
 
 ## Usage
 
@@ -31,4 +31,4 @@ Each plan is a single line linking to its detail file. All detailed information 
 
 ## Plans
 
-- [-] [**20261023-1005-mac-client Native macOS client: Telegram-class baseline, shared wording, settings, languages**](20261023-1005-mac-client.md) `2026-10-23`
+- [x] [**20261023-1005-mac-client Native macOS client: Telegram-class baseline, shared wording, settings, languages**](20261023-1005-mac-client.md) `2026-10-23`

@@ -1,6 +1,6 @@
 # gim-mac - Task List
 
-> Updated: 2026-10-24
+> Updated: 2026-10-25
 
 ## Usage
 
@@ -33,4 +33,4 @@ Each task is a single line linking to its detail file. All detailed information 
 
 ## Tasks
 
-- [-] [**20261023-1005-mac-client Native macOS client: Telegram-class baseline, shared wording, settings, languages**](20261023-1005-mac-client.md) `P1`
+- [x] [**20261023-1005-mac-client Native macOS client: Telegram-class baseline, shared wording, settings, languages**](20261023-1005-mac-client.md) `P1`
