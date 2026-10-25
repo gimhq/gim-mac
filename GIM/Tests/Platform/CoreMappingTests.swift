@@ -8,7 +8,7 @@ final class CoreMappingTests: XCTestCase {
     func testClientConfigKeepsTheMode() {
         XCTAssertEqual(
             GIMCore.ClientConfig(GIMClientKit.ClientConfig(serverUrl: "https://gim.example.eu")),
-            GIMCore.ClientConfig(serverUrl: "https://gim.example.eu", mode: nil, metaServerUrl: nil))
+            GIMCore.ClientConfig(serverUrl: "https://gim.example.eu", mode: nil, keepServerUrl: nil))
         XCTAssertEqual(
             GIMCore.ClientConfig(GIMClientKit.ClientConfig(serverUrl: "https://gim.example.eu", mode: .app)).mode,
             .app)
@@ -17,13 +17,13 @@ final class CoreMappingTests: XCTestCase {
             .extension)
     }
 
-    func testClientConfigKeepsTheMetaServerUrl() {
+    func testClientConfigKeepsTheKeepServerUrl() {
         XCTAssertEqual(
             GIMCore.ClientConfig(
-                GIMClientKit.ClientConfig(serverUrl: "https://gim.example.eu", metaServerUrl: "https://meta.example.eu")
+                GIMClientKit.ClientConfig(serverUrl: "https://gim.example.eu", keepServerUrl: "https://keep.example.eu")
             ),
             GIMCore.ClientConfig(
-                serverUrl: "https://gim.example.eu", mode: nil, metaServerUrl: "https://meta.example.eu"))
+                serverUrl: "https://gim.example.eu", mode: nil, keepServerUrl: "https://keep.example.eu"))
     }
 
     func testChatSummaryMapsTheAccountSafetyFields() {
@@ -113,7 +113,7 @@ final class CoreMappingTests: XCTestCase {
 
     func testMessagePreviewMapsTheSendState() {
         let own = GIMCore.MessagePreview(
-            senderName: "Alex Morgan", text: "On my way", sentAtMs: 1_790_000_000_000, isOwn: true,
+            senderName: "Alex Morgan", text: "On my way", kind: .text, sentAtMs: 1_790_000_000_000, isOwn: true,
             sendState: .delivered)
         XCTAssertEqual(
             GIMClientKit.MessagePreview(own),
@@ -121,12 +121,13 @@ final class CoreMappingTests: XCTestCase {
                 senderName: "Alex Morgan", text: "On my way", sentAtMs: 1_790_000_000_000, isOwn: true,
                 sendState: .delivered))
         let failed = GIMCore.MessagePreview(
-            senderName: "Alex Morgan", text: "On my way", sentAtMs: 1_790_000_000_000, isOwn: true,
+            senderName: "Alex Morgan", text: "On my way", kind: .text, sentAtMs: 1_790_000_000_000, isOwn: true,
             sendState: .failed(reason: "refused", cause: .rejected))
         XCTAssertEqual(
             GIMClientKit.MessagePreview(failed).sendState, .failed(reason: "refused", cause: .rejected))
         let peer = GIMCore.MessagePreview(
-            senderName: "Sofia Marin", text: "Ahoy", sentAtMs: 1_790_000_000_000, isOwn: false, sendState: nil)
+            senderName: "Sofia Marin", text: "Ahoy", kind: .text, sentAtMs: 1_790_000_000_000, isOwn: false,
+            sendState: nil)
         XCTAssertNil(GIMClientKit.MessagePreview(peer).sendState)
     }
 
@@ -212,7 +213,7 @@ final class CoreMappingTests: XCTestCase {
         let core = GIMCore.ChatSummary(
             chatId: "chat-crew", kind: .group, name: "Aegean Crew", avatar: media,
             lastMessage: GIMCore.MessagePreview(
-                senderName: "Sofia", text: "Photo", sentAtMs: 5, isOwn: true, sendState: .delivered),
+                senderName: "Sofia", text: "Photo", kind: .photo, sentAtMs: 5, isOwn: true, sendState: .delivered),
             unreadCount: 3, updatedAtMs: 7, memberCount: 4, state: .active, peer: sender, mutedUntilMs: 9,
             pinned: true, archived: false, blocked: false)
         XCTAssertEqual(
@@ -240,7 +241,7 @@ final class CoreMappingTests: XCTestCase {
                 media: GIMCore.MediaRef(
                     chatId: "chat-crew", messageId: "msg-1", mime: "application/pdf", size: 2, hasThumbnail: false),
                 fileName: "route.pdf", caption: nil),
-            replyTo: GIMCore.ReplyPreview(messageId: "msg-0", senderName: "Nikos", text: "Where?"),
+            replyTo: GIMCore.ReplyPreview(messageId: "msg-0", senderName: "Nikos", text: "Where?", kind: .text),
             reactions: [GIMCore.ReactionGroup(emoji: "👍", count: 2, own: true)], edited: true,
             sendState: nil)
         let diffs = GIMCore.TimelineDiff.reset(values: [
