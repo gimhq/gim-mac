@@ -86,7 +86,7 @@ private struct NameStep: View {
             if createIdentity.displayNameError != nil,
                 let kind = OnboardingValidation.displayNameErrorKind(createIdentity.displayName)
             {
-                Text(OnboardingErrorText.displayName(kind))
+                Text(kind.text)
                     .font(.caption)
                     .foregroundStyle(.red)
             }

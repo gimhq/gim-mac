@@ -1,37 +1,12 @@
 import AppKit
-import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
 /// Shows the recovery kit once, then has the user type the last four symbols of the recovery key back.
 struct RecoveryKitView: View {
     @Bindable var viewModel: RecoveryKitViewModel
-    private let recoveryKit: any RecoveryKitFunctions
     @State private var copied = false
     @State private var saveError: String?
-
-    init(viewModel: RecoveryKitViewModel, recoveryKit: any RecoveryKitFunctions) {
-        self.viewModel = viewModel
-        self.recoveryKit = recoveryKit
-    }
-
-    /// The kit words from the String Catalog.
-    static func labels() -> RecoveryKitLabels {
-        RecoveryKitLabels(
-            title: String(localized: "onboarding.kit.fileTitle", table: "Onboarding"),
-            accountId: String(localized: "onboarding.kit.accountId", table: "Onboarding"),
-            recoveryKey: String(localized: "onboarding.kit.recoveryKey", table: "Onboarding"),
-            note: String(localized: "onboarding.kit.fileNote", table: "Onboarding"))
-    }
-
-    /// The kit text shown, copied and saved, with the catalog labels instead of the view model's English ones.
-    static func kitText(userId: String, code: String, recoveryKit: any RecoveryKitFunctions) -> String {
-        recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: labels())
-    }
-
-    private var kitText: String {
-        Self.kitText(userId: viewModel.userId, code: viewModel.code ?? "", recoveryKit: recoveryKit)
-    }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -52,7 +27,7 @@ struct RecoveryKitView: View {
         Text("onboarding.kit.body", tableName: "Onboarding")
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
-        Text(kitText)
+        Text(viewModel.kitText)
             .font(.system(.body, design: .monospaced))
             .textSelection(.enabled)
             .fixedSize(horizontal: false, vertical: true)
@@ -73,7 +48,7 @@ struct RecoveryKitView: View {
                 }
             }
             Button {
-                saveError = RecoveryKitFile.save(kitText)
+                saveError = RecoveryKitFile.save(viewModel.kitText)
             } label: {
                 Text("onboarding.kit.saveFile", tableName: "Onboarding")
             }
@@ -101,7 +76,7 @@ struct RecoveryKitView: View {
             .font(.system(.body, design: .monospaced))
             .autocorrectionDisabled()
             if let kind = viewModel.endingErrorKind {
-                Text(OnboardingErrorText.ending(kind))
+                Text(kind.text)
                     .font(.caption)
                     .foregroundStyle(.red)
             }
@@ -126,7 +101,7 @@ struct RecoveryKitView: View {
     private func copy() {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(kitText, forType: .string)
+        pasteboard.setString(viewModel.kitText, forType: .string)
         copied = true
         Task {
             try? await Task.sleep(for: .seconds(2))

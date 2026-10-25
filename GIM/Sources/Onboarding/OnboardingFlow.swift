@@ -6,7 +6,7 @@ import SwiftUI
 /// registered, linked or restored.
 struct OnboardingFlow: View {
     let model: AppModel
-    /// Formats the recovery kit; gim-core's functions unless a test or preview passes others.
+    /// Formats, parses and checks the recovery kit; gim-core's functions unless a test or preview passes others.
     var recoveryKit: any RecoveryKitFunctions = CoreRecoveryKitFunctions()
     @State private var viewModel: OnboardingViewModel?
     @State private var errorText: String?
@@ -14,7 +14,7 @@ struct OnboardingFlow: View {
     var body: some View {
         Group {
             if let viewModel {
-                OnboardingShellView(viewModel: viewModel, recoveryKit: recoveryKit)
+                OnboardingShellView(viewModel: viewModel)
             } else if let errorText {
                 VStack(spacing: 12) {
                     Text(errorText)
@@ -37,10 +37,11 @@ struct OnboardingFlow: View {
     }
 
     /// The onboarding view model for `model`: its server (`resolvedServerUrl()`), its launch client and `signIn`.
-    static func makeViewModel(model: AppModel) throws -> OnboardingViewModel {
+    static func makeViewModel(model: AppModel, recoveryKit: any RecoveryKitFunctions) throws -> OnboardingViewModel {
         OnboardingViewModel(
             factory: model.clientFactory,
             hooks: try model.platformHooks(),
+            recoveryKit: recoveryKit,
             serverUrl: model.resolvedServerUrl(),
             client: model.client,
             localStateReset: model.client?.localStateReset() ?? false,
@@ -50,7 +51,7 @@ struct OnboardingFlow: View {
     private func makeViewModelIfNeeded() {
         guard viewModel == nil else { return }
         do {
-            viewModel = try Self.makeViewModel(model: model)
+            viewModel = try Self.makeViewModel(model: model, recoveryKit: recoveryKit)
             errorText = nil
         } catch {
             errorText = ErrorPresenter.message(for: error)

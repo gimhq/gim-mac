@@ -31,6 +31,7 @@ final class RestoreInputTests: XCTestCase {
                 config: ClientConfig(serverUrl: "http://localhost:8080"),
                 client: { throw GimError.Cancelled },
                 discardClient: {},
+                recoveryKit: Self.recoveryKit,
                 onRegistered: { _ in }))
         viewModel.userId = "typed id"
         viewModel.recoveryCode = "typed code"
@@ -183,6 +184,7 @@ final class RestoreInputTests: XCTestCase {
             config: ClientConfig(serverUrl: "http://localhost:8080"),
             client: { client },
             discardClient: {},
+            recoveryKit: Self.recoveryKit,
             onRegistered: { [unowned self] in self.registrations.append($0) })
         return (userId, code, RestoreViewModel(context: context))
     }

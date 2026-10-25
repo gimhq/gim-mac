@@ -17,6 +17,7 @@ final class LinkFlowTests: XCTestCase {
             config: ClientConfig(serverUrl: "http://localhost:8080"),
             client: { client },
             discardClient: { [unowned self] in self.discarded += 1 },
+            recoveryKit: FakeRecoveryKitFunctions(),
             onRegistered: { [unowned self] in self.registrations.append($0) })
         return (client, LinkThisDeviceViewModel(context: context))
     }
