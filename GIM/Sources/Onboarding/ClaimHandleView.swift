@@ -28,14 +28,14 @@ struct ClaimHandleView: View {
                 Text("onboarding.username.help", tableName: "Onboarding")
                     .font(.caption)
                     .foregroundStyle(.secondary)
-                if let error = viewModel.handleError {
-                    Text(error)
+                if let kind = viewModel.handleErrorKind {
+                    Text(kind.text)
                         .font(.caption)
                         .foregroundStyle(.red)
                 }
             }
-            if let error = viewModel.errorMessage {
-                Text(error)
+            if let kind = viewModel.errorKind {
+                Text(kind.text)
                     .foregroundStyle(.red)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)

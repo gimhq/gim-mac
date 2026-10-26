@@ -8,10 +8,11 @@ struct MainWindowView: View {
         if let sidebar = model.sidebar {
             NavigationSplitView {
                 SidebarView(model: sidebar)
+                    .chatStartActions(model: model)
                     .navigationSplitViewColumnWidth(min: 240, ideal: 300)
             } detail: {
-                if let id = model.selectedChatId, let title = sidebar.title(for: id) {
-                    ChatPaneView(title: title)
+                if let id = model.selectedChatId {
+                    ChatPaneView(model: model, chatId: id)
                 } else {
                     Text("app.main.noChatSelected", tableName: "App")
                         .foregroundStyle(.secondary)

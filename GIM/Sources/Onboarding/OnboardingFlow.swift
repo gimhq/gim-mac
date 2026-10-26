@@ -1,3 +1,4 @@
+import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
@@ -5,6 +6,8 @@ import SwiftUI
 /// registered, linked or restored.
 struct OnboardingFlow: View {
     let model: AppModel
+    /// Formats, parses and checks the recovery kit; gim-core's functions unless a test or preview passes others.
+    var recoveryKit: any RecoveryKitFunctions = CoreRecoveryKitFunctions()
     @State private var viewModel: OnboardingViewModel?
     @State private var errorText: String?
 
@@ -34,10 +37,11 @@ struct OnboardingFlow: View {
     }
 
     /// The onboarding view model for `model`: its server (`resolvedServerUrl()`), its launch client and `signIn`.
-    static func makeViewModel(model: AppModel) throws -> OnboardingViewModel {
+    static func makeViewModel(model: AppModel, recoveryKit: any RecoveryKitFunctions) throws -> OnboardingViewModel {
         OnboardingViewModel(
             factory: model.clientFactory,
             hooks: try model.platformHooks(),
+            recoveryKit: recoveryKit,
             serverUrl: model.resolvedServerUrl(),
             client: model.client,
             localStateReset: model.client?.localStateReset() ?? false,
@@ -47,7 +51,7 @@ struct OnboardingFlow: View {
     private func makeViewModelIfNeeded() {
         guard viewModel == nil else { return }
         do {
-            viewModel = try Self.makeViewModel(model: model)
+            viewModel = try Self.makeViewModel(model: model, recoveryKit: recoveryKit)
             errorText = nil
         } catch {
             errorText = ErrorPresenter.message(for: error)

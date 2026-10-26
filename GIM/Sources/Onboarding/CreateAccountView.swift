@@ -50,7 +50,7 @@ struct CreateAccountView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .keyboardShortcut(.defaultAction)
-                .disabled(viewModel.serverUrlError != nil)
+                .disabled(viewModel.serverUrlErrorKind != nil)
             }
         }
     }
@@ -82,8 +82,11 @@ private struct NameStep: View {
                 Text("onboarding.create.nameLabel", tableName: "Onboarding")
             }
             .textContentType(.name)
-            if let error = createIdentity.displayNameError {
-                Text(error)
+            // CreateIdentityViewModel has no kind property; `displayNameError` says whether the message shows.
+            if createIdentity.displayNameError != nil,
+                let kind = OnboardingValidation.displayNameErrorKind(createIdentity.displayName)
+            {
+                Text(kind.text)
                     .font(.caption)
                     .foregroundStyle(.red)
             }

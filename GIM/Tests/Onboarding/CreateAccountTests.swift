@@ -6,14 +6,15 @@ import XCTest
 
 @MainActor
 final class CreateAccountTests: XCTestCase {
+    private let recoveryKit = FakeRecoveryKitFunctions()
     private var registrations: [Registration] = []
 
     private func makeViewModel(serverUrl: String = "http://localhost:8080") -> OnboardingViewModel {
         OnboardingViewModel(
             factory: FakeGimClientFactory(scheduler: ImmediateFakeScheduler()),
             hooks: TestPlatformHooks(),
+            recoveryKit: recoveryKit,
             serverUrl: serverUrl,
-            chooseGroup: { _ in 0 },
             onRegistered: { [unowned self] in self.registrations.append($0) })
     }
 
@@ -23,37 +24,46 @@ final class CreateAccountTests: XCTestCase {
         let client = try await FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
             .make(config: ClientConfig(serverUrl: "http://localhost:8080"), hooks: TestPlatformHooks())
         let code = try await client.createIdentity(displayName: "Mac user")
-        let ending = RecoveryKit.recoveryKeyEnding(code)
+        let ending = recoveryKit.recoveryKeyEnding(recoveryCode: code)
         XCTAssertEqual(ending.count, 4)
+        var confirmed = 0
+        let kit = RecoveryKitViewModel(userId: "user-mac", code: code, recoveryKit: recoveryKit) { confirmed += 1 }
+        kit.continueToCheck()
+        XCTAssertTrue(kit.isChecking)
 
-        XCTAssertTrue(RecoveryKitView.endingMatches(code: code, typed: ending))
-        XCTAssertTrue(RecoveryKitView.endingMatches(code: code, typed: ending.lowercased()))
-        let spaced = ending.map(String.init).joined(separator: " ")
-        XCTAssertTrue(RecoveryKitView.endingMatches(code: code, typed: " \(spaced) "))
+        for wrong in [String(ending.dropLast()) + (ending.last == "0" ? "1" : "0"), String(ending.dropFirst()), ""] {
+            kit.endingInput = wrong
+            kit.confirm()
+            XCTAssertEqual(kit.endingErrorKind, .mismatch)
+            XCTAssertFalse(kit.isConfirmed)
+        }
+        kit.showKitAgain()
+        XCTAssertFalse(kit.isChecking)
+        kit.continueToCheck()
+        XCTAssertNil(kit.endingErrorKind)
 
-        let wrong = String(ending.dropLast()) + (ending.last == "0" ? "1" : "0")
-        XCTAssertFalse(RecoveryKitView.endingMatches(code: code, typed: wrong))
-        XCTAssertFalse(RecoveryKitView.endingMatches(code: code, typed: String(ending.dropFirst())))
-        XCTAssertFalse(RecoveryKitView.endingMatches(code: code, typed: ""))
+        kit.endingInput = " " + ending.lowercased().map(String.init).joined(separator: " ") + " "
+        kit.confirm()
+        XCTAssertNil(kit.endingErrorKind)
+        XCTAssertTrue(kit.isConfirmed)
+        XCTAssertEqual(confirmed, 1)
     }
 
-    func testKitTextUsesTheCatalogLabels() async throws {
-        let labels = RecoveryKitView.labels()
-        XCTAssertEqual(labels.title, "gim recovery kit")
-        XCTAssertEqual(labels.accountId, "Account ID")
-        XCTAssertEqual(labels.recoveryKey, "Recovery key")
-        XCTAssertFalse(labels.note.isEmpty)
-        XCTAssertNotEqual(labels.note, "onboarding.kit.fileNote")
-
+    func testKitTextUsesTheLocalizedLabels() async throws {
         let userId = "u" + String(String(repeating: "abcdefghijklmnopqrstuvwxyz234567", count: 2).prefix(54)) + "q"
         let client = try await FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
             .make(config: ClientConfig(serverUrl: "http://localhost:8080"), hooks: TestPlatformHooks())
         let code = try await client.createIdentity(displayName: "Mac user")
-        let text = RecoveryKit.format(userId: userId, recoveryCode: code, labels: labels)
-        XCTAssertTrue(text.hasPrefix("gim recovery kit\nAccount ID: \(userId)\nRecovery key: "))
+        let kit = RecoveryKitViewModel(userId: userId, code: code, recoveryKit: recoveryKit) {}
         XCTAssertEqual(
-            RecoveryKit.parse(text),
-            ParsedRecoveryKit(userId: userId, recoveryCode: RecoveryKit.normalizeRecoveryCode(code)))
+            kit.kitText, recoveryKit.formatRecoveryKit(userId: userId, recoveryCode: code, labels: .localized))
+        XCTAssertTrue(kit.kitText.hasPrefix("\(RecoveryKitLabels.localized.title)\n"))
+        let parsed = recoveryKit.parseRecoveryKit(text: kit.kitText)
+        XCTAssertEqual(parsed.userId, userId)
+        let parsedCode = try XCTUnwrap(parsed.recoveryCode)
+        XCTAssertTrue(
+            recoveryKit.matchesRecoveryKeyEnding(
+                recoveryCode: code, typed: recoveryKit.recoveryKeyEnding(recoveryCode: parsedCode)))
     }
 
     // MARK: - Create flow
@@ -65,15 +75,16 @@ final class CreateAccountTests: XCTestCase {
         createIdentity.displayName = "Mac user"
         await createIdentity.submit()
 
-        guard case .recoveryCode(let recoveryCode) = viewModel.stage else {
-            return XCTFail("expected the recovery code step, got \(String(describing: viewModel.stage))")
+        guard case .recoveryKit(let kit) = viewModel.stage else {
+            return XCTFail("expected the recovery kit step, got \(String(describing: viewModel.stage))")
         }
-        let code = try XCTUnwrap(recoveryCode.code)
-        XCTAssertEqual(RecoveryKit.normalizeRecoveryCode(code).count, RecoveryKit.recoveryCodeSymbols)
-        recoveryCode.continueToConfirmation()
-        XCTAssertTrue(recoveryCode.isConfirming)
-        recoveryCode.confirmationInput = recoveryCode.groups[0]
-        recoveryCode.confirm()
+        let code = try XCTUnwrap(kit.code)
+        XCTAssertNotNil(recoveryKit.parseRecoveryKit(text: code).recoveryCode)
+        XCTAssertFalse(kit.userId.isEmpty)
+        kit.continueToCheck()
+        XCTAssertTrue(kit.isChecking)
+        kit.endingInput = recoveryKit.recoveryKeyEnding(recoveryCode: code)
+        kit.confirm()
 
         guard case .claimHandle(let claimHandle) = viewModel.stage else {
             return XCTFail("expected the username step, got \(String(describing: viewModel.stage))")

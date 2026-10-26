@@ -4,39 +4,13 @@ import SwiftUI
 
 /// Shows the recovery kit once, then has the user type the last four symbols of the recovery key back.
 struct RecoveryKitView: View {
-    @Bindable var viewModel: RecoveryCodeViewModel
-    let userId: String
-    @State private var typed = ""
-    @State private var checkFailed = false
+    @Bindable var viewModel: RecoveryKitViewModel
     @State private var copied = false
     @State private var saveError: String?
 
-    init(viewModel: RecoveryCodeViewModel, userId: String) {
-        self.viewModel = viewModel
-        self.userId = userId
-    }
-
-    /// The kit words from the String Catalog.
-    static func labels() -> RecoveryKitLabels {
-        RecoveryKitLabels(
-            title: String(localized: "onboarding.kit.fileTitle", table: "Onboarding"),
-            accountId: String(localized: "onboarding.kit.accountId", table: "Onboarding"),
-            recoveryKey: String(localized: "onboarding.kit.recoveryKey", table: "Onboarding"),
-            note: String(localized: "onboarding.kit.fileNote", table: "Onboarding"))
-    }
-
-    /// `typed` is the last four symbols of `code`.
-    static func endingMatches(code: String, typed: String) -> Bool {
-        RecoveryKit.matchesRecoveryKeyEnding(code, typed: typed)
-    }
-
-    private var kitText: String {
-        RecoveryKit.format(userId: userId, recoveryCode: viewModel.code ?? "", labels: Self.labels())
-    }
-
     var body: some View {
         VStack(spacing: 16) {
-            if viewModel.isConfirming {
+            if viewModel.isChecking {
                 check
             } else {
                 kit
@@ -53,7 +27,7 @@ struct RecoveryKitView: View {
         Text("onboarding.kit.body", tableName: "Onboarding")
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
-        Text(kitText)
+        Text(viewModel.kitText)
             .font(.system(.body, design: .monospaced))
             .textSelection(.enabled)
             .fixedSize(horizontal: false, vertical: true)
@@ -74,14 +48,12 @@ struct RecoveryKitView: View {
                 }
             }
             Button {
-                saveError = RecoveryKitFile.save(kitText)
+                saveError = RecoveryKitFile.save(viewModel.kitText)
             } label: {
                 Text("onboarding.kit.saveFile", tableName: "Onboarding")
             }
             Button {
-                typed = ""
-                checkFailed = false
-                viewModel.continueToConfirmation()
+                viewModel.continueToCheck()
             } label: {
                 Text("onboarding.kit.saved", tableName: "Onboarding")
             }
@@ -98,25 +70,27 @@ struct RecoveryKitView: View {
             .multilineTextAlignment(.center)
             .fixedSize(horizontal: false, vertical: true)
         VStack(alignment: .leading, spacing: 4) {
-            TextField(text: $typed) {
+            TextField(text: $viewModel.endingInput) {
                 Text("onboarding.kit.checkLabel", tableName: "Onboarding")
             }
             .font(.system(.body, design: .monospaced))
             .autocorrectionDisabled()
-            if checkFailed {
-                Text("onboarding.kit.checkError", tableName: "Onboarding")
+            if let kind = viewModel.endingErrorKind {
+                Text(kind.text)
                     .font(.caption)
                     .foregroundStyle(.red)
             }
         }
         HStack {
             Button {
-                viewModel.showCodeAgain()
+                viewModel.showKitAgain()
             } label: {
                 Text("onboarding.kit.showAgain", tableName: "Onboarding")
             }
             .keyboardShortcut(.cancelAction)
-            Button(action: confirm) {
+            Button {
+                viewModel.confirm()
+            } label: {
                 Text("onboarding.kit.confirm", tableName: "Onboarding")
             }
             .buttonStyle(.borderedProminent)
@@ -124,23 +98,10 @@ struct RecoveryKitView: View {
         }
     }
 
-    /// The Mac flow checks the key's last four symbols; the view model's group check is satisfied with the group it
-    /// asks for, which is never shown.
-    private func confirm() {
-        guard let code = viewModel.code, Self.endingMatches(code: code, typed: typed) else {
-            checkFailed = true
-            return
-        }
-        let groups = viewModel.groups
-        guard groups.indices.contains(viewModel.confirmationGroupIndex) else { return }
-        viewModel.confirmationInput = groups[viewModel.confirmationGroupIndex]
-        viewModel.confirm()
-    }
-
     private func copy() {
         let pasteboard = NSPasteboard.general
         pasteboard.clearContents()
-        pasteboard.setString(kitText, forType: .string)
+        pasteboard.setString(viewModel.kitText, forType: .string)
         copied = true
         Task {
             try? await Task.sleep(for: .seconds(2))
