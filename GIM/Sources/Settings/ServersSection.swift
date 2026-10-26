@@ -2,7 +2,8 @@ import GIMClientKit
 import GIMFeatures
 import SwiftUI
 
-/// Settings → Advanced: the user's servers, with making one the main server, removing one and adding one.
+/// Settings → Advanced: the user's servers, with making one the main server, removing one and adding one, and the
+/// Keep server.
 struct ServersSection: View {
     let model: AppModel
 
@@ -11,7 +12,7 @@ struct ServersSection: View {
     var body: some View {
         Group {
             if let hubs, let client = model.client {
-                ServersForm(hubs: hubs, client: client)
+                ServersForm(model: model, hubs: hubs, client: client)
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -31,6 +32,7 @@ struct ServersSection: View {
 }
 
 private struct ServersForm: View {
+    let model: AppModel
     let hubs: HubsViewModel
     let client: any GimClientAPI
 
@@ -61,6 +63,7 @@ private struct ServersForm: View {
                 Text("settings.servers.help", tableName: "Settings")
                     .foregroundStyle(.secondary)
             }
+            KeepServerSection(model: model)
         }
         .formStyle(.grouped)
         .alert(

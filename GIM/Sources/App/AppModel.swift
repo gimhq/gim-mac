@@ -28,6 +28,8 @@ final class AppModel {
     private(set) var launchError: String?
     /// Server of the signed-in client.
     private(set) var serverUrl: String?
+    /// Keep server of the running client (`KeepServer.resolvedUrl` when it was created); `nil` is none.
+    private(set) var keepServerUrl: String?
     var showsMenuBarExtra = false
     private(set) var client: (any GimClientAPI)?
     /// Chat list and selection of the main window; set while `.ready`.
@@ -43,6 +45,7 @@ final class AppModel {
     private let makeHooks: @MainActor () throws -> any PlatformHooks
     private let defaults: UserDefaults
     private let bundledServerUrl: String?
+    private let bundledKeepServerUrl: String?
     @ObservationIgnored private var hooks: (any PlatformHooks)?
     @ObservationIgnored private var config: ClientConfig?
 
@@ -54,16 +57,19 @@ final class AppModel {
     ///   - hooks: builds the platform hooks handed to the factory (once per process).
     ///   - defaults: remembers the last server URL; its argument domain may hold `defaultServerUrlKey`.
     ///   - bundledServerUrl: the Info.plist `defaultServerUrlKey` value.
+    ///   - bundledKeepServerUrl: the Info.plist `KeepServer.defaultUrlKey` value.
     init(
         factory: any GimClientFactory = ClientFactories.default(),
         hooks: @escaping @MainActor () throws -> any PlatformHooks = { try MacPlatformHooks.standard() },
         defaults: UserDefaults = .standard,
-        bundledServerUrl: String? = Bundle.main.object(forInfoDictionaryKey: AppModel.defaultServerUrlKey) as? String
+        bundledServerUrl: String? = Bundle.main.object(forInfoDictionaryKey: AppModel.defaultServerUrlKey) as? String,
+        bundledKeepServerUrl: String? = Bundle.main.object(forInfoDictionaryKey: KeepServer.defaultUrlKey) as? String
     ) {
         self.factory = factory
         self.makeHooks = hooks
         self.defaults = defaults
         self.bundledServerUrl = bundledServerUrl
+        self.bundledKeepServerUrl = bundledKeepServerUrl
     }
 
     /// Last used server, else the launch argument, else the bundled default, else `builtInServerUrl`. Not
@@ -77,14 +83,26 @@ final class AppModel {
         return candidates.compactMap { $0 }.first { !$0.isEmpty } ?? Self.builtInServerUrl
     }
 
-    /// Creates the client for `resolvedServerUrl()` and routes by its session. Safe to call again after a launch
-    /// error.
+    /// The keep server used when the user chose none: the launch argument, else the bundled value, else
+    /// `KeepServer.builtInUrl`; `nil` is none.
+    var defaultKeepServerUrl: String? {
+        KeepServer.defaultUrl(defaults: defaults, bundled: bundledKeepServerUrl)
+    }
+
+    /// Settings → Keep server for the stored choice and the running client's keep server.
+    func makeKeepServerViewModel() -> KeepServerViewModel {
+        KeepServerViewModel(defaults: defaults, defaultUrl: defaultKeepServerUrl, activeUrl: keepServerUrl)
+    }
+
+    /// Creates the client for `resolvedServerUrl()` and `keepServerUrl` and routes by its session. Safe to call
+    /// again after a launch error.
     func start() async {
         guard phase == .launching else { return }
         launchError = nil
         do {
             let hooks = try platformHooks()
-            let config = ClientConfig(serverUrl: resolvedServerUrl())
+            keepServerUrl = KeepServer.resolvedUrl(defaults: defaults, bundled: bundledKeepServerUrl)
+            let config = ClientConfig(serverUrl: resolvedServerUrl(), keepServerUrl: keepServerUrl)
             let client = try await factory.make(config: config, hooks: hooks)
             self.client = client
             self.config = config
@@ -106,8 +124,9 @@ final class AppModel {
         becomeReady(session: session)
     }
 
-    /// Signs out, wipes the platform keystore and data directory (`PlatformWiping`), drops the client and starts
-    /// over. Returns the error text when signing out or wiping fails; a failed wipe still starts over.
+    /// Signs out, resets the keep server choice to automatic, wipes the platform keystore and data directory
+    /// (`PlatformWiping`), drops the client and starts over. Returns the error text when signing out or wiping fails;
+    /// a failed wipe still starts over.
     func signOut() async -> String? {
         guard let client else { return nil }
         do {
@@ -115,6 +134,7 @@ final class AppModel {
         } catch {
             return ErrorPresenter.message(for: error)
         }
+        KeepServer.store(.automatic, in: defaults)
         var wipeError: String?
         do {
             try (hooks as? any PlatformWiping)?.wipe()
@@ -137,6 +157,7 @@ final class AppModel {
     func signIn(_ registration: Registration) {
         client = registration.client
         config = registration.config
+        keepServerUrl = registration.config.keepServerUrl
         becomeReady(session: registration.session)
     }
 

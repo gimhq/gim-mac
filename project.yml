@@ -40,6 +40,9 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         # Pre-filled server when none was used yet; the `-GIMDefaultServerURL <url>` launch argument overrides it.
         GIMDefaultServerURL: $(GIM_DEFAULT_SERVER_URL)
+        # Default keep server (empty: KeepServer.builtInUrl, "off": none); the
+        # `-GIMDefaultKeepServerURL <url>` launch argument overrides it.
+        GIMDefaultKeepServerURL: $(GIM_DEFAULT_KEEP_SERVER_URL)
         NSAppTransportSecurity:
           NSAllowsLocalNetworking: true
     settings:
@@ -50,11 +53,12 @@ targets:
         ENABLE_HARDENED_RUNTIME: NO
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        # Empty: the built-in defaults (AppModel.builtInServerUrl, KeepServer.builtInUrl) apply.
+        GIM_DEFAULT_SERVER_URL: ""
+        GIM_DEFAULT_KEEP_SERVER_URL: ""
       configs:
         Debug:
           GIM_DEFAULT_SERVER_URL: http://localhost:8080
-        Release:
-          GIM_DEFAULT_SERVER_URL: https://hub.g.im
   GIMTests:
     type: bundle.unit-test
     platform: macOS
@@ -84,6 +88,9 @@ schemes:
       config: Debug
       language: en
       region: US
+      # Tests never reach a real keep server.
+      commandLineArguments:
+        "-GIMDefaultKeepServerURL off": true
       targets:
         - GIMTests
     archive:
