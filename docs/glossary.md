@@ -14,8 +14,12 @@ screen.
 | Verified hub | Connected | The app reached this server and it answered. |
 | Unverified hub | Not checked | The app has not reached this server yet. |
 | Home hub / Primary hub | Main server | The server your account lives on. |
+| Keep server / gim-keep | Keep server | A server that backs up your privacy settings and receives the reports you send. Your backup is encrypted. |
 
 Plurals follow the same mapping (hubs → servers, handles → usernames).
+
+"Keep server" has fixed translations: zh-Hans "Keep 服务器", zh-Hant "Keep 伺服器",
+es "servidor Keep". "Keep" is never translated.
 
 ## Writing rules
 
