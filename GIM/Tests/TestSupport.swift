@@ -44,16 +44,20 @@ func makeTestDefaults() -> UserDefaults {
     return defaults
 }
 
-/// A model on the demo client with an immediate scheduler, test hooks and `defaults`.
+/// A model on `factory` (the demo client with an immediate scheduler by default), test hooks and `defaults`. The
+/// keep server is off unless a test passes another bundled value, so no test resolves `KeepServer.builtInUrl`.
 @MainActor
 func makeTestModel(
-    defaults: UserDefaults = makeTestDefaults(), bundledServerUrl: String? = "http://localhost:8080"
+    defaults: UserDefaults = makeTestDefaults(), bundledServerUrl: String? = "http://localhost:8080",
+    bundledKeepServerUrl: String? = "off",
+    factory: any GimClientFactory = FakeGimClientFactory(scheduler: ImmediateFakeScheduler())
 ) -> AppModel {
     AppModel(
-        factory: FakeGimClientFactory(scheduler: ImmediateFakeScheduler()),
+        factory: factory,
         hooks: { TestPlatformHooks() },
         defaults: defaults,
-        bundledServerUrl: bundledServerUrl)
+        bundledServerUrl: bundledServerUrl,
+        bundledKeepServerUrl: bundledKeepServerUrl)
 }
 
 /// `FakeRecoveryKitFunctions` with a fixed parse result and ending check, so a test can tell that a view model calls
