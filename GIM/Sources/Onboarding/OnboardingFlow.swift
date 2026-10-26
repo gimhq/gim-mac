@@ -36,7 +36,8 @@ struct OnboardingFlow: View {
         .task { makeViewModelIfNeeded() }
     }
 
-    /// The onboarding view model for `model`: its server (`resolvedServerUrl()`), its launch client and `signIn`.
+    /// The onboarding view model for `model`: its server (`resolvedServerUrl()`), keep server, launch client and
+    /// `signIn`.
     static func makeViewModel(model: AppModel, recoveryKit: any RecoveryKitFunctions) throws -> OnboardingViewModel {
         OnboardingViewModel(
             factory: model.clientFactory,
@@ -45,6 +46,7 @@ struct OnboardingFlow: View {
             serverUrl: model.resolvedServerUrl(),
             client: model.client,
             localStateReset: model.client?.localStateReset() ?? false,
+            keepServerUrl: model.keepServerUrl,
             onRegistered: { model.signIn($0) })
     }
 

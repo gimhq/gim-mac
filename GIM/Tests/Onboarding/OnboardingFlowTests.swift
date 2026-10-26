@@ -18,6 +18,20 @@ final class OnboardingFlowTests: XCTestCase {
         XCTAssertTrue(client === model.client)
     }
 
+    func testViewModelUsesModelKeepServer() async throws {
+        let defaults = makeTestDefaults()
+        KeepServer.store(.custom("https://custom.keep.test"), in: defaults)
+        let model = makeTestModel(defaults: defaults)
+        await model.start()
+        let viewModel = try OnboardingFlow.makeViewModel(model: model, recoveryKit: FakeRecoveryKitFunctions())
+
+        viewModel.choose(.linkDevice)
+        let context = try XCTUnwrap(viewModel.context)
+        XCTAssertEqual(context.config.keepServerUrl, "https://custom.keep.test")
+        let client = try await context.client()
+        XCTAssertTrue(client === model.client)
+    }
+
     func testLinkSignsIn() async throws {
         let defaults = makeTestDefaults()
         let model = makeTestModel(defaults: defaults)
