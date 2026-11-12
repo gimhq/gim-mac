@@ -52,8 +52,37 @@ struct OnboardingShellView: View {
         switch stage {
         case .recoveryKit(let kit):
             RecoveryKitView(viewModel: kit)
-        case .claimHandle(let claimHandle):
-            ClaimHandleView(viewModel: claimHandle)
+        case .claimHandle(let finish):
+            FinishSetupView(viewModel: finish)
         }
+    }
+}
+
+/// The last create-account step. There are no usernames: GIMFeatures still ends the create flow on its handle step,
+/// so this skips it at once and only shows progress, or the error with a retry.
+private struct FinishSetupView: View {
+    let viewModel: ClaimHandleViewModel
+
+    var body: some View {
+        VStack(spacing: 12) {
+            if let kind = viewModel.errorKind {
+                Text(kind.text)
+                    .foregroundStyle(.red)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                Button {
+                    Task { await viewModel.skip() }
+                } label: {
+                    Text("onboarding.flow.tryAgain", tableName: "Onboarding")
+                }
+                .buttonStyle(.borderedProminent)
+                .keyboardShortcut(.defaultAction)
+            } else {
+                ProgressView()
+            }
+        }
+        .padding(24)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .task { await viewModel.skip() }
     }
 }
