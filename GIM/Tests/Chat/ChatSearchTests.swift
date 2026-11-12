@@ -9,7 +9,7 @@ final class ChatSearchTests: XCTestCase {
     private func row(_ id: String, _ body: MessageBody) -> TimelineDisplayItem {
         let message = MessageItem(
             messageId: id, chatId: "chat-test",
-            sender: UserProfile(userId: "sofia", handle: "sofia", displayName: "Sofia"),
+            sender: UserProfile(userId: "sofia", displayName: "Sofia"),
             isOwn: false, sentAtMs: 0, content: .text(body: ""), replyTo: nil, reactions: [],
             edited: false, sendState: nil)
         let row = TimelineMessageRow(

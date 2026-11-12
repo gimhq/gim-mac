@@ -91,14 +91,6 @@ final class RealGimClient: GimClientAPI {
         try await bridged { try await core.setDisplayName(name: name) }
     }
 
-    func claimHandle(handle: String) async throws {
-        try await bridged { try await core.claimHandle(handle: handle) }
-    }
-
-    func releaseHandle() async throws {
-        try await bridged { try await core.releaseHandle() }
-    }
-
     func startSync() async throws {
         try await bridged { try await core.startSync() }
     }
@@ -109,10 +101,6 @@ final class RealGimClient: GimClientAPI {
 
     func setNetworkReachable(reachable: Bool) {
         core.setNetworkReachable(reachable: reachable)
-    }
-
-    func findUser(handle: String) async throws -> GIMClientKit.UserProfile? {
-        try await bridged { try await core.findUser(handle: handle).map { GIMClientKit.UserProfile($0) } }
     }
 
     func createDirectChat(userId: String) async throws -> String {
@@ -338,6 +326,10 @@ final class RealGimClient: GimClientAPI {
 
     func rotateRecoveryCode() async throws -> GIMClientKit.RecoveryRotation {
         try await bridged { try await GIMClientKit.RecoveryRotation(core.rotateRecoveryCode()) }
+    }
+
+    func recoveryCode() throws -> String? {
+        try bridgedSync { try core.recoveryCode() }
     }
 
     func deleteAccount() async throws -> [String] {

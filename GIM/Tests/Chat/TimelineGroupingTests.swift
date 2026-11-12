@@ -35,7 +35,7 @@ final class TimelineGroupingTests: XCTestCase {
         .message(
             item: MessageItem(
                 messageId: id, chatId: "chat-test",
-                sender: UserProfile(userId: senderId, handle: senderId, displayName: senderId.capitalized),
+                sender: UserProfile(userId: senderId, displayName: senderId.capitalized),
                 isOwn: isOwn, sentAtMs: sentAtMs, content: .text(body: "Hello"), replyTo: nil, reactions: [],
                 edited: false, sendState: isOwn ? .sent : nil))
     }

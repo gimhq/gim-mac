@@ -18,7 +18,7 @@ screen.
 Plurals follow the same mapping (hubs → servers).
 
 There are no usernames: people find each other by Account ID only (QR code or
-pasted ID). Never show or ask for a username (GIMKit's "handle").
+pasted ID). Never show or ask for a username.
 
 "Keep server" has fixed translations: zh-Hans "Keep 服务器", zh-Hant "Keep 伺服器",
 es "servidor Keep". "Keep" is never translated.
@@ -53,6 +53,6 @@ Write for a 12-year-old. Signal and Telegram are the benchmark.
 ## Code keeps the old terms
 
 Only the text a user reads changes. Code, Swift identifiers, String Catalog
-keys, logs and GIMKit keep the old terms (hub, handle, user ID, ...). Support
+keys, logs and GIMKit keep the old terms (hub, user ID, ...). Support
 and developers can use the table above to map between what a user sees and
 what the code and logs say.

@@ -28,27 +28,38 @@ final class CoreMappingTests: XCTestCase {
 
     func testChatSummaryMapsTheAccountSafetyFields() {
         let peer = GIMCore.UserProfile(
-            userId: "user-sofia", handle: "sofia", displayName: "Sofia Marin", hasAvatar: true)
+            userId: "user-sofia", displayName: "Sofia Marin", hasAvatar: true)
         let core = GIMCore.ChatSummary(
             chatId: "chat-sofia", kind: .direct, name: "Sofia Marin", avatar: nil, lastMessage: nil, unreadCount: 2,
             updatedAtMs: 1_790_000_000_000, memberCount: 2, state: .active, peer: peer,
-            mutedUntilMs: GIMCore.mutedForever(), pinned: true, archived: true, blocked: true)
+            isNoteToSelf: false, mutedUntilMs: GIMCore.mutedForever(), pinned: true, archived: true, blocked: true)
         XCTAssertEqual(
             GIMClientKit.ChatSummary(core),
             GIMClientKit.ChatSummary(
                 chatId: "chat-sofia", kind: .direct, name: "Sofia Marin", avatar: nil, lastMessage: nil, unreadCount: 2,
                 updatedAtMs: 1_790_000_000_000, memberCount: 2, state: .active,
                 peer: GIMClientKit.UserProfile(
-                    userId: "user-sofia", handle: "sofia", displayName: "Sofia Marin", hasAvatar: true),
+                    userId: "user-sofia", displayName: "Sofia Marin", hasAvatar: true),
                 mutedUntilMs: GIMClientKit.mutedForever(), pinned: true, archived: true, blocked: true))
         let group = GIMCore.ChatSummary(
             chatId: "chat-crew", kind: .group, name: "Aegean Crew", avatar: nil, lastMessage: nil, unreadCount: 0,
-            updatedAtMs: 1_790_000_000_000, memberCount: 4, state: .active, peer: nil, mutedUntilMs: 0, pinned: false,
-            archived: false, blocked: false)
+            updatedAtMs: 1_790_000_000_000, memberCount: 4, state: .active, peer: nil, isNoteToSelf: false,
+            mutedUntilMs: 0, pinned: false, archived: false, blocked: false)
         let mapped = GIMClientKit.ChatSummary(group)
         XCTAssertNil(mapped.peer)
         XCTAssertEqual(mapped.mutedUntilMs, 0)
         XCTAssertFalse(mapped.pinned || mapped.archived || mapped.blocked)
+    }
+
+    func testChatSummaryMapsTheNoteToSelf() {
+        let me = GIMCore.UserProfile(userId: "user-alex", displayName: "Alex", hasAvatar: false)
+        let core = GIMCore.ChatSummary(
+            chatId: "chat-notes", kind: .direct, name: "Alex", avatar: nil, lastMessage: nil, unreadCount: 0,
+            updatedAtMs: 1_790_000_000_000, memberCount: 1, state: .active, peer: me, isNoteToSelf: true,
+            mutedUntilMs: 0, pinned: false, archived: false, blocked: false)
+        let mapped = GIMClientKit.ChatSummary(core)
+        XCTAssertTrue(mapped.isNoteToSelf)
+        XCTAssertEqual(mapped.peer?.userId, "user-alex")
     }
 
     func testMutedForeverMatchesGimCore() {
@@ -207,15 +218,15 @@ final class CoreMappingTests: XCTestCase {
     }
 
     func testChatSummaryMapsEveryField() {
-        let sender = GIMCore.UserProfile(userId: "user-sofia", handle: "sofia", displayName: "Sofia", hasAvatar: true)
+        let sender = GIMCore.UserProfile(userId: "user-sofia", displayName: "Sofia", hasAvatar: true)
         let media = GIMCore.MediaRef(
             chatId: "chat-crew", messageId: "msg-0", mime: "image/png", size: 1024, hasThumbnail: true)
         let core = GIMCore.ChatSummary(
             chatId: "chat-crew", kind: .group, name: "Aegean Crew", avatar: media,
             lastMessage: GIMCore.MessagePreview(
                 senderName: "Sofia", text: "Photo", kind: .photo, sentAtMs: 5, isOwn: true, sendState: .delivered),
-            unreadCount: 3, updatedAtMs: 7, memberCount: 4, state: .active, peer: sender, mutedUntilMs: 9,
-            pinned: true, archived: false, blocked: false)
+            unreadCount: 3, updatedAtMs: 7, memberCount: 4, state: .active, peer: sender, isNoteToSelf: false,
+            mutedUntilMs: 9, pinned: true, archived: false, blocked: false)
         XCTAssertEqual(
             GIMClientKit.ChatSummary(core),
             GIMClientKit.ChatSummary(
@@ -226,15 +237,15 @@ final class CoreMappingTests: XCTestCase {
                     senderName: "Sofia", text: "Photo", sentAtMs: 5, isOwn: true, sendState: .delivered),
                 unreadCount: 3, updatedAtMs: 7, memberCount: 4, state: .active,
                 peer: GIMClientKit.UserProfile(
-                    userId: "user-sofia", handle: "sofia", displayName: "Sofia", hasAvatar: true),
+                    userId: "user-sofia", displayName: "Sofia", hasAvatar: true),
                 mutedUntilMs: 9, pinned: true, archived: false, blocked: false))
         XCTAssertEqual(
             GIMClientKit.UserProfile(sender),
-            GIMClientKit.UserProfile(userId: "user-sofia", handle: "sofia", displayName: "Sofia", hasAvatar: true))
+            GIMClientKit.UserProfile(userId: "user-sofia", displayName: "Sofia", hasAvatar: true))
     }
 
     func testTimelineDiffMapsMessagesSeparatorsAndMembership() {
-        let sender = GIMCore.UserProfile(userId: "user-sofia", handle: "sofia", displayName: "Sofia", hasAvatar: false)
+        let sender = GIMCore.UserProfile(userId: "user-sofia", displayName: "Sofia", hasAvatar: false)
         let message = GIMCore.MessageItem(
             messageId: "msg-1", chatId: "chat-crew", sender: sender, isOwn: false, sentAtMs: 10,
             content: .file(
@@ -249,7 +260,7 @@ final class CoreMappingTests: XCTestCase {
             .message(item: message),
             .membershipChange(userName: "Nikos", change: .left, atMs: 11, userId: "user-nikos", actorUserId: nil),
         ])
-        let mirrorSender = GIMClientKit.UserProfile(userId: "user-sofia", handle: "sofia", displayName: "Sofia")
+        let mirrorSender = GIMClientKit.UserProfile(userId: "user-sofia", displayName: "Sofia")
         XCTAssertEqual(
             GIMClientKit.TimelineDiff(diffs),
             .reset(values: [
