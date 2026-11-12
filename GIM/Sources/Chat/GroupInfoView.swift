@@ -169,20 +169,8 @@ struct GroupInfoView: View {
     }
 
     private var addMemberRow: some View {
-        HStack {
-            TextField(text: $info.memberHandle, prompt: Text("chat.group.member.placeholder", tableName: "Chat")) {
-                Text("chat.group.member.placeholder", tableName: "Chat")
-            }
-            .labelsHidden()
-            .textFieldStyle(.roundedBorder)
-            .autocorrectionDisabled()
-            .onSubmit { Task { await info.addMember() } }
-            Button {
-                Task { await info.addMember() }
-            } label: {
-                Text("chat.group.member.add", tableName: "Chat")
-            }
-            .disabled(info.memberHandle.isEmpty || info.isUpdatingMembers)
+        MemberAccountIdField(text: $info.memberAccountId, isBusy: info.isUpdatingMembers) {
+            await info.addMember()
         }
     }
 

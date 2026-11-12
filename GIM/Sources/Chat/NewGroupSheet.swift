@@ -17,22 +17,8 @@ struct NewGroupSheet: View {
             }
             .labelsHidden()
             .textFieldStyle(.roundedBorder)
-            HStack {
-                TextField(
-                    text: $group.memberHandle, prompt: Text("chat.group.member.placeholder", tableName: "Chat")
-                ) {
-                    Text("chat.group.member.placeholder", tableName: "Chat")
-                }
-                .labelsHidden()
-                .textFieldStyle(.roundedBorder)
-                .autocorrectionDisabled()
-                .onSubmit { Task { await starter.newGroup.addMember() } }
-                Button {
-                    Task { await starter.newGroup.addMember() }
-                } label: {
-                    Text("chat.group.member.add", tableName: "Chat")
-                }
-                .disabled(group.memberHandle.isEmpty || group.isAddingMember)
+            MemberAccountIdField(text: $group.memberAccountId, isBusy: group.isAddingMember) {
+                await starter.newGroup.addMember()
             }
             if let memberError = group.memberError {
                 errorText(memberError)

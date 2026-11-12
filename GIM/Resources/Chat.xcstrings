@@ -587,25 +587,25 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Add by username"
+            "value": "Add by Account ID"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "Añadir por nombre de usuario"
+            "value": "Añadir por ID de cuenta"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "通过用户名添加"
+            "value": "通过账号 ID 添加"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "translated",
-            "value": "透過使用者名稱新增"
+            "value": "透過帳號 ID 新增"
           }
         }
       }

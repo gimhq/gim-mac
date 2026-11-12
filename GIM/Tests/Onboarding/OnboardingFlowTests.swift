@@ -63,10 +63,6 @@ final class OnboardingFlowTests: XCTestCase {
         kit.continueToCheck()
         kit.endingInput = FakeRecoveryKitFunctions().recoveryKeyEnding(recoveryCode: code)
         kit.confirm()
-        guard case .claimHandle(let claimHandle) = viewModel.stage else {
-            return XCTFail("expected the username step, got \(String(describing: viewModel.stage))")
-        }
-        await claimHandle.skip()
 
         XCTAssertEqual(model.phase, .ready)
         XCTAssertEqual(model.session?.displayName, "Mac user")
