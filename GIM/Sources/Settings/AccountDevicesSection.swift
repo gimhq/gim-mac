@@ -33,12 +33,18 @@ private struct AccountDevicesForm: View {
 
     @State private var pendingRemoval: DeviceInfo?
     @State private var showsLinkSheet = false
+    @State private var recoveryKey: RecoveryKeyViewModel?
 
     var body: some View {
         Form {
             Section {
                 Text("settings.account.recoveryKeyBody", tableName: "Settings")
                     .foregroundStyle(.secondary)
+                Button {
+                    showRecoveryKey()
+                } label: {
+                    Text("settings.account.showRecoveryKey", tableName: "Settings")
+                }
             } header: {
                 Text("settings.account.recoveryKeyTitle", tableName: "Settings")
             }
@@ -75,6 +81,13 @@ private struct AccountDevicesForm: View {
             }
         }
         .formStyle(.grouped)
+        .sheet(
+            isPresented: Binding(get: { recoveryKey != nil }, set: { if !$0 { recoveryKey = nil } })
+        ) {
+            if let recoveryKey {
+                RecoveryKeySheet(viewModel: recoveryKey)
+            }
+        }
         .alert(
             Text("settings.devices.removeTitle", tableName: "Settings"),
             isPresented: Binding(get: { pendingRemoval != nil }, set: { if !$0 { pendingRemoval = nil } }),
@@ -97,6 +110,14 @@ private struct AccountDevicesForm: View {
                 Task { await devices.load() }
             }
         }
+    }
+
+    /// A new view model per opening, so the sheet always starts locked.
+    private func showRecoveryKey() {
+        guard let userId = client.userId() else { return }
+        recoveryKey = RecoveryKeyViewModel(
+            client: client, userId: userId, recoveryKit: CoreRecoveryKitFunctions(),
+            authenticator: MacDeviceAuthenticator())
     }
 
     private func row(for device: DeviceInfo) -> some View {
