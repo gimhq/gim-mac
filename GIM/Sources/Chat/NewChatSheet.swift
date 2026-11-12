@@ -13,6 +13,13 @@ struct NewChatSheet: View {
         VStack(alignment: .leading, spacing: DesignTokens.spacingM) {
             Text("chat.new.title", tableName: "Chat")
                 .font(.title2.bold())
+            Button {
+                Task { await starter.startNoteToSelf() }
+            } label: {
+                Label(ChatRow.noteToSelfTitle, systemImage: "note.text")
+            }
+            .disabled(starter.isStartingScanned)
+            Divider()
             scanSection
             Spacer(minLength: 0)
             HStack {

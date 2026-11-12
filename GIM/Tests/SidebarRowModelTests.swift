@@ -26,6 +26,20 @@ final class SidebarRowModelTests: XCTestCase {
         XCTAssertNil(model.sendTick)
     }
 
+    func testNoteToSelfUsesTheOwnAvatarAndBadge() {
+        let me = UserProfile(userId: "user-alex", displayName: "Alex Morgan")
+        let summary = ChatSummary(
+            chatId: "chat-notes", kind: .direct, name: "Alex Morgan", avatar: nil, lastMessage: nil, unreadCount: 0,
+            updatedAtMs: 0, memberCount: 1, state: .active, peer: me, isNoteToSelf: true)
+        let row = ChatRow(summary: summary, dateFormatter: RelativeDateFormatter())
+        let model = SidebarRowModel(row: row, subtitle: "", status: nil)
+
+        XCTAssertTrue(model.isNoteToSelf)
+        XCTAssertEqual(model.title, ChatRow.noteToSelfTitle)
+        XCTAssertEqual(model.initials, "AM")
+        XCTAssertEqual(model.colorIndex, SidebarRowModel.colorIndex(for: "user-alex"))
+    }
+
     func testOwnLastMessageShowsTickForEachState() {
         let cases: [(SendState, SidebarRowModel.SendTick)] = [
             (.pending, .sending),

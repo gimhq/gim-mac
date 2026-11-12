@@ -44,4 +44,15 @@ final class ProfileModelTests: XCTestCase {
         let stored = try await client.session()
         XCTAssertEqual(stored?.displayName, "Alex Morgan")
     }
+
+    func testNoteToSelfReturnsTheSameChat() async throws {
+        let client = makeClient()
+        let profile = ProfileModel(client: client)
+        await profile.load()
+        let first = await profile.noteToSelf()
+        let second = await profile.noteToSelf()
+        XCTAssertNil(profile.errorMessage)
+        XCTAssertNotNil(first)
+        XCTAssertEqual(first, second)
+    }
 }

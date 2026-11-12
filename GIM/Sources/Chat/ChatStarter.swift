@@ -63,6 +63,20 @@ final class ChatStarter {
         open(chatId)
     }
 
+    /// Creates or opens the note to self.
+    func startNoteToSelf() async {
+        guard !isStartingScanned else { return }
+        isStartingScanned = true
+        scanError = nil
+        defer { isStartingScanned = false }
+        let newChat = NewChatViewModel(client: client)
+        if let chatId = await newChat.startNoteToSelf() {
+            open(chatId)
+        } else {
+            scanError = newChat.startError
+        }
+    }
+
     /// Looks for an Account ID in scanned or pasted text.
     func handleScannedText(_ text: String) {
         scannedAccountId = AccountIdToken.extract(from: text)

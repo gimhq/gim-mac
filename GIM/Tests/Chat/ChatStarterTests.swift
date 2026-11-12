@@ -23,6 +23,19 @@ final class ChatStarterTests: XCTestCase {
         return (ChatStarter(client: client) { opened.ids.append($0) }, opened)
     }
 
+    func testStartsTheNoteToSelfOnce() async throws {
+        let (starter, opened) = try await makeStarter()
+        starter.showNewChat()
+
+        await starter.startNoteToSelf()
+        await starter.startNoteToSelf()
+
+        XCTAssertNil(starter.scanError)
+        XCTAssertEqual(opened.ids.count, 2)
+        XCTAssertEqual(Set(opened.ids).count, 1)
+        XCTAssertNil(starter.sheet)
+    }
+
     func testTextWithoutAccountIdSetsScanError() async throws {
         let (starter, _) = try await makeStarter()
 
@@ -56,7 +69,7 @@ final class ChatStarterTests: XCTestCase {
     func testCreatesGroup() async throws {
         let ids = ["l", "n"].map { "u" + String(repeating: $0, count: 54) + "a" }
         let (starter, opened) = try await makeStarter(
-            remoteUsers: ids.map { UserProfile(userId: $0, handle: "", displayName: $0) })
+            remoteUsers: ids.map { UserProfile(userId: $0, displayName: $0) })
         starter.showNewGroup()
         starter.newGroup.name = "Trip"
         starter.newGroup.memberAccountId = "Account ID: \(ids[0].uppercased())"

@@ -12,6 +12,8 @@ struct SidebarRowModel: Identifiable, Hashable, Sendable {
     let unreadText: String?
     let initials: String
     let colorIndex: Int
+    /// The note to self: the own avatar with a note badge.
+    let isNoteToSelf: Bool
     /// Ticks of the own last message; `nil` for other people's messages or while its status is unknown.
     let sendTick: SendTick?
 
@@ -31,8 +33,9 @@ struct SidebarRowModel: Identifiable, Hashable, Sendable {
         self.subtitle = subtitle
         time = row.time
         unreadText = row.unreadText
-        initials = Self.initials(for: row.title)
-        colorIndex = Self.colorIndex(for: row.id)
+        initials = Self.initials(for: row.avatarName)
+        colorIndex = Self.colorIndex(for: row.avatarId)
+        isNoteToSelf = row.isNoteToSelf
         sendTick = row.lastMessageIsOwn ? status.map(Self.sendTick(for:)) : nil
     }
 

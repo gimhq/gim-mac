@@ -41,7 +41,7 @@ struct SettingsScene: View {
     @ViewBuilder
     private func detail(for section: SettingsSection) -> some View {
         switch section {
-        case .profile: ProfileSection(model: model)
+        case .profile: ProfileSection(model: model, openChat: { system.router.openChat($0) })
         case .accountDevices: AccountDevicesSection(model: model)
         case .notifications: NotificationsSection(system: system)
         case .appearance: AppearanceSection(system: system)

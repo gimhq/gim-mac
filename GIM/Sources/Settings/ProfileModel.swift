@@ -50,6 +50,14 @@ final class ProfileModel {
         await perform { try await $0.setDisplayName(name: name) }
     }
 
+    /// Creates or opens the note to self and returns its chat id; `nil` with `errorMessage` set on failure.
+    func noteToSelf() async -> String? {
+        let newChat = NewChatViewModel(client: client)
+        let chatId = await newChat.startNoteToSelf()
+        if let error = newChat.startError { show(error: error) }
+        return chatId
+    }
+
     /// Puts the Account ID on the pasteboard.
     func copyAccountId() {
         guard !accountId.isEmpty else { return }

@@ -1,15 +1,18 @@
+import GIMFeatures
 import SwiftUI
 
 /// Settings → Profile: avatar, name and Account ID with copy and QR code.
 struct ProfileSection: View {
     let model: AppModel
+    /// Shows a chat in the main window.
+    let openChat: (String) -> Void
 
     @State private var profile: ProfileModel?
 
     var body: some View {
         Group {
             if let profile {
-                ProfileForm(profile: profile)
+                ProfileForm(profile: profile, openChat: openChat)
             } else {
                 ProgressView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -27,6 +30,7 @@ struct ProfileSection: View {
 
 private struct ProfileForm: View {
     @Bindable var profile: ProfileModel
+    let openChat: (String) -> Void
 
     @State private var showsQRCode = false
 
@@ -88,6 +92,13 @@ private struct ProfileForm: View {
             Text(name)
                 .font(.title2)
             Spacer()
+            Button {
+                Task {
+                    if let chatId = await profile.noteToSelf() { openChat(chatId) }
+                }
+            } label: {
+                Label(ChatRow.noteToSelfTitle, systemImage: "note.text")
+            }
             if SettingsFeatureFlags.accountSafety {
                 Button {
                 } label: {

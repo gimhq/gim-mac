@@ -7,6 +7,11 @@ struct SidebarRowView: View {
     var body: some View {
         HStack(spacing: DesignTokens.spacingM) {
             AvatarView(initials: row.initials, colorIndex: row.colorIndex, accessibilityTitle: row.title)
+                .overlay(alignment: .bottomTrailing) {
+                    if row.isNoteToSelf {
+                        NoteBadge()
+                    }
+                }
                 .accessibilityHidden(true)
             VStack(alignment: .leading, spacing: DesignTokens.spacingXS) {
                 Text(row.title)
@@ -41,6 +46,19 @@ struct SidebarRowView: View {
         }
         .frame(minHeight: DesignTokens.sidebarRowHeight)
         .accessibilityElement(children: .combine)
+    }
+}
+
+/// The note badge on the note to self's avatar.
+struct NoteBadge: View {
+    var body: some View {
+        Image(systemName: "note.text")
+            .font(.system(size: 9, weight: .bold))
+            .foregroundStyle(.white)
+            .frame(width: 18, height: 18)
+            .background(Color.accentColor, in: Circle())
+            .overlay(Circle().strokeBorder(Color(nsColor: .windowBackgroundColor), lineWidth: 1.5))
+            .offset(x: 3, y: 3)
     }
 }
 
