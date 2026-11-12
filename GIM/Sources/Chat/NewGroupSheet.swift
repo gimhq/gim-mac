@@ -45,7 +45,7 @@ struct NewGroupSheet: View {
                         accessibilityTitle: UserLabel.name(for: user),
                         size: DesignTokens.avatarSmall)
                     Text(UserLabel.name(for: user))
-                    Text(UserLabel.detail(for: user))
+                    Text(UserLabel.shortUserId(user.userId))
                         .foregroundStyle(.secondary)
                     Spacer()
                     Button {

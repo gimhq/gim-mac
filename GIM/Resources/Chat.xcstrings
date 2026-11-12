@@ -1306,35 +1306,6 @@
         }
       }
     },
-    "chat.new.notFound": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "No one has that username"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nadie tiene ese nombre de usuario"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "没有人使用这个用户名"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "沒有人使用這個使用者名稱"
-          }
-        }
-      }
-    },
     "chat.new.scan.found": {
       "extractionState": "manual",
       "localizations": {
@@ -1650,35 +1621,6 @@
           "stringUnit": {
             "state": "translated",
             "value": "新群組"
-          }
-        }
-      }
-    },
-    "chat.new.username.placeholder": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Username"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Nombre de usuario"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "用户名"
-          }
-        },
-        "zh-Hant": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "使用者名稱"
           }
         }
       }

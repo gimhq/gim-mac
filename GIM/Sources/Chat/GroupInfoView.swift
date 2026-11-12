@@ -143,7 +143,7 @@ struct GroupInfoView: View {
                     size: DesignTokens.avatarSmall)
                 VStack(alignment: .leading) {
                     Text(UserLabel.name(for: member.user))
-                    Text(UserLabel.detail(for: member.user))
+                    Text(UserLabel.shortUserId(member.user.userId))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

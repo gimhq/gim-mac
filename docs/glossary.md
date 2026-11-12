@@ -7,7 +7,6 @@ screen.
 | Old term (code, logs, SDK) | User-facing word | What it means |
 |---|---|---|
 | Hub | Server | The computer that passes your messages on. It can't read them. |
-| Handle | Username | A name friends can type to find you. |
 | User ID | Account ID | A long code that is your account's real address. |
 | Recovery code | Recovery key | A spare key that brings your account back on a new Mac or device. |
 | Revoke device | Remove device | Sign a Mac, phone or tablet out of your account. |
@@ -16,7 +15,10 @@ screen.
 | Home hub / Primary hub | Main server | The server your account lives on. |
 | Keep server / gim-keep | Keep server | A server that backs up your privacy settings and receives the reports you send. Your backup is encrypted. |
 
-Plurals follow the same mapping (hubs → servers, handles → usernames).
+Plurals follow the same mapping (hubs → servers).
+
+There are no usernames: people find each other by Account ID only (QR code or
+pasted ID). Never show or ask for a username (GIMKit's "handle").
 
 "Keep server" has fixed translations: zh-Hans "Keep 服务器", zh-Hant "Keep 伺服器",
 es "servidor Keep". "Keep" is never translated.

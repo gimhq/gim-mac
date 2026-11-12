@@ -4,7 +4,7 @@ import GIMFeatures
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// Finds a user by username, or reads an Account ID from a pasted or dropped QR code or text, and starts the chat.
+/// Reads an Account ID from a pasted or dropped QR code or text, and starts the chat.
 struct NewChatSheet: View {
     let starter: ChatStarter
     @Environment(\.dismiss) private var dismiss
@@ -13,20 +13,6 @@ struct NewChatSheet: View {
         VStack(alignment: .leading, spacing: DesignTokens.spacingM) {
             Text("chat.new.title", tableName: "Chat")
                 .font(.title2.bold())
-            TextField(
-                text: Bindable(starter.newChat).query,
-                prompt: Text("chat.new.username.placeholder", tableName: "Chat")
-            ) {
-                Text("chat.new.username.placeholder", tableName: "Chat")
-            }
-            .labelsHidden()
-            .textFieldStyle(.roundedBorder)
-            .autocorrectionDisabled()
-            searchResult
-            if let startError = starter.newChat.startError {
-                errorText(startError)
-            }
-            Divider()
             scanSection
             Spacer(minLength: 0)
             HStack {
@@ -40,44 +26,7 @@ struct NewChatSheet: View {
             }
         }
         .padding()
-        .frame(minWidth: 420, minHeight: 360)
-    }
-
-    @ViewBuilder
-    private var searchResult: some View {
-        switch starter.newChat.state {
-        case .idle:
-            EmptyView()
-        case .searching:
-            ProgressView()
-                .controlSize(.small)
-        case .found(let user):
-            HStack(spacing: DesignTokens.spacingS) {
-                AvatarView(
-                    initials: SidebarRowModel.initials(for: UserLabel.name(for: user)),
-                    colorIndex: SidebarRowModel.colorIndex(for: user.userId),
-                    accessibilityTitle: UserLabel.name(for: user))
-                VStack(alignment: .leading) {
-                    Text(UserLabel.name(for: user))
-                    Text(UserLabel.detail(for: user))
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                Spacer()
-                Button {
-                    Task { await starter.startChat() }
-                } label: {
-                    Text("chat.new.start", tableName: "Chat")
-                }
-                .keyboardShortcut(.defaultAction)
-                .disabled(starter.newChat.isStarting)
-            }
-        case .notFound:
-            Text("chat.new.notFound", tableName: "Chat")
-                .foregroundStyle(.secondary)
-        case .error(let message):
-            errorText(message)
-        }
+        .frame(minWidth: 420, minHeight: 240)
     }
 
     private var scanSection: some View {

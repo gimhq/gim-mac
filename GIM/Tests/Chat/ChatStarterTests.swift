@@ -16,33 +16,8 @@ final class ChatStarterTests: XCTestCase {
         await model.start()
         try await model.createDemoIdentity(displayName: "Alex")
         let client = try XCTUnwrap(model.client)
-        let newChat = NewChatViewModel(client: client, debounce: .zero, sleep: { _ in })
         let opened = OpenedChats()
-        return (ChatStarter(client: client, newChat: newChat) { opened.ids.append($0) }, opened)
-    }
-
-    private func waitUntil(_ condition: () -> Bool) async {
-        for _ in 0..<200 where !condition() {
-            await Task.yield()
-        }
-    }
-
-    func testStartsChatWithFoundUser() async throws {
-        let (starter, opened) = try await makeStarter()
-        starter.showNewChat()
-        starter.newChat.query = "sofia"
-        await waitUntil {
-            if case .found = starter.newChat.state { true } else { false }
-        }
-        guard case .found(let user) = starter.newChat.state else {
-            return XCTFail("sofia not found: \(starter.newChat.state)")
-        }
-        XCTAssertEqual(user.userId, "user-sofia")
-
-        await starter.startChat()
-
-        XCTAssertEqual(opened.ids, ["chat-sofia"])
-        XCTAssertNil(starter.sheet)
+        return (ChatStarter(client: client) { opened.ids.append($0) }, opened)
     }
 
     func testTextWithoutAccountIdSetsScanError() async throws {

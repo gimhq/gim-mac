@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Settings → Profile: avatar, name, username and Account ID with copy and QR code.
+/// Settings → Profile: avatar, name and Account ID with copy and QR code.
 struct ProfileSection: View {
     let model: AppModel
 
@@ -28,7 +28,6 @@ struct ProfileSection: View {
 private struct ProfileForm: View {
     @Bindable var profile: ProfileModel
 
-    @State private var isEditingHandle = false
     @State private var showsQRCode = false
 
     var body: some View {
@@ -50,14 +49,6 @@ private struct ProfileForm: View {
                 }
             } header: {
                 Text("settings.profile.name", tableName: "Settings")
-            }
-            Section {
-                username
-            } header: {
-                Text("settings.profile.username", tableName: "Settings")
-            } footer: {
-                Text("settings.profile.usernameHelp", tableName: "Settings")
-                    .foregroundStyle(.secondary)
             }
             Section {
                 accountId
@@ -104,51 +95,6 @@ private struct ProfileForm: View {
                 }
                 .disabled(true)
             }
-        }
-    }
-
-    @ViewBuilder
-    private var username: some View {
-        if profile.hasHandle && !isEditingHandle {
-            HStack {
-                Text(verbatim: "@\(profile.session?.handle ?? "")")
-                Spacer()
-                Button {
-                    profile.handleDraft = profile.session?.handle ?? ""
-                    isEditingHandle = true
-                } label: {
-                    Text("settings.profile.change", tableName: "Settings")
-                }
-                Button(role: .destructive) {
-                    Task { await profile.removeHandle() }
-                } label: {
-                    Text("settings.profile.remove", tableName: "Settings")
-                }
-            }
-            .disabled(profile.isBusy)
-        } else {
-            HStack {
-                TextField(
-                    String(localized: "settings.profile.username", table: "Settings"),
-                    text: $profile.handleDraft)
-                    .autocorrectionDisabled()
-                Button {
-                    Task {
-                        await profile.claimHandle()
-                        if profile.errorMessage == nil { isEditingHandle = false }
-                    }
-                } label: {
-                    Text("settings.profile.claim", tableName: "Settings")
-                }
-                if isEditingHandle {
-                    Button {
-                        isEditingHandle = false
-                    } label: {
-                        Text("settings.profile.cancel", tableName: "Settings")
-                    }
-                }
-            }
-            .disabled(profile.isBusy)
         }
     }
 

@@ -18,9 +18,7 @@ final class ProfileModelTests: XCTestCase {
         await profile.load()
         XCTAssertEqual(profile.session?.displayName, "Alex Morgan")
         XCTAssertEqual(profile.displayNameDraft, "Alex Morgan")
-        XCTAssertEqual(profile.handleDraft, "alex")
         XCTAssertEqual(profile.accountId, FakeGimClient.demoSelfId)
-        XCTAssertTrue(profile.hasHandle)
         XCTAssertNil(profile.errorMessage)
     }
 
@@ -45,33 +43,5 @@ final class ProfileModelTests: XCTestCase {
         XCTAssertEqual(profile.errorMessage, String(localized: "settings.profile.nameEmpty", table: "Settings"))
         let stored = try await client.session()
         XCTAssertEqual(stored?.displayName, "Alex Morgan")
-    }
-
-    func testClaimHandleSetsHandle() async {
-        let profile = ProfileModel(client: makeClient())
-        await profile.load()
-        profile.handleDraft = " Alex_M "
-        await profile.claimHandle()
-        XCTAssertNil(profile.errorMessage)
-        XCTAssertEqual(profile.session?.handle, "alex_m")
-    }
-
-    func testClaimTakenHandleShowsTakenMessage() async {
-        let profile = ProfileModel(client: makeClient())
-        await profile.load()
-        profile.handleDraft = "sofia"
-        await profile.claimHandle()
-        XCTAssertEqual(
-            profile.errorMessage, String(localized: "settings.profile.usernameTaken", table: "Settings"))
-        XCTAssertEqual(profile.session?.handle, "alex")
-    }
-
-    func testRemoveHandleClearsIt() async {
-        let profile = ProfileModel(client: makeClient())
-        await profile.load()
-        await profile.removeHandle()
-        XCTAssertNil(profile.errorMessage)
-        XCTAssertEqual(profile.session?.handle, "")
-        XCTAssertFalse(profile.hasHandle)
     }
 }

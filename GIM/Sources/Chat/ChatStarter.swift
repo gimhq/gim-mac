@@ -3,7 +3,7 @@ import GIMClientKit
 import GIMFeatures
 import Observation
 
-/// Starts direct chats (by username or a scanned Account ID) and groups, and opens the new chat.
+/// Starts direct chats (by a scanned or pasted Account ID) and groups, and opens the new chat.
 @MainActor
 @Observable
 final class ChatStarter {
@@ -15,7 +15,6 @@ final class ChatStarter {
     }
 
     var sheet: Sheet?
-    let newChat: NewChatViewModel
     let newGroup: NewGroupViewModel
     /// Why the last scan, paste or scanned-id chat failed.
     var scanError: String?
@@ -26,13 +25,8 @@ final class ChatStarter {
     private let client: any GimClientAPI
     private let openChat: @MainActor (String) -> Void
 
-    /// - Parameter newChat: replaces the default (debounced) search; tests pass one without a debounce.
-    init(
-        client: any GimClientAPI, newChat: NewChatViewModel? = nil,
-        openChat: @escaping @MainActor (String) -> Void
-    ) {
+    init(client: any GimClientAPI, openChat: @escaping @MainActor (String) -> Void) {
         self.client = client
-        self.newChat = newChat ?? NewChatViewModel(client: client)
         newGroup = NewGroupViewModel(client: client)
         self.openChat = openChat
     }
@@ -45,12 +39,6 @@ final class ChatStarter {
 
     func showNewGroup() {
         sheet = .newGroup
-    }
-
-    /// Starts the chat with the user found by `newChat`.
-    func startChat() async {
-        guard let chatId = await newChat.startChat() else { return }
-        open(chatId)
     }
 
     /// Starts the chat with a scanned or pasted Account ID.
